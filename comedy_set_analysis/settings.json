@@ -1,0 +1,280 @@
+[
+    {
+        "id": "asst_WK8mNVChXGiBE7Tt6bpDVmO8",
+        "created_at": 1731779729,
+        "description": "Transcribes audio files using OpenAI's Whisper API.",
+        "instructions": "agency_manifesto.md\n\n# Agent Role\n\nThe Audio Transcription Agent is responsible for transcribing audio files using OpenAI's Whisper API.\n\n# Goals\n\n1. Transcribe audio files accurately.\n2. Save the transcription in a human-readable JSON format.\n\n# Process Workflow\n\n1. Receive an audio file path.\n2. Use the Whisper API to transcribe the audio.\n3. Save the transcription alongside the audio file. ",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "Audio Transcription Agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "AudioTranscriptionTool",
+                    "description": "Transcribes audio files using OpenAI's Whisper model.",
+                    "parameters": {
+                        "properties": {
+                            "audio_file_path": {
+                                "description": "Path to the input audio file (m4a format).",
+                                "title": "Audio File Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "audio_file_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Bit Deliminator Agent",
+                                "enum": [
+                                    "Bit Deliminator Agent"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Bit Deliminator Agent: Identifies and extracts bits from transcription JSON files.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "Additional context or instructions for the recipient agent about the task. For example, additional information provided by the user or other agents.",
+                                "title": "Additional Instructions"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.5,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_QNt9sQNX1jJyg0nHHmQPl4OI",
+        "created_at": 1731779730,
+        "description": "Identifies and extracts bits from transcription JSON files.",
+        "instructions": "agency_manifesto.md\n\n# Agent Role\n\nThe Bit Deliminator Agent is responsible for identifying and extracting bits from transcription JSON files.\n\n# Goals\n\n1. Accurately identify the start and end of bits in a transcript.\n2. Save each bit in a separate file with a meaningful title.\n\n# Process Workflow\n\n1. Receive a transcription JSON file path.\n2. Analyze the transcript to identify bits based on predefined structures.\n3. Extract each bit and save it to a file named after the bit's title. ",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "Bit Deliminator Agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "BitDeliminatorTool",
+                    "description": "Identifies and extracts bits from a transcription JSON file.",
+                    "parameters": {
+                        "properties": {
+                            "transcription_file_path": {
+                                "description": "Path to the transcription JSON file.",
+                                "title": "Transcription File Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "transcription_file_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "Joke Type Classifier Agent",
+                                "enum": [
+                                    "Joke Type Classifier Agent"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Joke Type Classifier Agent: Classifies the types of jokes in a bit.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "Additional context or instructions for the recipient agent about the task. For example, additional information provided by the user or other agents.",
+                                "title": "Additional Instructions"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.5,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_Qc4Gz0BNhuLcSdt12ldO7X18",
+        "created_at": 1731779731,
+        "description": "Classifies the types of jokes in a bit.",
+        "instructions": "agency_manifesto.md\n\n# Agent Role\n\nThe Joke Type Classifier Agent is responsible for classifying the types of jokes in a bit.\n\n# Goals\n\n1. Accurately identify the types of jokes used in a bit.\n2. Provide a comprehensive list of joke types present in the bit.\n\n# Process Workflow\n\n1. Receive a bit file path.\n2. Analyze the content to identify different joke types based on predefined categories.\n3. Output the identified joke types. ",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "Joke Type Classifier Agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "JokeTypeClassifierTool",
+                    "description": "Classifies the types of jokes in a bit.",
+                    "parameters": {
+                        "properties": {
+                            "bit_file_path": {
+                                "description": "Path to the bit file.",
+                                "title": "Bit File Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "bit_file_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.5,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    }
+]
