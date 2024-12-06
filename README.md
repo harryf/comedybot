@@ -58,6 +58,24 @@ ComedyBot is a tool designed to transcribe audio files and analyze them for laug
 
    - This process will download necessary GPT models, transcribe the audio, and analyze it for laughter. A GUI will prompt you to provide metadata, and the results will be saved in the `output` folder.
 
+4. **View the Transcript**:
+   - Copy the file `./transcript_viewer/index.html` into one of the output folders on your Desktop, for example:
+     ```bash
+     cp ./transcript_viewer/index.html /Users/<yourname>/Desktop/output/20241205_Comedy_Brew/index.html
+     ```
+
+   - Navigate to the output directory using the terminal:
+     ```bash
+     cd /Users/<yourname>/Desktop/output/20241205_Comedy_Brew/
+     ```
+
+   - Start a simple HTTP server:
+     ```bash
+     python3 -m http.server
+     ```
+
+   - Open your web browser and go to [http://localhost:8000](http://localhost:8000) to view the transcript.
+
 **Note**: The process may take a significant amount of time depending on the length of the audio file.
 
 ## Additional Information
