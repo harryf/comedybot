@@ -64,3 +64,4 @@ ComedyBot is a tool designed to transcribe audio files and analyze them for laug
 
 - Ensure your system meets all the requirements before proceeding with the installation.
 - The initial download of GPT models can be large, so ensure you have sufficient disk space and a stable internet connection.
+- Whisper models are stored in the `~/.cache/whisper/` directory on your system. You may want to check this location if you need to manage disk space.
