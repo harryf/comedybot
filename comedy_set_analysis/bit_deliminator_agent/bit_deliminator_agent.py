@@ -1,5 +1,5 @@
 from agency_swarm import Agent
-from comedy_set_analysis.bit_deliminator_agent.tools.bit_deliminator_tool import BitDeliminatorTool
+from bit_deliminator_agent.tools.bit_deliminator_tool import BitDeliminatorTool
 
 class BitDeliminatorAgent(Agent):
     def __init__(self):

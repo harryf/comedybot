@@ -3,7 +3,7 @@
         "id": "asst_WK8mNVChXGiBE7Tt6bpDVmO8",
         "created_at": 1731779729,
         "description": "Transcribes audio files using OpenAI's Whisper API.",
-        "instructions": "agency_manifesto.md\n\n# Agent Role\n\nThe Audio Transcription Agent is responsible for transcribing audio files using OpenAI's Whisper API.\n\n# Goals\n\n1. Transcribe audio files accurately.\n2. Save the transcription in a human-readable JSON format.\n\n# Process Workflow\n\n1. Receive an audio file path.\n2. Use the Whisper API to transcribe the audio.\n3. Save the transcription alongside the audio file. ",
+        "instructions": "agency_manifesto.md\n\n# Agent Role\n\nThe Audio Transcription Agent is responsible for transcribing comedy set audio files and detecting audience reactions using OpenAI's Whisper model and the fork Whisper-at for sound detection. It uses multiple tools to produce a final output JSON file that contains the transcript and the audience reactions (including their score) ordered by the time each event happens.\n\n# Goals\n\n- Transcribe audio files accurately.\n- Detect sounds in the audio files accurately.\n- Clean up the raw JSON from the transcript and the sounds.\n- Merge the cleaned JSON files into one single file.\n\n# Process Workflow\n\n1. Receive an audio file path.\n2. Use `audio_transcription_tool` to transcribe the audio.\n3. Use `sound_detection_tool` to identify the audience reactions in the audio.\n4. Steps 2 and 3 above can be performed in parallel, but the agent should wait for both to finish before continuing.\n5. Use `transcript_analyser_tool` to clean the raw transcript file.\n6. Use `sound_analyser_tool` to clean the raw sounds file.\n7. Steps 5 and 6 above can be performed in parallel, but the agent should wait for both to finish before continuing.\n8. Use `transcript_sounds_merge_tool` to merge the outputs from steps 5 and 6 into a single file. ",
         "metadata": {},
         "model": "gpt-4o-2024-08-06",
         "name": "Audio Transcription Agent",
@@ -11,12 +11,12 @@
         "tools": [
             {
                 "function": {
-                    "name": "AudioTranscriptionTool",
-                    "description": "Transcribes audio files using OpenAI's Whisper model.",
+                    "name": "AudioPreparationTool",
+                    "description": "Prepares audio files by checking for existing subdirectories, cleaning filenames, and creating new subdirectories.",
                     "parameters": {
                         "properties": {
                             "audio_file_path": {
-                                "description": "Path to the input audio file (m4a format).",
+                                "description": "Path to the input audio file (m4a, wav, or mp3 format).",
                                 "title": "Audio File Path",
                                 "type": "string"
                             }
@@ -32,76 +32,138 @@
             },
             {
                 "function": {
-                    "name": "SendMessage",
-                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "name": "AudioTranscriptionTool",
+                    "description": "Transcribes audio files using OpenAI's Whisper model.",
                     "parameters": {
-                        "$defs": {
-                            "recipient": {
-                                "const": "Bit Deliminator Agent",
-                                "enum": [
-                                    "Bit Deliminator Agent"
-                                ],
-                                "title": "recipient",
-                                "type": "string"
-                            }
-                        },
                         "properties": {
-                            "my_primary_instructions": {
-                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
-                                "title": "My Primary Instructions",
+                            "audio_file_path": {
+                                "description": "Path to the input audio file (m4a format).",
+                                "title": "Audio File Path",
                                 "type": "string"
                             },
-                            "recipient": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/$defs/recipient"
-                                    }
-                                ],
-                                "description": "Bit Deliminator Agent: Identifies and extracts bits from transcription JSON files.\n"
-                            },
-                            "message": {
-                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
-                                "title": "Message",
+                            "output_directory": {
+                                "description": "Directory where the transcription output will be saved.",
+                                "title": "Output Directory",
                                 "type": "string"
-                            },
-                            "message_files": {
-                                "anyOf": [
-                                    {
-                                        "items": {
-                                            "type": "string"
-                                        },
-                                        "type": "array"
-                                    },
-                                    {
-                                        "type": "null"
-                                    }
-                                ],
-                                "default": null,
-                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
-                                "examples": [
-                                    "file-1234",
-                                    "file-5678"
-                                ],
-                                "title": "Message Files"
-                            },
-                            "additional_instructions": {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "type": "null"
-                                    }
-                                ],
-                                "default": null,
-                                "description": "Additional context or instructions for the recipient agent about the task. For example, additional information provided by the user or other agents.",
-                                "title": "Additional Instructions"
                             }
                         },
                         "required": [
-                            "message",
-                            "my_primary_instructions",
-                            "recipient"
+                            "audio_file_path",
+                            "output_directory"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SoundDetectionTool",
+                    "description": "Detects sounds in audio files using OpenAI's Whisper model.",
+                    "parameters": {
+                        "properties": {
+                            "audio_file_path": {
+                                "description": "Path to the input audio file (m4a format).",
+                                "title": "Audio File Path",
+                                "type": "string"
+                            },
+                            "output_directory": {
+                                "description": "Directory where the sound detection output will be saved.",
+                                "title": "Output Directory",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "audio_file_path",
+                            "output_directory"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "TranscriptAnalyserTool",
+                    "description": "A tool to process raw transcript JSON files from Whisper and output a cleaned version.",
+                    "parameters": {
+                        "properties": {
+                            "input_file": {
+                                "description": "Path to the input JSON file containing the raw transcript.",
+                                "title": "Input File",
+                                "type": "string"
+                            },
+                            "output_file": {
+                                "description": "Path to the output JSON file where the cleaned transcript will be saved.",
+                                "title": "Output File",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "input_file",
+                            "output_file"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "SoundAnalyserTool",
+                    "description": "A tool to process raw sound JSON files and output a cleaned version with reaction scores.",
+                    "parameters": {
+                        "properties": {
+                            "input_file": {
+                                "description": "Path to the input JSON file containing the raw sound data.",
+                                "title": "Input File",
+                                "type": "string"
+                            },
+                            "output_file": {
+                                "description": "Path to the output JSON file where the cleaned sound data will be saved.",
+                                "title": "Output File",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "input_file",
+                            "output_file"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "TranscriptSoundsMergeTool",
+                    "description": "A tool to merge cleaned transcript and sound JSON files into a single file.",
+                    "parameters": {
+                        "properties": {
+                            "transcript_file": {
+                                "description": "Path to the cleaned transcript JSON file.",
+                                "title": "Transcript File",
+                                "type": "string"
+                            },
+                            "sounds_file": {
+                                "description": "Path to the cleaned sounds JSON file.",
+                                "title": "Sounds File",
+                                "type": "string"
+                            },
+                            "output_file": {
+                                "description": "Path to the output JSON file where the merged data will be saved.",
+                                "title": "Output File",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "output_file",
+                            "sounds_file",
+                            "transcript_file"
                         ],
                         "type": "object"
                     },
@@ -156,9 +218,9 @@
                     "parameters": {
                         "$defs": {
                             "recipient": {
-                                "const": "Joke Type Classifier Agent",
+                                "const": "JokeTypeClassifierAgent",
                                 "enum": [
-                                    "Joke Type Classifier Agent"
+                                    "JokeTypeClassifierAgent"
                                 ],
                                 "title": "recipient",
                                 "type": "string"
@@ -176,7 +238,7 @@
                                         "$ref": "#/$defs/recipient"
                                     }
                                 ],
-                                "description": "Joke Type Classifier Agent: Classifies the types of jokes in a bit.\n"
+                                "description": "JokeTypeClassifierAgent: Classifies jokes into different types.\n"
                             },
                             "message": {
                                 "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
@@ -245,6 +307,46 @@
         "metadata": {},
         "model": "gpt-4o-2024-08-06",
         "name": "Joke Type Classifier Agent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "JokeTypeClassifierTool",
+                    "description": "Classifies the types of jokes in a bit.",
+                    "parameters": {
+                        "properties": {
+                            "bit_file_path": {
+                                "description": "Path to the bit file.",
+                                "title": "Bit File Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "bit_file_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.5,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_4zVYOLvo6aHMgcOZy8DPFVo1",
+        "created_at": 1731870453,
+        "description": "Classifies jokes into different types.",
+        "instructions": "agency_manifesto.md\n\n# Agent Role\n\nThe Joke Type Classifier Agent is responsible for classifying the types of jokes in a bit.\n\n# Goals\n\n1. Accurately identify the types of jokes used in a bit.\n2. Provide a comprehensive list of joke types present in the bit.\n\n# Process Workflow\n\n1. Receive a bit file path.\n2. Analyze the content to identify different joke types based on predefined categories.\n3. Output the identified joke types. ",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "JokeTypeClassifierAgent",
         "object": "assistant",
         "tools": [
             {

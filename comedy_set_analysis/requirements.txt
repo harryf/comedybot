@@ -1,4 +1,4 @@
 openai==0.28
 pydantic
 python-dotenv
-agency_swarm 
+agency_swarm
