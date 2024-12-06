@@ -1,10 +1,12 @@
 from tools.audio_file_finder_tool import AudioFileFinderTool
 from tools.audio_preparation_tool import AudioPreparationTool
+from tools.metadata_capture_tool import MetadataCaptureTool
 from tools.audio_transcription_tool import AudioTranscriptionTool
 from tools.sound_detection_tool import SoundDetectionTool
 from tools.transcript_analyser_tool import TranscriptAnalyserTool
 from tools.sound_analyser_tool import SoundAnalyserTool
-from tools.metadata_capture_tool import MetadataCaptureTool
+from tools.metadata_update_tool import MetadataUpdateTool
+
 import argparse
 import logging, sys
 import time
@@ -81,10 +83,11 @@ def process_audio_directory(input_directory_path, output_directory_path):
         # Step 2e: Clean the raw sounds file
         cleaned_sounds = SoundAnalyserTool(input_file=sounds_file_path, output_directory=new_subdirectory_path).run()
         
+        # Step 2f: Update the metadata file
+        MetadataUpdateTool(directory_path=new_subdirectory_path).run()
+        
         # Output or save the cleaned data as needed
-        logger.info(f"Processed {audio_file}:")
-        logger.info(f"Cleaned Transcript: {cleaned_transcript}")
-        logger.info(f"Cleaned Sounds: {cleaned_sounds}")
+        logger.info(f"Finished processing {audio_file}")
 
 if __name__ == "__main__":
     setup_logging()
