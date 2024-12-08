@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import classNames from 'classnames';
+import { ShareIcon } from '@heroicons/react/24/outline';
+import toast from 'react-hot-toast';
 import useStore from '../store/useStore.jsx';
 import useAutoScroll from '../hooks/useAutoScroll';
 
@@ -43,6 +45,35 @@ const TranscriptViewer = ({ transcript }) => {
     seek(start);
   };
 
+  const handleShare = async (e, start) => {
+    e.stopPropagation();
+    const url = new URL(window.location.href);
+    url.hash = `t=${Math.floor(start)}`;
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      toast.success('Link copied to clipboard!', {
+        duration: 2000,
+        position: 'bottom-center',
+        style: {
+          background: '#4B5563',
+          color: '#fff',
+          borderRadius: '8px',
+          padding: '12px 24px',
+        },
+        iconTheme: {
+          primary: '#10B981',
+          secondary: '#fff',
+        },
+      });
+    } catch (err) {
+      console.error('Failed to copy URL:', err);
+      toast.error('Failed to copy link', {
+        duration: 2000,
+        position: 'bottom-center',
+      });
+    }
+  };
+
   return (
     <div 
       ref={containerRef}
@@ -80,7 +111,7 @@ const TranscriptViewer = ({ transcript }) => {
 
                 {/* Content */}
                 <div className="relative p-4">
-                  <div className="flex justify-between items-start gap-2">
+                  <div className="flex justify-between items-center gap-2">
                     <p className={classNames(
                       "text-gray-900",
                       { "pl-2": isCurrentLine }
@@ -88,28 +119,13 @@ const TranscriptViewer = ({ transcript }) => {
                       {line.text}
                     </p>
                     
-                    {/* Edit Button */}
+                    {/* Share Button */}
                     <button 
-                      className="flex-shrink-0 text-gray-400 hover:text-gray-600"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        // Edit functionality will be added later
-                      }}
+                      className="flex-shrink-0 text-gray-400 hover:text-gray-600 p-1"
+                      onClick={(e) => handleShare(e, line.start)}
+                      title="Share this moment"
                     >
-                      <svg 
-                        width="16" 
-                        height="16" 
-                        viewBox="0 0 16 16" 
-                        fill="none" 
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path 
-                          d="M11.5 2.5L13.5 4.5M12.5 1.5L8 6L7 9L10 8L14.5 3.5C14.5 3.5 14.5 2.5 13.5 1.5C12.5 0.5 11.5 1.5 11.5 1.5Z" 
-                          stroke="currentColor" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      <ShareIcon className="w-5 h-5" />
                     </button>
                   </div>
                 </div>

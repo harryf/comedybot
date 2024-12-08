@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Menu } from '@headlessui/react';
 import classNames from 'classnames';
 
 const formatDate = (dateString) => {
@@ -19,17 +18,8 @@ const Header = ({ metadata }) => {
   return (
     <header className="fixed top-0 left-0 right-0 bg-blue-600 text-white p-4 z-10" data-testid="header">
       <div className="max-w-3xl mx-auto flex justify-between items-center">
-        {/* Left side - Menu */}
-        <Menu as="div" className="relative">
-          <Menu.Button className="p-2 hover:bg-white/10 rounded-lg">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </Menu.Button>
-        </Menu>
-
         {/* Center - Show Info */}
-        <div className="flex flex-col items-center flex-1 mx-4">
+        <div className="flex flex-col items-center flex-1">
           <h1 className="text-lg font-semibold">
             {metadata.name_of_show}
           </h1>
@@ -72,4 +62,4 @@ const Header = ({ metadata }) => {
   );
 };
 
-export default Header; 
+export default Header;

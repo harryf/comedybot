@@ -102,14 +102,19 @@ const useStore = create(
         async loadData() {
           const folder = window.TRANSCRIPT_PATH;
           const baseUrl = window.BASE_URL || '';
+          const isDevelopment = import.meta.env.DEV;
           
-          if (!folder) {
-            console.error('No transcript path provided');
-            return;
-          }
-
           try {
-            const basePath = `${baseUrl}/assets/audio/${folder}`;
+            let basePath;
+            if (isDevelopment) {
+              // In development, load from public directory
+              basePath = `/audio/${folder || ''}`.replace(/\/+/g, '/');
+            } else {
+              // In production (Jekyll), use the assets path
+              basePath = `${baseUrl}/assets/audio/${folder || ''}`.replace(/\/+/g, '/');
+            }
+            
+            console.log('Loading data from:', basePath);
             
             // Load all required files
             const [metadataResponse, transcriptResponse, soundsResponse] = await Promise.all([
@@ -136,6 +141,7 @@ const useStore = create(
             });
           } catch (error) {
             console.error('Error loading data:', error);
+            throw error;
           }
         },
         

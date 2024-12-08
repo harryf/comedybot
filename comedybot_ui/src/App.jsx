@@ -1,4 +1,5 @@
   import React, { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Header from './components/Header';
 import TranscriptViewer from './components/TranscriptViewer';
 import AudioControls from './components/AudioControls';
@@ -81,6 +82,7 @@ function App() {
 
   return (
     <div className="h-screen flex flex-col bg-white">
+      <Toaster />
       <Header metadata={metadata} />
       <div className="flex-1 flex flex-col mt-4">
         <TranscriptViewer
