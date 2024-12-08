@@ -15,6 +15,22 @@ const Header = ({ metadata }) => {
 
   if (!metadata) return null;
 
+  const VenueDisplay = () => {
+    if (metadata.link_to_venue_on_google_maps) {
+      return (
+        <a 
+          href={metadata.link_to_venue_on_google_maps}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border-b border-white/30 border-dashed hover:border-white/60 hover:text-white transition-all duration-150"
+        >
+          {metadata.name_of_venue}
+        </a>
+      );
+    }
+    return <span>{metadata.name_of_venue}</span>;
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-blue-600 text-white p-4 z-10" data-testid="header">
       <div className="max-w-3xl mx-auto flex justify-between items-center">
@@ -26,7 +42,7 @@ const Header = ({ metadata }) => {
           <div className="text-sm flex items-center gap-2">
             <span>{formatDate(metadata.date_of_show)}</span>
             <span className="text-white/60">•</span>
-            <span>{metadata.name_of_venue}</span>
+            <VenueDisplay />
             <span className="text-white/60">•</span>
             <span>{Math.round(metadata.laughs_per_minute)} LPM</span>
           </div>
