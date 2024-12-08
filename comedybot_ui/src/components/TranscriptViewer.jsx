@@ -80,15 +80,15 @@ const TranscriptViewer = ({ transcript }) => {
       className="transcript-container overflow-y-auto h-full"
       style={{ height: 'calc(100vh - 64px)' }}
     >
-      <div className="max-w-3xl mx-auto px-4 py-4">
+      <div className="max-w-3xl mx-auto pl-0 pr-4 py-4">
         {transcript.map((line, index) => {
           const isCurrentLine = index === effectiveLineIndex;
           return (
             <div 
               key={index}
-              className="flex items-center gap-2 mb-4"
+              className="flex items-center gap-4 mb-4"
             >
-              <div className="w-12 text-right text-sm text-gray-500 flex-shrink-0">
+              <div className="w-20 -ml-8 text-right text-xs text-gray-500 flex-shrink-0 opacity-90">
                 {formatTimestamp(line.start)}
               </div>
 
@@ -113,7 +113,7 @@ const TranscriptViewer = ({ transcript }) => {
                 <div className="relative p-4">
                   <div className="flex justify-between items-center gap-2">
                     <p className={classNames(
-                      "text-gray-900",
+                      "text-lg font-semibold text-gray-900",
                       { "pl-2": isCurrentLine }
                     )}>
                       {line.text}
