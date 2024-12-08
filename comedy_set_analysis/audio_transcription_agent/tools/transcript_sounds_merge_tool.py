@@ -11,6 +11,8 @@ load_dotenv()
 class TranscriptSoundsMergeTool(BaseTool):
     """
     A tool to merge cleaned transcript and sound JSON files into a single file.
+
+    CURRENTLY NOT USED
     """
     transcript_file: str = Field(
         ..., description="Path to the cleaned transcript JSON file."
