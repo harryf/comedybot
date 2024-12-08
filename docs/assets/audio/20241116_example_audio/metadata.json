@@ -1,0 +1,15 @@
+{
+    "audio_file": "example_audio.m4a",
+    "comedian": "Mr Funny",
+    "name_of_show": "Test",
+    "date_of_show": "05 Dec 2024, 20:00",
+    "name_of_venue": "Testing",
+    "link_to_venue_on_google_maps": null,
+    "notes": "test",
+    "payment": {
+        "amount": 0.0,
+        "currency": "CHF"
+    },
+    "length_of_set": 9.0,
+    "laughs_per_minute": 0
+}

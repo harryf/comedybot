@@ -1,0 +1,15 @@
+{
+    "audio_file": "Front_row_Byeys.m4a",
+    "comedian": "Harry Fücks",
+    "name_of_show": "Front Row Comedy",
+    "date_of_show": "28 Nov 2024, 20:00",
+    "name_of_venue": "BYEYs",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/21jHnCMtjEb6qFuV8",
+    "notes": "Another crazy show. Opened for Yoshi.",
+    "payment": {
+        "amount": 0.0,
+        "currency": "CHF"
+    },
+    "length_of_set": 295.34,
+    "laughs_per_minute": 12
+}

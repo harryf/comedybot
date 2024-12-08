@@ -1,0 +1,58 @@
+{
+    "text": " This is a test. I'm just testing creating a voice memo for transcription. Let's transcribe this.",
+    "segments": [
+        {
+            "id": 0,
+            "seek": 0,
+            "start": 0.0,
+            "end": 6.0,
+            "text": " This is a test. I'm just testing creating a voice memo for transcription.",
+            "tokens": [
+                50365,
+                639,
+                307,
+                257,
+                1500,
+                13,
+                286,
+                478,
+                445,
+                4997,
+                4084,
+                257,
+                3177,
+                35900,
+                337,
+                35288,
+                13,
+                50665
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.28309166872942887,
+            "compression_ratio": 1.1294117647058823,
+            "no_speech_prob": 0.10820160061120987
+        },
+        {
+            "id": 1,
+            "seek": 0,
+            "start": 6.0,
+            "end": 9.0,
+            "text": " Let's transcribe this.",
+            "tokens": [
+                50665,
+                961,
+                311,
+                1145,
+                8056,
+                341,
+                13,
+                50815
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.28309166872942887,
+            "compression_ratio": 1.1294117647058823,
+            "no_speech_prob": 0.10820160061120987
+        }
+    ],
+    "language": "en"
+}

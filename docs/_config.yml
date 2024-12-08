@@ -1,0 +1,38 @@
+title: ComedyBot
+description: Audio transcripts from comedy shows
+baseurl: "/comedybot" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol, leave empty for GitHub Pages
+
+# Jekyll settings
+permalink: pretty
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Collections
+collections:
+  players:
+    output: true
+    permalink: /player/:title
+
+defaults:
+  - scope:
+      path: ""
+      type: "players"
+    values:
+      layout: "player"
+
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

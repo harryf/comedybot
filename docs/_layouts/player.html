@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }} - ComedyBot Player</title>
+    {% if jekyll.environment == "production" %}
+    <base href="{{ site.baseurl }}/">
+    {% else %}
+    <base href="/">
+    {% endif %}
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/player/index.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      window.TRANSCRIPT_PATH = "{{ page.transcript_path }}";
+      window.BASE_URL = "{{ site.baseurl }}";
+    </script>
+    <script type="module" src="{{ site.baseurl }}/assets/player/index.js"></script>
+  </body>
+</html>
