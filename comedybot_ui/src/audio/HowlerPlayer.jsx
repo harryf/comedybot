@@ -24,14 +24,14 @@ class HowlerPlayer {
     }
 
     return new Promise((resolve) => {
-      const { metadata } = this.store;
-      if (!metadata?.audio_file) {
-        console.error('No audio file specified in metadata');
+      const { sounds } = this.store;
+      if (!sounds?.main) {
+        console.error('No audio file path specified in sounds');
         return;
       }
 
       this.howl = new Howl({
-        src: [`/${metadata.audio_file}`],
+        src: [sounds.main],
         html5: true,
         preload: true,
         onload: () => {
@@ -42,6 +42,9 @@ class HowlerPlayer {
             isLoaded: true
           });
           resolve();
+        },
+        onloaderror: (id, error) => {
+          console.error('Error loading audio:', error);
         },
         onplay: () => {
           console.log('Audio playing');

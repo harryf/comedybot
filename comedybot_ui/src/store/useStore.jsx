@@ -99,34 +99,43 @@ const useStore = create(
         },
         
         // Data loading action
-        loadData: async () => {
-          console.log('Starting data load');
+        async loadData() {
+          const folder = window.TRANSCRIPT_PATH;
+          const baseUrl = window.BASE_URL || '';
+          
+          if (!folder) {
+            console.error('No transcript path provided');
+            return;
+          }
+
           try {
+            const basePath = `${baseUrl}/assets/audio/${folder}`;
+            
+            // Load all required files
             const [metadataResponse, transcriptResponse, soundsResponse] = await Promise.all([
-              fetch('/metadata.json'),
-              fetch('/transcript_clean.json'),
-              fetch('/sounds_clean.json')
+              fetch(`${basePath}/metadata.json`),
+              fetch(`${basePath}/transcript_clean.json`),
+              fetch(`${basePath}/sounds_clean.json`)
             ]);
 
             const metadata = await metadataResponse.json();
             const transcript = await transcriptResponse.json();
             const sounds = await soundsResponse.json();
 
-            set({
-              metadata,
-              transcript,
-              sounds,
-              dataLoaded: true
-            }, false, 'loadData');
+            // Ensure we use the full path for the audio file
+            const audioPath = `${basePath}/${metadata.audio_file}`;
             
-            console.log('Data loaded successfully', {
-              hasMetadata: !!metadata,
-              transcriptLength: transcript.length,
-              hasSounds: !!sounds
+            set({ 
+              transcript,
+              metadata,
+              sounds: {
+                ...sounds,
+                main: audioPath
+              },
+              dataLoaded: true 
             });
           } catch (error) {
             console.error('Error loading data:', error);
-            throw error;
           }
         },
         
