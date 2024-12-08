@@ -219,6 +219,15 @@ class MetadataCaptureWindow:
         y_position -= 30
         self.add_label(f"File: {file_name} | Date: {file_date_time}", y_position, font_size=12)
         
+        # Comedian (Required)
+        y_position -= 40
+        self.add_label("Comedian *:", y_position)
+        comedian_field = self.add_text_field(y_position, placeholder="Enter comedian name")
+        comedian_field.setStringValue_("Harry Fücks")  # Set default value
+        if self.existing_metadata and self.existing_metadata.get("comedian"):
+            comedian_field.setStringValue_(self.existing_metadata["comedian"])
+        self.text_fields["comedian"] = comedian_field
+        
         # Show Name (Required)
         y_position -= 40
         self.add_label("Name of Show *:", y_position)
@@ -413,6 +422,11 @@ class MetadataCaptureWindow:
 
     def submit_(self, sender):
         # Validate required fields
+        comedian = self.text_fields["comedian"].stringValue()
+        if not comedian:
+            self.show_error("Comedian name is required")
+            return
+            
         show_name = self.text_fields["name_of_show"].stringValue()
         if not show_name:
             self.show_error("Show name is required")
@@ -444,6 +458,7 @@ class MetadataCaptureWindow:
         # Construct JSON data
         json_data = {
             "audio_file": os.path.basename(self.tool.audio_file_path),
+            "comedian": comedian,
             "name_of_show": show_name,
             "date_of_show": date_str,
             "name_of_venue": self.text_fields["name_of_venue"].stringValue() or None,
