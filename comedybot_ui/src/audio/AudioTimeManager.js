@@ -1,3 +1,5 @@
+import Logger from '../utils/logger';
+
 class AudioTimeManager {
   constructor(debug = false) {
     this.currentTime = 0;
@@ -12,7 +14,7 @@ class AudioTimeManager {
 
   _log(...args) {
     if (this.debug) {
-      console.log('[AudioTimeManager]', ...args);
+      Logger.debug('[AudioTimeManager]', ...args);
     }
   }
 

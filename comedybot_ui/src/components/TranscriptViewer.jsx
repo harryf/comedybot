@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { ShareIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 import useAutoScroll from '../hooks/useAutoScroll';
+import Logger from '../utils/logger';
 
 const formatTimestamp = (seconds) => {
   const mins = Math.floor(seconds / 60);
@@ -39,7 +40,7 @@ const TranscriptViewer = ({ transcript }) => {
         const currentLine = transcript[currentIndex];
         const nextLine = currentIndex < transcript.length - 1 ? transcript[currentIndex + 1] : null;
 
-        console.log('Transcript Debug:', {
+        Logger.debug('Transcript Debug:', {
           currentTime: currentTime.toFixed(2),
           currentIndex,
           prevLine: prevLine ? { text: prevLine.text.slice(0, 20), start: prevLine.start } : null,

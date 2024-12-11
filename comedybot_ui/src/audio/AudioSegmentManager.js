@@ -1,5 +1,6 @@
 import { Howl } from 'howler';
 import { getAssetPath } from '../utils/paths';
+import Logger from '../utils/logger';
 
 class AudioSegmentManager {
   constructor(debug = false) {
@@ -15,12 +16,12 @@ class AudioSegmentManager {
 
   _log(...args) {
     if (this.debug) {
-      console.log('[AudioSegmentManager]', ...args);
+      Logger.debug('[AudioSegmentManager]', ...args);
     }
   }
 
   _error(...args) {
-    console.error('[AudioSegmentManager]', ...args);
+    Logger.error('[AudioSegmentManager]', ...args);
   }
 
   async initialize(metadata) {

@@ -3,6 +3,7 @@ import useStore from '../store/useStore.js';
 import AudioSegmentManager from './AudioSegmentManager';
 import AudioTimeManager from './AudioTimeManager';
 import debounce from 'lodash.debounce';
+import Logger from '../utils/logger';
 
 class HowlerPlayer {
   constructor(debug = false) {
@@ -25,7 +26,7 @@ class HowlerPlayer {
       (state) => state.audioState,
       (audioState) => {
         if (this.debug) {
-          console.log('[HowlerPlayer] Audio state updated:', audioState);
+          Logger.debug('[HowlerPlayer] Audio state updated:', audioState);
         }
       }
     );
@@ -33,12 +34,12 @@ class HowlerPlayer {
 
   _log(...args) {
     if (this.debug) {
-      console.log('[HowlerPlayer]', ...args);
+      Logger.debug('[HowlerPlayer]', ...args);
     }
   }
 
   _error(...args) {
-    console.error('[HowlerPlayer]', ...args);
+    Logger.error('[HowlerPlayer]', ...args);
   }
 
   async initialize() {

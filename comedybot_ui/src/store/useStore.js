@@ -1,12 +1,17 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { getAssetPath } from '../utils/paths';
+import Logger from '../utils/logger';
 
-const logger = (config) => (set, get, api) => config((args) => {
-  console.log('Previous state:', get());
-  set(args);
-  console.log('Next state:', get());
-}, get, api);
+const logger = (config) => (set, get, api) => {
+  config((args) => {
+    Logger.debug('Previous state:', get());
+    set(args);
+    return () => {
+      Logger.debug('Next state:', get());
+    };
+  }, get, api);
+};
 
 const useStore = create(
   logger(
@@ -35,7 +40,7 @@ const useStore = create(
       // Actions for audio
       setAudioState: (newState) => set((state) => {
         const updatedState = { audioState: { ...state.audioState, ...newState }};
-        console.log('Audio State Update:', {
+        Logger.debug('Audio State Update:', {
           previous: state.audioState,
           changes: newState,
           new: updatedState.audioState
@@ -58,7 +63,7 @@ const useStore = create(
       seek: (time) => {
         const { player } = get();
         if (player) {
-          console.log('Seeking to:', time);
+          Logger.debug('Seeking to:', time);
           player.seek(time);
         }
       },
@@ -67,11 +72,11 @@ const useStore = create(
         const { player, audioState } = get();
         if (player) {
           if (audioState.isPlaying) {
-            console.log('Pausing audio');
+            Logger.debug('Pausing audio');
             player.pause();
             set({ audioState: { ...audioState, isPlaying: false } }, false, 'togglePlayPause');
           } else {
-            console.log('Playing audio');
+            Logger.debug('Playing audio');
             player.play();
             set({ audioState: { ...audioState, isPlaying: true } }, false, 'togglePlayPause');
           }
@@ -81,7 +86,7 @@ const useStore = create(
       stop: () => {
         const { player, audioState } = get();
         if (player) {
-          console.log('Stopping audio');
+          Logger.debug('Stopping audio');
           player.stop();
           set({ audioState: { ...audioState, isPlaying: false, isStopped: true } }, false, 'stop');
         }
@@ -89,7 +94,7 @@ const useStore = create(
       
       // Data loading action
       loadData: async () => {
-        console.log('Starting data load');
+        Logger.info('Starting data load');
         try {
           const [metadataResponse, transcriptResponse, soundsResponse] = await Promise.all([
             fetch(getAssetPath('metadata.json')),
@@ -109,7 +114,7 @@ const useStore = create(
           }
 
           const metadata = await metadataResponse.json();
-          console.log('Metadata contents:', {
+          Logger.debug('Metadata contents:', {
             metadata,
             lengthOfSet: metadata.length_of_set,
             typeOfLengthOfSet: typeof metadata.length_of_set
@@ -117,7 +122,7 @@ const useStore = create(
           const transcript = await transcriptResponse.json();
           const sounds = await soundsResponse.json();
 
-          console.log('Loaded data:', {
+          Logger.debug('Loaded data:', {
             metadata,
             transcriptLength: transcript.length,
             soundsLength: sounds.length
@@ -130,8 +135,8 @@ const useStore = create(
             dataLoaded: true
           }, false, 'loadData');
         } catch (error) {
-          console.error('Error loading data:', error);
-          console.error('Current window.PLAYER_CONFIG:', window.PLAYER_CONFIG);
+          Logger.error('Error loading data:', error);
+          Logger.error('Current window.PLAYER_CONFIG:', window.PLAYER_CONFIG);
           throw error;
         }
       }

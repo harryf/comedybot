@@ -6,6 +6,7 @@ import AudioControls from './components/AudioControls';
 import useStore from './store/useStore.js';
 import HowlerPlayer from './audio/HowlerPlayer';
 import { useHashParams } from './hooks/useHashParams';
+import Logger from './utils/logger';
 
 function App() {
   const { 
@@ -32,7 +33,7 @@ function App() {
   useEffect(() => {
     async function initPlayer() {
       if (dataLoaded && !player) {
-        console.log('Initializing audio player');
+        Logger.info('Initializing audio player');
         const howlerPlayer = new HowlerPlayer();
         await howlerPlayer.initialize();
         useStore.getState().setPlayer(howlerPlayer);
@@ -44,7 +45,7 @@ function App() {
   // Handle URL hash parameters - after player is ready
   useEffect(() => {
     if (hashTime !== undefined && player?.isReady) {
-      console.log('Setting initial position and play state:', { hashTime, autoplay });
+      Logger.debug('Setting initial position and play state:', { hashTime, autoplay });
       
       // First seek to position
       player.seek(hashTime);
@@ -58,14 +59,14 @@ function App() {
 
       // Start playing if autoplay is true
       if (autoplay) {
-        console.log('Starting playback');
+        Logger.debug('Starting playback');
         player.play();
       }
     }
   }, [hashTime, autoplay, player?.isReady, setAudioState]);
 
-  // Add console.log to debug data loading
-  console.log('App render:', {
+  // Debug data loading state
+  Logger.debug('App render:', {
     dataLoaded,
     hasMetadata: !!metadata,
     hasTranscript: !!transcript.length,

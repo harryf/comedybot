@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "NODE_ENV=production vite build",
     "preview": "vite preview",
     "test": "NODE_NO_WARNINGS=1 jest",
     "test:watch": "NODE_NO_WARNINGS=1 jest --watch"

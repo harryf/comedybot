@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
+import Logger from '../utils/logger';
 
 const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
-  console.log('useAutoScroll called:', {
+  Logger.debug('useAutoScroll called:', {
     containerRefExists: !!containerRef?.current,
     activeIndex,
     isPlaying,
@@ -15,7 +16,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
   // Calculate the target scroll position for the active item
   const calculateTargetScroll = () => {
     if (!containerRef.current || activeIndex === null || !items?.length) {
-      console.log('Early return conditions:', {
+      Logger.debug('Early return conditions:', {
         hasContainer: !!containerRef.current,
         activeIndex,
         itemsLength: items?.length
@@ -28,7 +29,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
     
     // Get all transcript line elements
     const transcriptLines = container.querySelectorAll('.rounded-lg');
-    console.log('Found transcript lines:', {
+    Logger.debug('Found transcript lines:', {
       count: transcriptLines.length,
       activeIndex
     });
@@ -36,7 +37,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
     const activeItem = transcriptLines[activeIndex];
     
     if (!activeItem) {
-      console.log('No active item found:', {
+      Logger.debug('No active item found:', {
         activeIndex,
         numLines: transcriptLines.length
       });
@@ -57,14 +58,14 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
     // Handle edge cases
     const maxScroll = container.scrollHeight - containerHeight;
     if (activeIndex <= 2) {
-      console.log('Near start - scrolling to top');
+      Logger.debug('Near start - scrolling to top');
       return 0;
     } else if (activeIndex >= items.length - 3) {
-      console.log('Near end - scrolling to bottom');
+      Logger.debug('Near end - scrolling to bottom');
       return maxScroll;
     }
 
-    console.log('Calculated target scroll:', {
+    Logger.debug('Calculated target scroll:', {
       targetScroll,
       maxScroll,
       containerHeight,
@@ -91,7 +92,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
   // Handle user scroll
   useEffect(() => {
     const container = containerRef.current;
-    console.log('Setting up scroll listener:', {
+    Logger.debug('Setting up scroll listener:', {
       hasContainer: !!container,
       userScrolled: userScrolledRef.current
     });
@@ -104,7 +105,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
       
       lastScrollTime.current = now;
       userScrolledRef.current = true;
-      console.log('User scrolled:', {
+      Logger.debug('User scrolled:', {
         time: now,
         userScrolled: userScrolledRef.current
       });
@@ -116,7 +117,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
       
       scrollTimeoutRef.current = setTimeout(() => {
         userScrolledRef.current = false;
-        console.log('Reset user scroll flag');
+        Logger.debug('Reset user scroll flag');
       }, 1000); // Reset after 1 second of no scrolling
     };
 
@@ -131,7 +132,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
 
   // Handle auto-scrolling
   useEffect(() => {
-    console.log('Auto-scroll effect running:', {
+    Logger.debug('Auto-scroll effect running:', {
       hasContainer: !!containerRef.current,
       activeIndex,
       isPlaying,
@@ -139,7 +140,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
     });
 
     if (!containerRef.current || activeIndex === null || !isPlaying) {
-      console.log('Auto-scroll conditions not met:', {
+      Logger.debug('Auto-scroll conditions not met:', {
         hasContainer: !!containerRef.current,
         activeIndex,
         isPlaying
@@ -148,7 +149,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
     }
 
     const targetScroll = calculateTargetScroll();
-    console.log('Calculated target scroll:', {
+    Logger.debug('Calculated target scroll:', {
       targetScroll,
       userScrolled: userScrolledRef.current,
       isPlaying
@@ -162,7 +163,7 @@ const useAutoScroll = (containerRef, activeIndex, isPlaying, items) => {
         top: targetScroll,
         behavior: 'smooth'
       });
-      console.log('Scrolling to:', targetScroll);
+      Logger.debug('Scrolling to:', targetScroll);
     }
   }, [activeIndex, isPlaying, items]);
 
