@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import useStore from '../store/useStore.jsx';
+import useStore from '../store/useStore.js';
 import { PlayIcon, PauseIcon, StopIcon } from '@heroicons/react/24/solid';
 
 const SCORE_TO_COLOR = {

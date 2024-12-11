@@ -1,135 +1,234 @@
 import { Howl } from 'howler';
-import useStore from '../store/useStore.jsx';
+import useStore from '../store/useStore.js';
+import AudioSegmentManager from './AudioSegmentManager';
+import AudioTimeManager from './AudioTimeManager';
+import debounce from 'lodash.debounce';
 
 class HowlerPlayer {
-  constructor() {
-    this.howl = null;
+  constructor(debug = false) {
+    this.currentHowl = null;
     this.store = useStore.getState();
     this.isReady = false;
-    
-    // Subscribe to store updates
+    this.segmentManager = new AudioSegmentManager(debug);
+    this.timeManager = new AudioTimeManager(debug);
+    this.currentSegmentIndex = -1;
+    this.isTransitioning = false;
+    this.transitionPromise = null;
+    this.debug = debug;
+
+    // Set up time update callback
+    this.timeManager.setTimeUpdateCallback((time) => {
+      this.store.setAudioState({ currentTime: time });
+    });
+
     useStore.subscribe(
       (state) => state.audioState,
       (audioState) => {
-        console.log('Audio state updated:', audioState);
+        if (this.debug) {
+          console.log('[HowlerPlayer] Audio state updated:', audioState);
+        }
       }
     );
   }
 
-  initialize() {
-    console.log('Initializing HowlerPlayer');
+  _log(...args) {
+    if (this.debug) {
+      console.log('[HowlerPlayer]', ...args);
+    }
+  }
+
+  _error(...args) {
+    console.error('[HowlerPlayer]', ...args);
+  }
+
+  async initialize() {
+    this._log('Initializing HowlerPlayer');
     
-    if (this.howl) {
-      this.howl.unload();
+    if (this.currentHowl) {
+      this.currentHowl.unload();
     }
 
-    return new Promise((resolve) => {
-      const { sounds } = this.store;
-      if (!sounds?.main) {
-        console.error('No audio file path specified in sounds');
-        return;
-      }
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { metadata } = this.store;
+        if (!metadata?.segments) {
+          throw new Error('No segments specified in metadata');
+        }
 
-      this.howl = new Howl({
-        src: [sounds.main],
-        html5: true,
-        preload: true,
-        onload: () => {
-          console.log('Audio loaded');
+        const totalDuration = await this.segmentManager.initialize(metadata);
+        this.timeManager.initialize(totalDuration);
+        
+        const segment = await this.segmentManager.loadSegmentsAroundTime(0);
+        
+        if (segment?.howl) {
+          this._setupHowlEvents(segment.howl, segment.segmentIndex);
+          this.currentHowl = segment.howl;
+          this.currentSegmentIndex = segment.segmentIndex;
+          
           this.isReady = true;
           this.store.setAudioState({
-            duration: this.howl.duration(),
-            isLoaded: true
-          });
-          resolve();
-        },
-        onloaderror: (id, error) => {
-          console.error('Error loading audio:', error);
-        },
-        onplay: () => {
-          console.log('Audio playing');
-          this.store.setAudioState({ isPlaying: true });
-          this._startTimeUpdate();
-        },
-        onpause: () => {
-          console.log('Audio paused');
-          this.store.setAudioState({ isPlaying: false });
-          this._stopTimeUpdate();
-        },
-        onstop: () => {
-          console.log('Audio stopped');
-          this.store.setAudioState({
-            isPlaying: false,
+            duration: totalDuration,
+            isLoaded: true,
             currentTime: 0
           });
-          this._stopTimeUpdate();
-        },
-        onend: () => {
-          console.log('Audio ended');
-          this.store.setAudioState({
-            isPlaying: false,
-            currentTime: this.howl.duration()
-          });
-          this._stopTimeUpdate();
-        },
-        onseek: () => {
-          console.log('Audio seeked to:', this.howl.seek());
-          this.store.setAudioState({
-            currentTime: this.howl.seek()
-          });
+          resolve();
+        } else {
+          throw new Error('Failed to load initial segment');
         }
-      });
-
-      // Store the player instance in the store
-      this.store.setPlayer(this);
+      } catch (error) {
+        this._error('Initialization failed:', error);
+        reject(error);
+      }
     });
   }
 
-  play() {
-    console.log('Play requested');
-    if (this.howl) {
-      this.howl.play();
+  _setupHowlEvents(howl, segmentIndex) {
+    // Clean up existing event listeners
+    howl.off('play');
+    howl.off('pause');
+    howl.off('end');
+    howl.off('loaderror');
+
+    howl.on('play', () => {
+      this._log('Segment playing:', segmentIndex);
+      this.store.setAudioState({ isPlaying: true });
+      this.timeManager.start();
+    });
+
+    howl.on('pause', () => {
+      this._log('Segment paused:', segmentIndex);
+      this.store.setAudioState({ isPlaying: false });
+      this.timeManager.pause();
+    });
+
+    howl.on('end', async () => {
+      if (this.isTransitioning) {
+        this._log('Ignoring end event during transition');
+        return;
+      }
+      
+      const nextSegmentIndex = this.currentSegmentIndex + 1;
+      if (nextSegmentIndex < this.segmentManager.segments.length) {
+        this._log('Auto-transitioning to next segment:', nextSegmentIndex);
+        await this._transitionToSegment(nextSegmentIndex, 0, true);
+      } else {
+        this._log('Audio ended');
+        this.store.setAudioState({
+          isPlaying: false,
+          currentTime: this.store.audioState.duration
+        });
+        this.timeManager.stop();
+      }
+    });
+
+    howl.on('loaderror', (id, error) => {
+      this._error('Segment load error:', segmentIndex, error);
+    });
+  }
+
+  async _transitionToSegment(targetSegmentIndex, offset = 0, autoplay = false) {
+    if (this.isTransitioning) {
+      this._log('Transition already in progress, waiting...');
+      try {
+        await this.transitionPromise;
+      } catch (error) {
+        this._error('Previous transition failed:', error);
+      }
+    }
+
+    this.isTransitioning = true;
+    this.transitionPromise = (async () => {
+      try {
+        const wasPlaying = autoplay || this.currentHowl?.playing();
+        
+        if (this.currentHowl) {
+          this.currentHowl.stop();
+        }
+
+        const targetTime = (targetSegmentIndex * this.segmentManager.segmentDuration) + offset;
+        const segment = await this.segmentManager.loadSegmentsAroundTime(targetTime);
+
+        if (!segment?.howl) {
+          throw new Error(`Failed to load segment ${targetSegmentIndex}`);
+        }
+
+        this._setupHowlEvents(segment.howl, segment.segmentIndex);
+        this.currentHowl = segment.howl;
+        this.currentSegmentIndex = segment.segmentIndex;
+
+        this.currentHowl.seek(offset);
+        this.timeManager.setTime(targetTime);
+        
+        if (wasPlaying) {
+          this.currentHowl.play();
+        }
+
+        try {
+          await this.segmentManager.preloadNextSegment(this.currentSegmentIndex);
+        } catch (error) {
+          this._error('Failed to preload next segment:', error);
+        }
+      } catch (error) {
+        this._error('Transition failed:', { targetSegmentIndex, offset }, error);
+        throw error;
+      } finally {
+        this.isTransitioning = false;
+      }
+    })();
+
+    return this.transitionPromise;
+  }
+
+  async play() {
+    this._log('Play requested');
+    if (this.currentHowl) {
+      this.currentHowl.play();
     }
   }
 
   pause() {
-    console.log('Pause requested');
-    if (this.howl) {
-      this.howl.pause();
+    this._log('Pause requested');
+    if (this.currentHowl) {
+      this.currentHowl.pause();
     }
   }
 
-  stop() {
-    console.log('Stop requested');
-    if (this.howl) {
-      this.howl.stop();
-    }
-  }
-
-  seek(time) {
-    console.log('Seek requested:', time);
-    if (this.howl) {
-      this.howl.seek(time);
-    }
-  }
-
-  _startTimeUpdate() {
-    this._stopTimeUpdate();
-    this.timeUpdateInterval = setInterval(() => {
-      if (this.howl && this.howl.playing()) {
-        this.store.setAudioState({
-          currentTime: this.howl.seek()
-        });
+  async stop() {
+    this._log('Stop requested');
+    if (this.isTransitioning) {
+      try {
+        await this.transitionPromise;
+      } catch (error) {
+        this._error('Error waiting for transition during stop:', error);
       }
-    }, 100);
-  }
+    }
 
-  _stopTimeUpdate() {
-    if (this.timeUpdateInterval) {
-      clearInterval(this.timeUpdateInterval);
-      this.timeUpdateInterval = null;
+    this.isTransitioning = true;
+    try {
+      if (this.currentHowl) {
+        this.currentHowl.stop();
+      }
+      this.segmentManager.unloadAll();
+      this.timeManager.stop();
+      await this._transitionToSegment(0, 0, false);
+    } catch (error) {
+      this._error('Error during stop:', error);
+    } finally {
+      this.isTransitioning = false;
     }
   }
+
+  // Debounced seek method to handle rapid seeking
+  seek = debounce(async (targetTime) => {
+    this._log('Seek requested:', targetTime);
+    try {
+      const targetSegmentIndex = Math.floor(targetTime / this.segmentManager.segmentDuration);
+      const offset = targetTime % this.segmentManager.segmentDuration;
+      await this._transitionToSegment(targetSegmentIndex, offset);
+    } catch (error) {
+      this._error('Seek failed:', { targetTime }, error);
+    }
+  }, 200);
 }
 
 export default HowlerPlayer;

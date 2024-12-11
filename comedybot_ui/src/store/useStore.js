@@ -27,6 +27,9 @@ const useStore = create(
       
       // Audio player instance
       player: null,
+
+      // UI Refs
+      transcriptContainerRef: null,
       
       // Actions for audio
       setAudioState: (newState) => set((state) => {
@@ -47,6 +50,9 @@ const useStore = create(
       
       // Audio control actions
       setPlayer: (player) => set({ player }, false, 'setPlayer'),
+
+      // UI Refs setters
+      setTranscriptContainerRef: (ref) => set({ transcriptContainerRef: ref }, false, 'setTranscriptContainerRef'),
       
       seek: (time) => {
         const { player } = get();
@@ -71,14 +77,23 @@ const useStore = create(
         }
       },
       
+      stop: () => {
+        const { player, audioState } = get();
+        if (player) {
+          console.log('Stopping audio');
+          player.stop();
+          set({ audioState: { ...audioState, isPlaying: false, isStopped: true } }, false, 'stop');
+        }
+      },
+      
       // Data loading action
       loadData: async () => {
         console.log('Starting data load');
         try {
           const [metadataResponse, transcriptResponse, soundsResponse] = await Promise.all([
-            fetch('/metadata.json'),
-            fetch('/transcript_clean.json'),
-            fetch('/sounds_clean.json')
+            fetch('/audio/metadata.json'),
+            fetch('/audio/transcript_clean.json'),
+            fetch('/audio/sounds_clean.json')
           ]);
 
           const metadata = await metadataResponse.json();

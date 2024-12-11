@@ -3,7 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import Header from './components/Header';
 import TranscriptViewer from './components/TranscriptViewer';
 import AudioControls from './components/AudioControls';
-import useStore from './store/useStore.jsx';
+import useStore from './store/useStore.js';
 import HowlerPlayer from './audio/HowlerPlayer';
 import { useHashParams } from './hooks/useHashParams';
 

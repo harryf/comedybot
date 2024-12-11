@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import useStore from '../store/useStore';
 import classNames from 'classnames';
 import { ShareIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
-import useStore from '../store/useStore.jsx';
 import useAutoScroll from '../hooks/useAutoScroll';
 
 const formatTimestamp = (seconds) => {
@@ -14,6 +14,7 @@ const formatTimestamp = (seconds) => {
 const TranscriptViewer = ({ transcript }) => {
   const containerRef = useRef(null);
   const currentLineRef = useRef(null);
+  const lastTimeRef = useRef(0);
   const { audioState, seek, setTranscriptContainerRef } = useStore();
   const { currentTime, isPlaying } = audioState;
 
@@ -22,19 +23,45 @@ const TranscriptViewer = ({ transcript }) => {
     setTranscriptContainerRef(containerRef);
   }, [setTranscriptContainerRef]);
 
+  // Debug logging for line selection
+  useEffect(() => {
+    if (Math.abs(currentTime - lastTimeRef.current) > 0.1) {
+      lastTimeRef.current = currentTime;
+      
+      // Find the current line and surrounding lines
+      const currentIndex = transcript.findIndex((line, index) => {
+        const nextLine = transcript[index + 1];
+        return currentTime >= line.start && (!nextLine || currentTime < nextLine.start);
+      });
+
+      if (currentIndex !== -1) {
+        const prevLine = currentIndex > 0 ? transcript[currentIndex - 1] : null;
+        const currentLine = transcript[currentIndex];
+        const nextLine = currentIndex < transcript.length - 1 ? transcript[currentIndex + 1] : null;
+
+        console.log('Transcript Debug:', {
+          currentTime: currentTime.toFixed(2),
+          currentIndex,
+          prevLine: prevLine ? { text: prevLine.text.slice(0, 20), start: prevLine.start } : null,
+          currentLine: { text: currentLine.text.slice(0, 20), start: currentLine.start },
+          nextLine: nextLine ? { text: nextLine.text.slice(0, 20), start: nextLine.start } : null
+        });
+      }
+    }
+  }, [currentTime, transcript]);
+
   // Find the current line index based on currentTime
   const currentLineIndex = transcript.findIndex((line, index) => {
     const nextLine = transcript[index + 1];
-    return (
-      // Exact match within a line's range
-      (currentTime >= line.start && (nextLine ? currentTime < nextLine.start : true)) ||
-      // Or this is the first line after the current time
-      (index > 0 && transcript[index - 1].start <= currentTime && line.start > currentTime)
-    );
+    // Current time should be >= this line's start time AND
+    // either be < next line's start time (if there is a next line)
+    // or this should be the last line
+    return currentTime >= line.start && 
+           (!nextLine || currentTime < nextLine.start);
   });
 
-  // If no line found and we have a valid time, use the next line
-  const effectiveLineIndex = currentLineIndex === -1 && currentTime > 0
+  // If no line found, find the next line that will be spoken
+  const effectiveLineIndex = currentLineIndex === -1
     ? transcript.findIndex(line => line.start > currentTime)
     : currentLineIndex;
 
