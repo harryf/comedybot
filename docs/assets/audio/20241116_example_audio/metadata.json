@@ -11,5 +11,8 @@
         "currency": "CHF"
     },
     "length_of_set": 9.0,
-    "laughs_per_minute": 0
+    "laughs_per_minute": 0,
+    "segments": [
+        "segment_000.opus"
+    ]
 }

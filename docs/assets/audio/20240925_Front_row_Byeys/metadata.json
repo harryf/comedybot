@@ -1,6 +1,6 @@
 {
     "audio_file": "Front_row_Byeys.m4a",
-    "comedian": "Harry Fücks",
+    "comedian": "Harry F\u00fccks",
     "name_of_show": "Front Row Comedy",
     "date_of_show": "28 Nov 2024, 20:00",
     "name_of_venue": "BYEYs",
@@ -11,5 +11,37 @@
         "currency": "CHF"
     },
     "length_of_set": 295.34,
-    "laughs_per_minute": 12
+    "laughs_per_minute": 12,
+    "segments": [
+        "segment_000.opus",
+        "segment_001.opus",
+        "segment_002.opus",
+        "segment_003.opus",
+        "segment_004.opus",
+        "segment_005.opus",
+        "segment_006.opus",
+        "segment_007.opus",
+        "segment_008.opus",
+        "segment_009.opus",
+        "segment_010.opus",
+        "segment_011.opus",
+        "segment_012.opus",
+        "segment_013.opus",
+        "segment_014.opus",
+        "segment_015.opus",
+        "segment_016.opus",
+        "segment_017.opus",
+        "segment_018.opus",
+        "segment_019.opus",
+        "segment_020.opus",
+        "segment_021.opus",
+        "segment_022.opus",
+        "segment_023.opus",
+        "segment_024.opus",
+        "segment_025.opus",
+        "segment_026.opus",
+        "segment_027.opus",
+        "segment_028.opus",
+        "segment_029.opus"
+    ]
 }
