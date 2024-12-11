@@ -51,11 +51,12 @@ class AudioSegmentTool(BaseTool):
                 '-i', input_audio_path,
                 '-f', 'segment',
                 '-segment_time', '10',
-                '-c:a', 'libopus',
+                '-c:a', 'aac',
+                '-movflags', '+faststart',
                 '-vbr', 'constrained',
-                '-b:a', '192k',
+                '-b:a', '128k',
                 '-map', '0',
-                os.path.join(self.input_directory, 'segment_%03d.opus')
+                os.path.join(self.input_directory, 'segment_%03d.m4a')
             ]
 
             # Run ffmpeg command
@@ -69,7 +70,7 @@ class AudioSegmentTool(BaseTool):
                 return False
 
             # Get list of generated segments in order
-            segment_pattern = os.path.join(self.input_directory, 'segment_*.opus')
+            segment_pattern = os.path.join(self.input_directory, 'segment_*.m4a')
             segments = sorted(glob.glob(segment_pattern))
             
             if not segments:
