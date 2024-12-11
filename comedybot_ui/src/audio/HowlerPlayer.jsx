@@ -208,8 +208,34 @@ class HowlerPlayer {
 
   async play() {
     this._log('Play requested');
-    if (this.currentHowl) {
-      this.currentHowl.play();
+    try {
+      if (!this.isReady) {
+        this._error('Player not ready');
+        return;
+      }
+
+      if (!this.currentHowl) {
+        this._error('No current howl instance');
+        return;
+      }
+
+      // Unlock audio on iOS
+      const unlockiOS = () => {
+        const audioContext = Howler.ctx;
+        if (audioContext && audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+        document.body.removeEventListener('touchstart', unlockiOS);
+        document.body.removeEventListener('touchend', unlockiOS);
+      };
+      
+      document.body.addEventListener('touchstart', unlockiOS);
+      document.body.addEventListener('touchend', unlockiOS);
+
+      // Play the current segment
+      await this.currentHowl.play();
+    } catch (error) {
+      this._error('Play failed:', error);
     }
   }
 

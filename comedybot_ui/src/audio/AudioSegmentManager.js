@@ -67,14 +67,15 @@ class AudioSegmentManager {
     const segmentPath = getAssetPath(this.segments[segmentIndex]);
     this._log('Creating Howl instance for segment:', { segmentIndex, path: segmentPath });
     
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
     return new Howl({
       src: [segmentPath],
-      html5: !this.isSafari, // Use Web Audio API for Safari
-      preload: true,
+      html5: isMobile || this.isSafari, // Use HTML5 Audio for mobile and Safari
+      preload: !isMobile, // Don't preload on mobile to avoid memory issues
       format: ['m4a'],
       onload: () => {
         this._log('Segment loaded:', { segmentIndex, path: segmentPath });
-        // For Safari, explicitly set the duration to ensure timing accuracy
         if (this.isSafari) {
           const howl = this.howlCache.get(segmentIndex);
           if (howl && Math.abs(howl.duration() - this.segmentDuration) > 0.1) {
@@ -90,7 +91,6 @@ class AudioSegmentManager {
         this._log('Segment started playing:', { segmentIndex, path: segmentPath });
         if (this.isSafari) {
           const howl = this.howlCache.get(segmentIndex);
-          // Ensure we're at the right position when starting playback
           const expectedTime = (segmentIndex * this.segmentDuration) % this.segmentDuration;
           if (howl && Math.abs(howl.seek() - expectedTime) > 0.1) {
             this._log('Correcting playback position:', {
