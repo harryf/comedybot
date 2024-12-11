@@ -14,6 +14,7 @@ class AudioSegmentManager {
     this.totalDuration = 0;
     this.debug = debug;
     this.PRELOAD_THRESHOLD = 1; // Seconds before end to start preloading
+    this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   }
 
   _log(...args) {
@@ -68,10 +69,41 @@ class AudioSegmentManager {
     
     return new Howl({
       src: [segmentPath],
-      html5: true,
+      html5: !this.isSafari, // Use Web Audio API for Safari
       preload: true,
       format: ['m4a'],
-      onload: () => this._log('Segment loaded:', { segmentIndex, path: segmentPath }),
+      onload: () => {
+        this._log('Segment loaded:', { segmentIndex, path: segmentPath });
+        // For Safari, explicitly set the duration to ensure timing accuracy
+        if (this.isSafari) {
+          const howl = this.howlCache.get(segmentIndex);
+          if (howl && Math.abs(howl.duration() - this.segmentDuration) > 0.1) {
+            this._log('Correcting duration for Safari:', {
+              original: howl.duration(),
+              corrected: this.segmentDuration
+            });
+            howl._duration = this.segmentDuration;
+          }
+        }
+      },
+      onplay: () => {
+        this._log('Segment started playing:', { segmentIndex, path: segmentPath });
+        if (this.isSafari) {
+          const howl = this.howlCache.get(segmentIndex);
+          // Ensure we're at the right position when starting playback
+          const expectedTime = (segmentIndex * this.segmentDuration) % this.segmentDuration;
+          if (howl && Math.abs(howl.seek() - expectedTime) > 0.1) {
+            this._log('Correcting playback position:', {
+              actual: howl.seek(),
+              expected: expectedTime
+            });
+            howl.seek(expectedTime);
+          }
+        }
+      },
+      onend: () => {
+        this._log('Segment ended:', { segmentIndex, path: segmentPath });
+      },
       onloaderror: (id, error) => this._error('Segment load error:', { segmentIndex, path: segmentPath, error })
     });
   }
@@ -105,6 +137,16 @@ class AudioSegmentManager {
         if (!this.preloadQueue.includes(targetIndex)) {
           this.preloadQueue.push(targetIndex);
         }
+        
+        // For Safari, ensure the duration is correct before resolving
+        if (this.isSafari && Math.abs(howl.duration() - this.segmentDuration) > 0.1) {
+          this._log('Setting exact duration for Safari:', {
+            original: howl.duration(),
+            corrected: this.segmentDuration
+          });
+          howl._duration = this.segmentDuration;
+        }
+        
         resolve(howl);
       });
 
