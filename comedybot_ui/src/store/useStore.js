@@ -3,40 +3,30 @@ import { devtools } from 'zustand/middleware';
 import { getAssetPath } from '../utils/paths';
 import Logger from '../utils/logger';
 
-const logger = (config) => (set, get, api) => {
-  config((args) => {
-    Logger.debug('Previous state:', get());
-    set(args);
-    return () => {
-      Logger.debug('Next state:', get());
-    };
-  }, get, api);
+const initialState = {
+  // Audio state
+  audioState: {
+    currentTime: 0,
+    duration: 0,
+    isPlaying: false,
+    isStopped: true,
+    isLoaded: false,
+  },
+  
+  // Data state
+  transcript: [],
+  metadata: null,
+  sounds: null,
+  dataLoaded: false,
+  player: null,
+  transcriptContainerRef: null,
 };
 
 const useStore = create(
-  logger(
-    devtools((set, get) => ({
-      // Audio state
-      audioState: {
-        currentTime: 0,
-        duration: 0,
-        isPlaying: false,
-        isStopped: true,
-        isLoaded: false,
-      },
-      
-      // Data state
-      transcript: [],
-      metadata: null,
-      sounds: null,
-      dataLoaded: false,
-      
-      // Audio player instance
-      player: null,
+  devtools(
+    (set, get) => ({
+      ...initialState,
 
-      // UI Refs
-      transcriptContainerRef: null,
-      
       // Actions for audio
       setAudioState: (newState) => set((state) => {
         const updatedState = { audioState: { ...state.audioState, ...newState }};
@@ -80,6 +70,15 @@ const useStore = create(
             player.play();
             set({ audioState: { ...audioState, isPlaying: true } }, false, 'togglePlayPause');
           }
+        }
+      },
+
+      play: () => {
+        const { player, audioState } = get();
+        if (player) {
+          Logger.debug('Playing audio');
+          player.play();
+          set({ audioState: { ...audioState, isPlaying: true } }, false, 'play');
         }
       },
       
@@ -140,7 +139,7 @@ const useStore = create(
           throw error;
         }
       }
-    }))
+    })
   )
 );
 

@@ -16,10 +16,12 @@ class HowlerPlayer {
     this.isTransitioning = false;
     this.transitionPromise = null;
     this.debug = debug;
+    this.preloadStarted = false;
 
     // Set up time update callback
     this.timeManager.setTimeUpdateCallback((time) => {
       this.store.setAudioState({ currentTime: time });
+      this._checkAndPreloadNext(time);
     });
 
     useStore.subscribe(
@@ -127,6 +129,22 @@ class HowlerPlayer {
     });
   }
 
+  _checkAndPreloadNext(currentTime) {
+    if (this.preloadStarted || !this.currentHowl?.playing()) {
+      return;
+    }
+
+    if (this.segmentManager.shouldPreloadNext(currentTime, this.currentSegmentIndex)) {
+      this.preloadStarted = true;
+      this._log('Starting preload of next segment');
+      this.segmentManager.preloadNextSegment(this.currentSegmentIndex)
+        .catch(error => this._error('Preload failed:', error))
+        .finally(() => {
+          this.preloadStarted = false;
+        });
+    }
+  }
+
   async _transitionToSegment(targetSegmentIndex, offset = 0, autoplay = false) {
     if (this.isTransitioning) {
       this._log('Transition already in progress, waiting...');
@@ -141,21 +159,32 @@ class HowlerPlayer {
     this.transitionPromise = (async () => {
       try {
         const wasPlaying = autoplay || this.currentHowl?.playing();
+        const targetTime = (targetSegmentIndex * this.segmentManager.segmentDuration) + offset;
         
+        // Check if the next segment is already preloaded
+        let nextHowl = null;
+        if (targetSegmentIndex === this.currentSegmentIndex + 1) {
+          nextHowl = this.segmentManager.getNextPreloadedSegment(this.currentSegmentIndex);
+        }
+
+        if (!nextHowl) {
+          // If not preloaded, load it normally
+          const segment = await this.segmentManager.loadSegmentsAroundTime(targetTime);
+          if (!segment?.howl) {
+            throw new Error(`Failed to load segment ${targetSegmentIndex}`);
+          }
+          nextHowl = segment.howl;
+        }
+
+        // Stop current howl after we have the next one ready
         if (this.currentHowl) {
           this.currentHowl.stop();
         }
 
-        const targetTime = (targetSegmentIndex * this.segmentManager.segmentDuration) + offset;
-        const segment = await this.segmentManager.loadSegmentsAroundTime(targetTime);
-
-        if (!segment?.howl) {
-          throw new Error(`Failed to load segment ${targetSegmentIndex}`);
-        }
-
-        this._setupHowlEvents(segment.howl, segment.segmentIndex);
-        this.currentHowl = segment.howl;
-        this.currentSegmentIndex = segment.segmentIndex;
+        this._setupHowlEvents(nextHowl, targetSegmentIndex);
+        this.currentHowl = nextHowl;
+        this.currentSegmentIndex = targetSegmentIndex;
+        this.preloadStarted = false;
 
         this.currentHowl.seek(offset);
         this.timeManager.setTime(targetTime);
@@ -164,11 +193,8 @@ class HowlerPlayer {
           this.currentHowl.play();
         }
 
-        try {
-          await this.segmentManager.preloadNextSegment(this.currentSegmentIndex);
-        } catch (error) {
-          this._error('Failed to preload next segment:', error);
-        }
+        // Start preloading the next segment immediately
+        this._checkAndPreloadNext(targetTime);
       } catch (error) {
         this._error('Transition failed:', { targetSegmentIndex, offset }, error);
         throw error;

@@ -7,11 +7,13 @@ class AudioSegmentManager {
     this.segments = [];
     this.howlCache = new Map(); // Cache for Howl instances
     this.loadingSegments = new Set(); // Track segments currently being loaded
+    this.preloadQueue = []; // Queue for preloaded segments
     this.metadata = null;
     this.segmentDuration = 10; // seconds
     this.isInitialized = false;
     this.totalDuration = 0;
     this.debug = debug;
+    this.PRELOAD_THRESHOLD = 1; // Seconds before end to start preloading
   }
 
   _log(...args) {
@@ -100,6 +102,9 @@ class AudioSegmentManager {
       howl.once('load', () => {
         this._log('Segment loaded successfully:', targetIndex);
         this.loadingSegments.delete(targetIndex);
+        if (!this.preloadQueue.includes(targetIndex)) {
+          this.preloadQueue.push(targetIndex);
+        }
         resolve(howl);
       });
 
@@ -107,6 +112,10 @@ class AudioSegmentManager {
         this._error('Failed to load segment:', targetIndex, error);
         this.howlCache.delete(targetIndex);
         this.loadingSegments.delete(targetIndex);
+        const queueIndex = this.preloadQueue.indexOf(targetIndex);
+        if (queueIndex !== -1) {
+          this.preloadQueue.splice(queueIndex, 1);
+        }
         reject(new Error(`Failed to load segment ${targetIndex}: ${error}`));
       });
     });
@@ -137,6 +146,10 @@ class AudioSegmentManager {
         this._log('Unloading segment:', index);
         howl.unload();
         this.howlCache.delete(index);
+        const queueIndex = this.preloadQueue.indexOf(index);
+        if (queueIndex !== -1) {
+          this.preloadQueue.splice(queueIndex, 1);
+        }
       }
     }
 
@@ -177,7 +190,7 @@ class AudioSegmentManager {
     const nextIndex = currentSegmentIndex + 1;
     if (nextIndex >= this.segments.length) {
       this._log('No next segment to preload');
-      return Promise.resolve();
+      return null;
     }
 
     try {
@@ -186,12 +199,21 @@ class AudioSegmentManager {
       return howl;
     } catch (error) {
       this._error('Failed to preload next segment:', error);
-      return Promise.reject(error);
+      return null;
     }
   }
 
-  getSegmentAtIndex(segmentIndex) {
-    return this.howlCache.get(segmentIndex);
+  getNextPreloadedSegment(currentSegmentIndex) {
+    const nextIndex = currentSegmentIndex + 1;
+    if (nextIndex >= this.segments.length) {
+      return null;
+    }
+    return this.howlCache.get(nextIndex);
+  }
+
+  shouldPreloadNext(currentTime, currentSegmentIndex) {
+    const segmentEndTime = (currentSegmentIndex + 1) * this.segmentDuration;
+    return segmentEndTime - currentTime <= this.PRELOAD_THRESHOLD;
   }
 
   unloadAll() {
@@ -201,6 +223,11 @@ class AudioSegmentManager {
     }
     this.howlCache.clear();
     this.loadingSegments.clear();
+    this.preloadQueue = [];
+  }
+
+  getSegmentAtIndex(segmentIndex) {
+    return this.howlCache.get(segmentIndex);
   }
 }
 

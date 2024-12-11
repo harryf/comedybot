@@ -9,18 +9,16 @@ import { useHashParams } from './hooks/useHashParams';
 import Logger from './utils/logger';
 
 function App() {
-  const { 
-    metadata, 
-    transcript, 
-    sounds, 
-    dataLoaded,
-    loadData,
-    player,
-    setAudioState,
-    play,
-    seek,
-    togglePlayPause
-  } = useStore();
+  const metadata = useStore((state) => state.metadata);
+  const transcript = useStore((state) => state.transcript);
+  const sounds = useStore((state) => state.sounds);
+  const dataLoaded = useStore((state) => state.dataLoaded);
+  const player = useStore((state) => state.player);
+  const loadData = useStore((state) => state.loadData);
+  const setAudioState = useStore((state) => state.setAudioState);
+  const seek = useStore((state) => state.seek);
+  const togglePlayPause = useStore((state) => state.togglePlayPause);
+  const play = useStore((state) => state.play);
 
   const { time: hashTime, autoplay } = useHashParams();
 
@@ -48,7 +46,7 @@ function App() {
       Logger.debug('Setting initial position and play state:', { hashTime, autoplay });
       
       // First seek to position
-      player.seek(hashTime);
+      seek(hashTime);
       
       // Update state with new position
       setAudioState({ 
@@ -60,7 +58,7 @@ function App() {
       // Start playing if autoplay is true
       if (autoplay) {
         Logger.debug('Starting playback');
-        player.play();
+        play();
       }
     }
   }, [hashTime, autoplay, player?.isReady, setAudioState]);
