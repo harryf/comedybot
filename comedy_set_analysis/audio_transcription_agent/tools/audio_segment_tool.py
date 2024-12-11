@@ -55,9 +55,12 @@ class AudioSegmentTool(BaseTool):
                 '-movflags', '+faststart',
                 '-vbr', 'constrained',
                 '-b:a', '128k',
+                '-reset_timestamps', '1',
                 '-map', '0',
                 os.path.join(self.input_directory, 'segment_%03d.m4a')
             ]
+
+            logger.info(f"FFmpeg command: {ffmpeg_command}")
 
             # Run ffmpeg command
             result = subprocess.run(ffmpeg_command, 

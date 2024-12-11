@@ -24,50 +24,56 @@ const TranscriptViewer = ({ transcript }) => {
     setTranscriptContainerRef(containerRef);
   }, [setTranscriptContainerRef]);
 
-  // Debug logging for line selection
+  // Find the current line index based on currentTime
+  const findLineIndex = (time) => {
+    let low = 0;
+    let high = transcript.length - 1;
+    
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      const line = transcript[mid];
+      const nextLine = transcript[mid + 1];
+      
+      if (time >= line.start && (!nextLine || time < nextLine.start)) {
+        return mid;
+      }
+      
+      if (time < line.start) {
+        high = mid - 1;
+      } else {
+        low = mid + 1;
+      }
+    }
+    
+    // If no exact match found, return the next line that will be spoken
+    return transcript.findIndex(line => line.start > time);
+  };
+
+  const currentLineIndex = findLineIndex(currentTime);
+
+  // Debug logging for line selection (with rate limiting)
   useEffect(() => {
-    if (Math.abs(currentTime - lastTimeRef.current) > 0.1) {
+    if (Math.abs(currentTime - lastTimeRef.current) > 0.5) { // Increased threshold
       lastTimeRef.current = currentTime;
       
-      // Find the current line and surrounding lines
-      const currentIndex = transcript.findIndex((line, index) => {
-        const nextLine = transcript[index + 1];
-        return currentTime >= line.start && (!nextLine || currentTime < nextLine.start);
-      });
-
-      if (currentIndex !== -1) {
-        const prevLine = currentIndex > 0 ? transcript[currentIndex - 1] : null;
-        const currentLine = transcript[currentIndex];
-        const nextLine = currentIndex < transcript.length - 1 ? transcript[currentIndex + 1] : null;
+      if (currentLineIndex !== -1) {
+        const prevLine = currentLineIndex > 0 ? transcript[currentLineIndex - 1] : null;
+        const currentLine = transcript[currentLineIndex];
+        const nextLine = currentLineIndex < transcript.length - 1 ? transcript[currentLineIndex + 1] : null;
 
         Logger.debug('Transcript Debug:', {
           currentTime: currentTime.toFixed(2),
-          currentIndex,
+          currentIndex: currentLineIndex,
           prevLine: prevLine ? { text: prevLine.text.slice(0, 20), start: prevLine.start } : null,
           currentLine: { text: currentLine.text.slice(0, 20), start: currentLine.start },
           nextLine: nextLine ? { text: nextLine.text.slice(0, 20), start: nextLine.start } : null
         });
       }
     }
-  }, [currentTime, transcript]);
+  }, [currentTime, currentLineIndex, transcript]);
 
-  // Find the current line index based on currentTime
-  const currentLineIndex = transcript.findIndex((line, index) => {
-    const nextLine = transcript[index + 1];
-    // Current time should be >= this line's start time AND
-    // either be < next line's start time (if there is a next line)
-    // or this should be the last line
-    return currentTime >= line.start && 
-           (!nextLine || currentTime < nextLine.start);
-  });
-
-  // If no line found, find the next line that will be spoken
-  const effectiveLineIndex = currentLineIndex === -1
-    ? transcript.findIndex(line => line.start > currentTime)
-    : currentLineIndex;
-
-  // Use auto-scroll hook with the effective line index
-  useAutoScroll(containerRef, effectiveLineIndex, isPlaying, transcript);
+  // Use auto-scroll hook with the current line index
+  useAutoScroll(containerRef, currentLineIndex, isPlaying, transcript);
 
   const handleLineClick = (start) => {
     seek(start);
@@ -110,7 +116,7 @@ const TranscriptViewer = ({ transcript }) => {
     >
       <div className="max-w-3xl mx-auto pl-0 pr-4 py-4">
         {transcript.map((line, index) => {
-          const isCurrentLine = index === effectiveLineIndex;
+          const isCurrentLine = index === currentLineIndex;
           return (
             <div 
               key={index}
