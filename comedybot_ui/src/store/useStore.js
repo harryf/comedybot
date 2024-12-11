@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { getAudioPath } from '../utils/paths';
+import { getAssetPath } from '../utils/paths';
 
 const logger = (config) => (set, get, api) => config((args) => {
   console.log('Previous state:', get());
@@ -92,14 +92,36 @@ const useStore = create(
         console.log('Starting data load');
         try {
           const [metadataResponse, transcriptResponse, soundsResponse] = await Promise.all([
-            fetch(getAudioPath('metadata.json')),
-            fetch(getAudioPath('transcript_clean.json')),
-            fetch(getAudioPath('sounds_clean.json'))
+            fetch(getAssetPath('metadata.json')),
+            fetch(getAssetPath('transcript_clean.json')),
+            fetch(getAssetPath('sounds_clean.json'))
           ]);
 
+          // Check if any responses failed
+          if (!metadataResponse.ok) {
+            throw new Error(`Failed to load metadata: ${metadataResponse.status} ${metadataResponse.statusText}`);
+          }
+          if (!transcriptResponse.ok) {
+            throw new Error(`Failed to load transcript: ${transcriptResponse.status} ${transcriptResponse.statusText}`);
+          }
+          if (!soundsResponse.ok) {
+            throw new Error(`Failed to load sounds: ${soundsResponse.status} ${soundsResponse.statusText}`);
+          }
+
           const metadata = await metadataResponse.json();
+          console.log('Metadata contents:', {
+            metadata,
+            lengthOfSet: metadata.length_of_set,
+            typeOfLengthOfSet: typeof metadata.length_of_set
+          });
           const transcript = await transcriptResponse.json();
           const sounds = await soundsResponse.json();
+
+          console.log('Loaded data:', {
+            metadata,
+            transcriptLength: transcript.length,
+            soundsLength: sounds.length
+          });
 
           set({
             metadata,
@@ -107,14 +129,9 @@ const useStore = create(
             sounds,
             dataLoaded: true
           }, false, 'loadData');
-          
-          console.log('Data loaded successfully', {
-            hasMetadata: !!metadata,
-            transcriptLength: transcript.length,
-            hasSounds: !!sounds
-          });
         } catch (error) {
           console.error('Error loading data:', error);
+          console.error('Current window.PLAYER_CONFIG:', window.PLAYER_CONFIG);
           throw error;
         }
       }

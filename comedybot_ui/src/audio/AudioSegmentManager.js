@@ -1,5 +1,5 @@
 import { Howl } from 'howler';
-import { getAudioPath } from '../utils/paths';
+import { getAssetPath } from '../utils/paths';
 
 class AudioSegmentManager {
   constructor(debug = false) {
@@ -30,11 +30,18 @@ class AudioSegmentManager {
     this.segments = metadata.segments;
 
     if (metadata.length_of_set) {
-      const durationMatch = metadata.length_of_set.match(/(\d+)m(\d+)s/);
-      if (durationMatch) {
-        const [_, minutes, seconds] = durationMatch;
-        this.totalDuration = (parseInt(minutes) * 60) + parseInt(seconds);
-        this._log('Duration parsed from length_of_set:', this.totalDuration);
+      if (typeof metadata.length_of_set === 'number') {
+        // If it's already a number (in seconds), use it directly
+        this.totalDuration = metadata.length_of_set;
+        this._log('Duration from length_of_set number:', this.totalDuration);
+      } else if (typeof metadata.length_of_set === 'string') {
+        // Try to parse the old "XXmYYs" format
+        const durationMatch = metadata.length_of_set.match(/(\d+)m(\d+)s/);
+        if (durationMatch) {
+          const [_, minutes, seconds] = durationMatch;
+          this.totalDuration = (parseInt(minutes) * 60) + parseInt(seconds);
+          this._log('Duration parsed from length_of_set string:', this.totalDuration);
+        }
       }
     }
 
@@ -53,7 +60,7 @@ class AudioSegmentManager {
       return null;
     }
 
-    const segmentPath = getAudioPath(this.segments[segmentIndex]);
+    const segmentPath = getAssetPath(this.segments[segmentIndex]);
     this._log('Creating Howl instance for segment:', { segmentIndex, path: segmentPath });
     
     return new Howl({

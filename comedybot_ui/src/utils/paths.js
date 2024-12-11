@@ -1,18 +1,21 @@
-// Get the base path for audio files, considering the Jekyll variables
-export function getAudioBasePath() {
+// Get the full path for any file in the asset directory
+export function getAssetPath(filename) {
   // Check if we're running in the Jekyll environment
-  if (window.TRANSCRIPT_PATH && window.BASE_URL) {
-    // Extract the directory path from TRANSCRIPT_PATH
-    const pathParts = window.TRANSCRIPT_PATH.split('/');
-    pathParts.pop(); // Remove the filename
-    return `${window.BASE_URL}/assets/audio/${pathParts.join('/')}`;
+  if (window.PLAYER_CONFIG?.assetPath) {
+    const path = `${window.PLAYER_CONFIG.assetPath}/${filename}`;
+    console.log('Asset path (Jekyll):', {
+      config: window.PLAYER_CONFIG,
+      filename,
+      resultPath: path
+    });
+    return path;
   }
   
   // Default path for local development
-  return '/audio';
-}
-
-// Get the full path for a specific audio file or JSON
-export function getAudioPath(filename) {
-  return `${getAudioBasePath()}/${filename}`;
+  const path = `/audio/${filename}`;
+  console.log('Asset path (dev):', {
+    filename,
+    resultPath: path
+  });
+  return path;
 }
