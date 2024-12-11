@@ -3,6 +3,7 @@ from pydantic import Field
 import os
 import whisper as whisper
 import json
+import argparse
 
 import logging
 logger = logging.getLogger(__name__)
@@ -36,8 +37,17 @@ class AudioTranscriptionTool(BaseTool):
         return output_file_path
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Transcribe audio files using OpenAI Whisper')
+    parser.add_argument('--input', '-i', required=True, help='Path to the input audio file (m4a format)')
+    parser.add_argument('--output', '-o', required=True, help='Directory where the transcription output will be saved')
+    
+    args = parser.parse_args()
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(args.output, exist_ok=True)
+    
     tool = AudioTranscriptionTool(
-        audio_file_path="/Users/harry/Code/comedybot/data/example_audio.mp3",
-        output_directory="/Users/harry/Code/comedybot/data/example_audio/"
+        audio_file_path=args.input,
+        output_directory=args.output
     )
-    print(tool.run()) 
+    print(f"Transcription saved to: {tool.run()}")
