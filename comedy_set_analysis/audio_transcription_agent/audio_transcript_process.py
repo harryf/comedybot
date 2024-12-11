@@ -6,6 +6,7 @@ from tools.sound_detection_tool import SoundDetectionTool
 from tools.transcript_analyser_tool import TranscriptAnalyserTool
 from tools.sound_analyser_tool import SoundAnalyserTool
 from tools.metadata_update_tool import MetadataUpdateTool
+from tools.audio_segment_tool import AudioSegmentTool
 
 import argparse
 import logging, sys
@@ -85,6 +86,9 @@ def process_audio_directory(input_directory_path, output_directory_path):
         
         # Step 2f: Update the metadata file
         MetadataUpdateTool(directory_path=new_subdirectory_path).run()
+
+        # Step 2g: Split the audio file into segments
+        AudioSegmentTool(input_directory=new_subdirectory_path).run()
         
         # Output or save the cleaned data as needed
         logger.info(f"Finished processing {audio_file}")
