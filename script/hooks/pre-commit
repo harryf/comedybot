@@ -1,0 +1,9 @@
+#!/bin/bash
+maxsize=52428800 # 50MB in bytes
+for file in $(git diff --cached --name-only); do
+  if [ -f "$file" ] && [ $(stat -c%s "$file") -gt $maxsize ]; then
+    echo "Error: File $file exceeds $maxsize bytes and cannot be committed."
+    exit 1
+  fi
+done
+
