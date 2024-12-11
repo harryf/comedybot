@@ -67,7 +67,7 @@ class AudioSegmentManager {
       src: [segmentPath],
       html5: true,
       preload: true,
-      format: ['opus'],
+      format: ['m4a'],
       onload: () => this._log('Segment loaded:', { segmentIndex, path: segmentPath }),
       onloaderror: (id, error) => this._error('Segment load error:', { segmentIndex, path: segmentPath, error })
     });
