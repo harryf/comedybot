@@ -468,6 +468,8 @@ class MetadataCaptureWindow:
                 "amount": payment_amount,
                 "currency": currency
             },
+            # Store the segments list with the initial audio file
+            "segments": [os.path.basename(self.tool.audio_file_path)],
             # Preserve existing analysis values if they exist
             "length_of_set": (self.existing_metadata or {}).get("length_of_set", None),
             "laughs_per_minute": (self.existing_metadata or {}).get("laughs_per_minute", None)
