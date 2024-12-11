@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
+import { getAudioPath } from '../utils/paths';
 
 const logger = (config) => (set, get, api) => config((args) => {
   console.log('Previous state:', get());
@@ -91,9 +92,9 @@ const useStore = create(
         console.log('Starting data load');
         try {
           const [metadataResponse, transcriptResponse, soundsResponse] = await Promise.all([
-            fetch('/audio/metadata.json'),
-            fetch('/audio/transcript_clean.json'),
-            fetch('/audio/sounds_clean.json')
+            fetch(getAudioPath('metadata.json')),
+            fetch(getAudioPath('transcript_clean.json')),
+            fetch(getAudioPath('sounds_clean.json'))
           ]);
 
           const metadata = await metadataResponse.json();

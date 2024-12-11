@@ -1,4 +1,5 @@
 import { Howl } from 'howler';
+import { getAudioPath } from '../utils/paths';
 
 class AudioSegmentManager {
   constructor(debug = false) {
@@ -52,12 +53,16 @@ class AudioSegmentManager {
       return null;
     }
 
-    this._log('Creating Howl instance for segment:', segmentIndex);
+    const segmentPath = getAudioPath(this.segments[segmentIndex]);
+    this._log('Creating Howl instance for segment:', { segmentIndex, path: segmentPath });
+    
     return new Howl({
-      src: [`/audio/${this.segments[segmentIndex]}`],
+      src: [segmentPath],
       html5: true,
       preload: true,
-      format: ['opus']
+      format: ['opus'],
+      onload: () => this._log('Segment loaded:', { segmentIndex, path: segmentPath }),
+      onloaderror: (id, error) => this._error('Segment load error:', { segmentIndex, path: segmentPath, error })
     });
   }
 
