@@ -1,4 +1,4 @@
-from agency_swarm.tools import BaseTool
+from base_tool import BaseTool
 from pydantic import Field
 import os
 import re
@@ -92,15 +92,27 @@ class AudioPreparationTool(BaseTool):
         return filename
 
 if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Prepare audio files for transcription by cleaning and converting them')
+    parser.add_argument('--input', '-i', required=True,
+                       help='Path to the input audio file')
+    parser.add_argument('--output', '-o', required=True,
+                       help='Directory where processed files will be saved')
+    parser.add_argument('--test-rollback', '-r', action='store_true',
+                       help='Test the rollback functionality after processing')
+    
+    args = parser.parse_args()
+    
     tool = AudioPreparationTool(
-        audio_file_path="/Users/harry/Code/comedybot/data/example_audio.m4a",
-        output_directory_path="/Users/harry/Code/comedybot/data/processed"
+        audio_file_path=args.input,
+        output_directory_path=args.output
     )
     result = tool.run()
     print(result)
     
-    # Test rollback
-    if result:
+    # Test rollback if requested
+    if args.test_rollback and result:
         cleaned_subdirectory_path, _ = result
         print(f"Testing rollback for {cleaned_subdirectory_path}")
-        tool.rollback(cleaned_subdirectory_path) 
+        tool.rollback(cleaned_subdirectory_path)

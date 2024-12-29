@@ -1,4 +1,4 @@
-from agency_swarm.tools import BaseTool
+from base_tool import BaseTool
 from pydantic import Field
 import os
 import whisper_at as whisper
@@ -50,8 +50,18 @@ class SoundDetectionTool(BaseTool):
         return output_file_path
 
 if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Detect sounds and laughter in an audio file')
+    parser.add_argument('--input', '-i', required=True,
+                       help='Path to the input audio file')
+    parser.add_argument('--output', '-o', required=True,
+                       help='Directory where the sound detection results will be saved')
+    
+    args = parser.parse_args()
+    
     tool = SoundDetectionTool(
-        audio_file_path="/Users/harry/Code/comedybot/data/example_audio.m4a",
-        output_directory="/Users/harry/Code/comedybot/data/example_audio/"
+        audio_file_path=args.input,
+        output_directory=args.output
     )
-    print(tool.run()) 
+    print(tool.run())

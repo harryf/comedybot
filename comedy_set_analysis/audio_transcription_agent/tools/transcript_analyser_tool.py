@@ -1,4 +1,4 @@
-from agency_swarm.tools import BaseTool
+from base_tool import BaseTool
 from pydantic import Field
 import json
 import os
@@ -66,8 +66,18 @@ class TranscriptAnalyserTool(BaseTool):
         return output_file_path
 
 if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Analyze and process raw transcript data')
+    parser.add_argument('--input', '-i', required=True,
+                       help='Path to the input JSON file containing raw transcript data')
+    parser.add_argument('--output', '-o', required=True,
+                       help='Directory where the processed transcript will be saved')
+    
+    args = parser.parse_args()
+    
     tool = TranscriptAnalyserTool(
-        input_file='/Users/harry/Code/comedybot/data/example_audio/transcript_raw.json',
-        output_directory='/Users/harry/Code/comedybot/data/example_audio/'
+        input_file=args.input,
+        output_directory=args.output
     )
-    print(tool.run()) 
+    print(tool.run())

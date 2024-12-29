@@ -1,4 +1,4 @@
-from agency_swarm.tools import BaseTool
+from base_tool import BaseTool
 from pydantic import Field
 import os
 from typing import List
@@ -48,6 +48,13 @@ class AudioFileFinderTool(BaseTool):
             return f"Error scanning directory: {str(e)}"
 
 if __name__ == "__main__":
-    # Test the tool with a sample directory
-    tool = AudioFileFinderTool(directory_path="/Users/harry/Code/comedybot/data")
-    print(tool.run()) 
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Find audio files (m4a, wav, mp3) in a specified directory')
+    parser.add_argument('--directory', '-d', required=True, 
+                       help='Path to the directory to scan for audio files')
+    
+    args = parser.parse_args()
+    
+    tool = AudioFileFinderTool(directory_path=args.directory)
+    print(tool.run())

@@ -1,4 +1,4 @@
-from agency_swarm.tools import BaseTool
+from base_tool import BaseTool
 from pydantic import Field
 import json
 import os
@@ -46,9 +46,21 @@ class TranscriptSoundsMergeTool(BaseTool):
             json.dump(combined_data, file, indent=4)
 
 if __name__ == "__main__":
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Merge processed transcript and sound detection data')
+    parser.add_argument('--transcript', '-t', required=True,
+                       help='Path to the processed transcript JSON file')
+    parser.add_argument('--sounds', '-s', required=True,
+                       help='Path to the processed sounds JSON file')
+    parser.add_argument('--output', '-o', required=True,
+                       help='Path where the merged transcript and sounds will be saved')
+    
+    args = parser.parse_args()
+    
     tool = TranscriptSoundsMergeTool(
-        transcript_file='/Users/harry/Code/comedybot/data/example_audio/transcript_clean.json',
-        sounds_file='/Users/harry/Code/comedybot/data/example_audio/sounds_clean.json',
-        output_file='/Users/harry/Code/comedybot/data/example_audio/transcript_sounds.json'
+        transcript_file=args.transcript,
+        sounds_file=args.sounds,
+        output_file=args.output
     )
-    tool.run() 
+    tool.run()
