@@ -36,7 +36,7 @@ def setup_logging():
     logger.addHandler(stdout_handler)
     logger.addHandler(stderr_handler)
 
-def process_audio_directory(input_directory_path, output_directory_path):
+def process(input_directory_path, output_directory_path):
     # Step 1: Find all audio files in the directory
     logger.debug(f"Searching for new files in {input_directory_path}")
     audio_files = AudioFileFinderTool(directory_path=input_directory_path).run()
@@ -100,4 +100,4 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--outputdir", type=str, required=True, help="The path to the directory where the processed data will be saved.")
     args = parser.parse_args()
 
-    process_audio_directory(args.inputdir, args.outputdir)
+    process(args.inputdir, args.outputdir)
