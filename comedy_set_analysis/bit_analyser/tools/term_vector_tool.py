@@ -10,8 +10,9 @@ This tool:
 4. Generates a hash for each vector
 5. Stores hashes in bits.json and vectors in bit_vectors.json
 """
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-import os
 import json
 import argparse
 import logging

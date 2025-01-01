@@ -12,6 +12,8 @@ This tool:
    - Computes laughs per minute
 4. Updates bits.json with LPM scores incrementally
 """
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 import json
 import argparse
