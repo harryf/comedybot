@@ -26,6 +26,7 @@ import colorama
 from colorama import Fore, Style
 from bit_vector_db import BitVectorDB
 from term_vector_tool import TermVectorTool
+from extract_bit_texts import BitTextExtractor
 from bit_vectors import BitVectors
 
 logger = logging.getLogger(__name__)
@@ -57,6 +58,7 @@ class BitComparisonTool(BaseModel):
     
     # Component instances
     vector_tool: Optional[TermVectorTool] = Field(default=None, description="Vector tool instance")
+    extractor: Optional[BitTextExtractor] = Field(default=None, description="Bit text extractor instance")
     bit_database: Optional[BitVectorDB] = Field(default=None, description="Bit database instance")
     transcript: Optional[List[Dict[str, Any]]] = Field(default=None, description="Transcript data")
     
@@ -133,6 +135,8 @@ class BitComparisonTool(BaseModel):
                 logger.error(f"Error initializing vector tool: {e}")
                 raise
             
+            extractor = BitTextExtractor()
+
             # Initialize bit database with proper error handling
             try:
                 bit_database = BitVectorDB(
@@ -151,6 +155,7 @@ class BitComparisonTool(BaseModel):
                 transcript_file=input_files['transcript_clean.json'],
                 similarity_threshold=similarity_threshold,
                 vector_tool=vector_tool,
+                extractor=extractor,
                 bit_database=bit_database,
                 transcript=transcript
             )
@@ -243,7 +248,7 @@ class BitComparisonTool(BaseModel):
             
             # Get bit text from transcript
             try:
-                bit_text = self.vector_tool.extract_bit_text(bit, self.transcript)
+                bit_text = self.extractor.extract_bit_text(bit, self.transcript)
                 if not bit_text:
                     logger.warning(f"No text found for bit: {bit_title}")
                     return

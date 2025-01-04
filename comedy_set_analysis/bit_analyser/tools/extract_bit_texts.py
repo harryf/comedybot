@@ -1,109 +1,96 @@
 #!/usr/bin/env python3
 
 """
-Tool to extract flattened text from bits in a directory.
+Utility to extract flattened text from bits in a directory.
 Creates a JSON file containing bit titles and their full text content.
 """
 
 import os
 import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-import json
-import argparse
 import logging
 from typing import List, Dict, Any
-from pydantic import Field
-from base_tool import BaseTool
-from bit_utils import (
-    read_bits_file, select_bit, flatten_bit
-)
 
 logger = logging.getLogger(__name__)
 
-class BitTextExtractor(BaseTool):
-    directory_path: str = Field(description="Path to directory containing bits.json and transcript.json")
-    output_file: str = Field(description="Path to output JSON file")
-    bits_file: str = Field(description="Path to bits.json file")
-    transcript_file: str = Field(description="Path to transcript file")
+class BitTextExtractor:
     
-    def __init__(self, directory_path: str, output_file: str = None):
-        # Find bits.json and transcript.json in the directory
-        bits_file = os.path.join(directory_path, 'bits.json')
-        transcript_file = os.path.join(directory_path, 'transcript_clean.json')
-        
-        if not os.path.exists(bits_file):
-            raise FileNotFoundError(f"Could not find bits.json in {directory_path}")
-        if not os.path.exists(transcript_file):
-            raise FileNotFoundError(f"Could not find transcript_clean.json in {directory_path}")
-            
-        # If no output file specified, create one in the same directory
-        if output_file is None:
-            output_file = os.path.join(directory_path, 'bit_texts.json')
-            
-        super().__init__(
-            directory_path=directory_path,
-            output_file=output_file,
-            bits_file=bits_file,
-            transcript_file=transcript_file
-        )
-        
-        self.bits_file = bits_file
-        self.transcript_file = transcript_file
-        
-    def read_transcript_file(self) -> List[Dict[str, Any]]:
-        """Read and return the transcript data."""
-        with open(self.transcript_file, 'r') as f:
-            return json.load(f)
-            
-    def extract_texts(self) -> List[Dict[str, str]]:
-        """Extract title and flattened text for each bit."""
-        # Read input files
-        bits = read_bits_file(self.bits_file)
-        transcript_data = self.read_transcript_file()
-        
-        bit_texts = []
-        for bit in bits:
-            logger.info(f"Processing bit: {bit['title']}")
-            
-            # Get bit text from transcript
-            bit_items = select_bit(transcript_data, bit['start'], bit['end'])
-            text = flatten_bit(bit_items)
-            
-            bit_texts.append({
-                "title": bit['title'],
-                "text": text
-            })
-            
-        return bit_texts
-        
-    def run(self) -> None:
-        """Extract texts and save to output file."""
-        bit_texts = self.extract_texts()
-        
-        # Save to output file
-        with open(self.output_file, 'w') as f:
-            json.dump(bit_texts, f, indent=2)
-            
-        logger.info(f"Extracted {len(bit_texts)} bit texts")
-        logger.info(f"Saved to: {self.output_file}")
+    def __init__(self):
+        self._transcript_cache = {}
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description='Extract flattened text from bits in a directory.'
-    )
-    parser.add_argument('-d', '--directory', type=str, required=True,
-                      help='Directory containing bits.json and transcript.json')
-    parser.add_argument('-o', '--output', type=str,
-                      help='Output JSON file path (default: bit_texts.json in same directory)')
-    
-    args = parser.parse_args()
-    
-    logging.basicConfig(level=logging.INFO,
-                      format='%(message)s')
-    
-    tool = BitTextExtractor(
-        directory_path=args.directory,
-        output_file=args.output
-    )
-    tool.run()
+    def extract_bit_text(self, bit_data: Dict[str, Any], transcript: List[Dict[str, Any]]) -> str:
+        """Extract bit text from transcript with efficient time-based lookup."""
+        try:
+            # Get bit info from items array if needed
+            if 'items' in bit_data:
+                if not bit_data['items']:
+                    logger.warning("Empty items array in bit data")
+                    return ""
+                bit_info = bit_data['items'][0]  # Get first item
+            else:
+                bit_info = bit_data  # Use as is
+            
+            # Extract timing info from bit info
+            try:
+                start_time = float(bit_info.get('start', 0))
+                end_time = float(bit_info.get('end', 0))
+            except (TypeError, ValueError) as e:
+                logger.error(f"Invalid time values in bit data: {e}")
+                logger.debug(f"Bit info: {bit_info}")
+                return ""
+            
+            if start_time >= end_time:
+                logger.warning(f"Invalid time bounds for bit: {start_time} >= {end_time}")
+                return ""
+            
+            # Check cache first
+            cache_key = f"{start_time}_{end_time}"
+            if cache_key in self._transcript_cache:
+                return self._transcript_cache[cache_key]
+            
+            # Get relevant segments efficiently
+            bit_segments = []
+            for entry in transcript:
+                if entry.get('type') != 'text':
+                    continue
+                    
+                try:
+                    seg_start = float(entry.get('start', 0))
+                    seg_end = float(entry.get('end', 0))
+                except (TypeError, ValueError):
+                    continue
+                
+                # Skip segments outside our time range
+                if seg_end < start_time or seg_start > end_time:
+                    continue
+                
+                text = entry.get('text', '').strip()
+                if text:
+                    bit_segments.append((seg_start, text))
+            
+            # Sort segments by start time
+            bit_segments.sort(key=lambda x: x[0])
+            
+            # Join segments
+            bit_text = ' '.join(text for _, text in bit_segments).strip()
+            
+            # Cache result
+            self._transcript_cache[cache_key] = bit_text
+            
+            if not bit_text:
+                logger.warning(f"No transcript text found for bit in time range {start_time}-{end_time}")
+                logger.debug(f"Bit title: {bit_info.get('title', 'Unknown')}")
+                logger.debug(f"Found {len(bit_segments)} segments")
+            else:
+                logger.info(f"Found {len(bit_segments)} segments for bit: {bit_info.get('title', 'Unknown')}")
+            
+            return bit_text
+            
+        except Exception as e:
+            logger.error(f"Error extracting bit text: {e}")
+            logger.error(f"Bit data: {bit_data}")
+            return ""
+
+

@@ -10,6 +10,8 @@ Implements a multi-level embedding approach:
 
 import os
 import sys
+
+# Add tools directory to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 import json
@@ -24,9 +26,6 @@ from base_tool import BaseTool
 from bit_vectors import BitVectors
 from bit_utils import select_bit, flatten_bit
 import threading
-
-# Add tools directory to path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +84,6 @@ class TermVectorTool(BaseModel):
         
         # Initialize transcript index
         self._transcript_index = None
-        self._transcript_cache = {}
         
     @classmethod
     def _load_models(cls):
@@ -245,238 +243,6 @@ class TermVectorTool(BaseModel):
         except Exception as e:
             logger.error(f"Error validating vectors: {e}")
             raise
-            
-    def _build_transcript_index(self, transcript: List[Dict[str, Any]]) -> Dict[str, List[Tuple[float, float, str]]]:
-        """Build an efficient index of transcript segments by show.
-        
-        Args:
-            transcript: List of transcript entries
-            
-        Returns:
-            Dict mapping show_id to list of (start_time, end_time, text) tuples
-        """
-        try:
-            # Group transcript entries by show
-            show_segments: Dict[str, List[Tuple[float, float, str]]] = {}
-            
-            for entry in transcript:
-                show_id = entry.get('show_id')
-                if not show_id:
-                    continue
-                    
-                start_time = float(entry.get('start_time', 0))
-                end_time = float(entry.get('end_time', 0))
-                text = entry.get('text', '').strip()
-                
-                if not text:
-                    continue
-                
-                if show_id not in show_segments:
-                    show_segments[show_id] = []
-                
-                show_segments[show_id].append((start_time, end_time, text))
-            
-            # Sort segments by start time for each show
-            for show_id in show_segments:
-                show_segments[show_id].sort(key=lambda x: x[0])
-            
-            logger.info(f"Built transcript index for {len(show_segments)} shows")
-            return show_segments
-            
-        except Exception as e:
-            logger.error(f"Error building transcript index: {e}")
-            return {}
-    
-    def _get_show_segments(self, show_id: str, transcript: List[Dict[str, Any]]) -> List[Tuple[float, float, str]]:
-        """Get time-sorted segments for a show with caching."""
-        try:
-            # Build index if needed
-            if self._transcript_index is None:
-                self._transcript_index = self._build_transcript_index(transcript)
-            
-            # Return cached segments
-            return self._transcript_index.get(show_id, [])
-            
-        except Exception as e:
-            logger.error(f"Error getting show segments: {e}")
-            return []
-    
-    def extract_bit_text(self, bit_data: Dict[str, Any], transcript: List[Dict[str, Any]]) -> str:
-        """Extract bit text from transcript with efficient time-based lookup."""
-        try:
-            # Get bit info from items array if needed
-            if 'items' in bit_data:
-                if not bit_data['items']:
-                    logger.warning("Empty items array in bit data")
-                    return ""
-                bit_info = bit_data['items'][0]  # Get first item
-            else:
-                bit_info = bit_data  # Use as is
-            
-            # Extract timing info from bit info
-            try:
-                start_time = float(bit_info.get('start', 0))
-                end_time = float(bit_info.get('end', 0))
-            except (TypeError, ValueError) as e:
-                logger.error(f"Invalid time values in bit data: {e}")
-                logger.debug(f"Bit info: {bit_info}")
-                return ""
-            
-            if start_time >= end_time:
-                logger.warning(f"Invalid time bounds for bit: {start_time} >= {end_time}")
-                return ""
-            
-            # Check cache first
-            cache_key = f"{start_time}_{end_time}"
-            if cache_key in self._transcript_cache:
-                return self._transcript_cache[cache_key]
-            
-            # Get relevant segments efficiently
-            bit_segments = []
-            for entry in transcript:
-                if entry.get('type') != 'text':
-                    continue
-                    
-                try:
-                    seg_start = float(entry.get('start', 0))
-                    seg_end = float(entry.get('end', 0))
-                except (TypeError, ValueError):
-                    continue
-                
-                # Skip segments outside our time range
-                if seg_end < start_time or seg_start > end_time:
-                    continue
-                
-                text = entry.get('text', '').strip()
-                if text:
-                    bit_segments.append((seg_start, text))
-            
-            # Sort segments by start time
-            bit_segments.sort(key=lambda x: x[0])
-            
-            # Join segments
-            bit_text = ' '.join(text for _, text in bit_segments).strip()
-            
-            # Cache result
-            self._transcript_cache[cache_key] = bit_text
-            
-            if not bit_text:
-                logger.warning(f"No transcript text found for bit in time range {start_time}-{end_time}")
-                logger.debug(f"Bit title: {bit_info.get('title', 'Unknown')}")
-                logger.debug(f"Found {len(bit_segments)} segments")
-            else:
-                logger.info(f"Found {len(bit_segments)} segments for bit: {bit_info.get('title', 'Unknown')}")
-            
-            return bit_text
-            
-        except Exception as e:
-            logger.error(f"Error extracting bit text: {e}")
-            logger.error(f"Bit data: {bit_data}")
-            return ""
-            
-    def process_bit(self, bit_text: str) -> BitVectors:
-        """Process a bit of text and return its vector representations."""
-        try:
-            if not bit_text:
-                logger.warning("Empty bit text provided")
-                return BitVectors(
-                    full_vector=np.zeros(self.dimension, dtype=np.float32),
-                    sentence_vectors=np.array([], dtype=np.float32),
-                    ngram_vectors=[],
-                    punchline_vectors=[]
-                )
-            
-            logger.info("Processing bit text into vectors...")
-            
-            # Process text with spaCy once
-            doc = self.nlp(bit_text)
-            
-            # Generate sentence vectors first
-            sentences = [sent.text.strip() for sent in doc.sents]
-            sentence_vectors = self.sentence_model.encode(
-                sentences,
-                batch_size=32,
-                show_progress_bar=False,
-                convert_to_numpy=True
-            )
-            sentence_vectors = [round_vector(vec) for vec in sentence_vectors]
-            
-            # Aggregate sentence vectors for full vector
-            full_vector = self._aggregate_sentence_vectors(sentences, sentence_vectors)
-            
-            # Generate n-gram vectors with intelligent extraction
-            scored_ngrams = self._extract_ngrams(doc)
-            if scored_ngrams:
-                ngram_texts = [text for text, _ in scored_ngrams]
-                ngram_scores = [score for _, score in scored_ngrams]
-                ngram_embeddings = self.sentence_model.encode(
-                    ngram_texts,
-                    batch_size=32,
-                    show_progress_bar=False,
-                    convert_to_numpy=True
-                )
-                ngram_embeddings = [round_vector(vec) for vec in ngram_embeddings]
-                ngram_vectors = list(zip(ngram_texts, ngram_embeddings))
-            else:
-                ngram_vectors = []
-            
-            # Get punchlines using semantic analysis
-            punchline_vectors = self._get_punchlines(bit_text)
-            
-            # Create BitVectors object
-            vectors = BitVectors(
-                full_vector=full_vector,
-                sentence_vectors=sentence_vectors,
-                ngram_vectors=ngram_vectors,
-                punchline_vectors=punchline_vectors
-            )
-            
-            # Log vector information
-            logger.info(f"Successfully generated vectors:")
-            logger.info(f"- Full vector: {full_vector.shape}")
-            logger.info(f"- Sentences: {len(sentence_vectors)}")
-            logger.info(f"- N-grams: {len(ngram_vectors)}")
-            logger.info(f"- Punchlines: {len(punchline_vectors)}")
-            
-            return vectors
-            
-        except Exception as e:
-            logger.error(f"Error processing bit text: {e}")
-            raise
-            
-    def read_metadata(self) -> Dict[str, Any]:
-        """Read and return the metadata."""
-        with open(self.metadata_file, 'r') as f:
-            return json.load(f)
-            
-    def create_show_identifier(self, metadata: Dict[str, Any]) -> str:
-        """Create a unique show identifier from metadata."""
-        date = datetime.strptime(metadata['date_of_show'], "%d %b %Y, %H:%M")
-        show_name = metadata['name_of_show'].replace(" ", "_")
-        return f"{date.strftime('%Y%m%d')}_{show_name}"
-        
-    def combine_bit_data(self, bit: Dict[str, Any], metadata: Dict[str, Any]) -> Dict[str, Any]:
-        """Combine bit and metadata into standard format."""
-        return {
-            'show_info': {
-                'show_identifier': self.create_show_identifier(metadata),
-                'comedian': metadata['comedian'],
-                'name_of_show': metadata['name_of_show'],
-                'date_of_show': metadata['date_of_show'],
-                'name_of_venue': metadata['name_of_venue'],
-                'length_of_set': metadata['length_of_set'],
-                'laughs_per_minute': metadata['laughs_per_minute']
-            },
-            'bit_info': {
-                'title': bit['title'],
-                'start': bit['start'],
-                'end': bit['end'],
-                'joke_types': bit.get('joke_types', []),
-                'themes': bit.get('themes', []),
-                'lpm': bit.get('lpm', 0),
-                'term_vector_hash': bit.get('term_vector_hash', '')
-            }
-        }
         
     def _get_embeddings(self, texts: List[str], batch_size: int = 32) -> np.ndarray:
         """Get embeddings for a list of texts."""
@@ -698,193 +464,78 @@ class TermVectorTool(BaseModel):
         except Exception as e:
             logger.error(f"Error extracting punchlines: {e}")
             return []
-            
-    def save_bit_vectors(self, bit_id: str, vectors: BitVectors) -> None:
-        """Save bit vectors to both local and central directories."""
+
+    def process_bit(self, bit_text: str) -> BitVectors:
+        """Process a bit of text and return its vector representations."""
         try:
-            # Save to local directory
-            local_file = os.path.join(self.vectors_dir, f"{bit_id}.npz")
-            vectors.save(local_file)
-            logger.info(f"Saved vectors to {local_file}")
-            
-            # Save to central directory
-            central_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
-            vectors.save(central_file)
-            logger.info(f"Saved vectors to {central_file}")
-            
-        except Exception as e:
-            logger.error(f"Error saving vectors for {bit_id}: {e}")
-            raise
-            
-    def load_bit_vectors(self, bit_id: str) -> Optional[BitVectors]:
-        """
-        Load bit vectors from file.
-        
-        Args:
-            bit_id: Unique identifier for the bit
-            
-        Returns:
-            BitVectors object if found, None otherwise
-        """
-        vector_file = os.path.join(self.vectors_dir, f"{bit_id}.npz")
-        
-        try:
-            if not os.path.exists(vector_file):
-                logger.warning(f"No vector file found for bit: {bit_id}")
-                return None
-                
-            # Load compressed vectors
-            with np.load(vector_file) as data:
-                # Round loaded vectors to maintain consistency
-                full_vector = np.round(data['full_vector'], VECTOR_PRECISION)
-                sentence_vectors = [np.round(v, VECTOR_PRECISION) for v in data['sentence_vectors']]
-                
-                # Reconstruct n-gram vectors
-                ngram_vectors = list(zip(
-                    data['ngram_texts'],
-                    [np.round(v, VECTOR_PRECISION) for v in data['ngram_vectors']]
-                ))
-                
-                # Reconstruct punchline vectors
-                punchline_vectors = list(zip(
-                    data['punchline_texts'],
-                    [np.round(v, VECTOR_PRECISION) for v in data['punchline_vectors']],
-                    data['punchline_weights']
-                ))
-                
+            if not bit_text:
+                logger.error("Empty bit text provided")
                 return BitVectors(
-                    full_vector=full_vector,
-                    sentence_vectors=sentence_vectors,
-                    ngram_vectors=ngram_vectors,
-                    punchline_vectors=punchline_vectors
+                    full_vector=np.zeros(self.dimension, dtype=np.float32),
+                    sentence_vectors=np.array([], dtype=np.float32),
+                    ngram_vectors=[],
+                    punchline_vectors=[]
                 )
-                
+            
+            logger.info("Processing bit text into vectors...")
+            
+            # Process text with spaCy once
+            doc = self.nlp(bit_text)
+            
+            # Generate sentence vectors first
+            sentences = [sent.text.strip() for sent in doc.sents]
+            sentence_vectors = self.sentence_model.encode(
+                sentences,
+                batch_size=32,
+                show_progress_bar=False,
+                convert_to_numpy=True
+            )
+            sentence_vectors = [round_vector(vec) for vec in sentence_vectors]
+            
+            # Aggregate sentence vectors for full vector
+            full_vector = self._aggregate_sentence_vectors(sentences, sentence_vectors)
+            
+            # Generate n-gram vectors with intelligent extraction
+            scored_ngrams = self._extract_ngrams(doc)
+            if scored_ngrams:
+                ngram_texts = [text for text, _ in scored_ngrams]
+                ngram_scores = [score for _, score in scored_ngrams]
+                ngram_embeddings = self.sentence_model.encode(
+                    ngram_texts,
+                    batch_size=32,
+                    show_progress_bar=False,
+                    convert_to_numpy=True
+                )
+                ngram_embeddings = [round_vector(vec) for vec in ngram_embeddings]
+                ngram_vectors = list(zip(ngram_texts, ngram_embeddings))
+            else:
+                ngram_vectors = []
+            
+            # Get punchlines using semantic analysis
+            punchline_vectors = self._get_punchlines(bit_text)
+            
+            # Create BitVectors object
+            vectors = BitVectors(
+                full_vector=full_vector,
+                sentence_vectors=sentence_vectors,
+                ngram_vectors=ngram_vectors,
+                punchline_vectors=punchline_vectors
+            )
+            
+            # Log vector information
+            logger.info(f"Successfully generated vectors:")
+            logger.info(f"- Full vector: {full_vector.shape}")
+            logger.info(f"- Sentences: {len(sentence_vectors)}")
+            logger.info(f"- N-grams: {len(ngram_vectors)}")
+            logger.info(f"- Punchlines: {len(punchline_vectors)}")
+            
+            return vectors
+            
         except Exception as e:
-            logger.error(f"Error loading vectors for bit {bit_id}: {e}")
-            return None
-        
-    def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors) -> None:
-        """Add bit to central database."""
-        # Get central database path
-        registry_file = os.path.join(self.central_vectors_dir, "bit_registry.json")
-        
-        # Save vectors to central database
-        vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
-        self.save_bit_vectors(bit_id, vectors)
-        
-        # Update registry
-        registry = {}
-        if os.path.exists(registry_file):
-            with open(registry_file, 'r') as f:
-                registry = json.load(f)
-                
-        registry[bit_id] = {
-            'title': bit_data['bit_info']['title'],
-            'show': bit_data['show_info']['name_of_show'],
-            'date': bit_data['show_info']['date_of_show'],
-            'comedian': bit_data['show_info']['comedian'],
-            'venue': bit_data['show_info'].get('name_of_venue', ''),
-            'vector_file': vector_file
-        }
-        
-        with open(registry_file, 'w') as f:
-            json.dump(registry, f, indent=2)
-            
-        logger.info(f"Added bit to central database: {bit_id}")
-        
-    def process_bits(self) -> None:
-        """Process all bits in the input directory."""
-        logger.info(f"Processing bits from: {self.bits_file}")
-        
-        # Read input files
-        with open(self.bits_file, 'r') as f:
-            bits_schema = json.load(f)
-            
-        with open(self.metadata_file, 'r') as f:
-            metadata = json.load(f)
-            
-        with open(self.transcript_file, 'r') as f:
-            transcript = json.load(f)
-            
-        # Get bits from schema
-        bits = bits_schema.get('items', [])
-        if not bits:
-            logger.error("No bits found in bits.json")
-            return
-            
-        # Process each bit
-        for bit in bits:
-            if not isinstance(bit, dict):
-                logger.error(f"Invalid bit format: {bit}")
-                continue
-                
-            try:
-                logger.info(f"\nProcessing bit: {bit.get('title', 'Untitled')}")
-                
-                # Create unique ID for this bit
-                bit_id = f"{self.create_show_identifier(metadata)}_{bit['title'].lower().replace(' ', '_')}"
-                
-                # Skip if vectors exist and not regenerating
-                vector_file = os.path.join(self.vectors_dir, f"{bit_id}.npz")
-                if os.path.exists(vector_file) and not self.regenerate:
-                    logger.info(f"Vectors already exist for bit: {bit['title']}")
-                    continue
-                
-                # Extract bit text from transcript
-                bit_text = self.extract_bit_text(bit, transcript)
-                if not bit_text:
-                    logger.warning(f"No text found for bit: {bit['title']}")
-                    continue
-                
-                # Generate vectors
-                bit_vectors = self.process_bit(bit_text)
-                
-                # Save vectors
-                self.save_bit_vectors(bit_id, bit_vectors)
-                
-                # Add to central database
-                bit_data = self.combine_bit_data(bit, metadata)
-                self.add_to_database(bit_id, bit_data, bit_vectors)
-                
-            except Exception as e:
-                logger.error(f"Error processing bit {bit.get('title', 'Untitled')}: {str(e)}")
-                continue
+            logger.error(f"Error processing bit text: {e}")
+            raise
                 
     def run(self) -> None:
-        """Run the vector generation tool."""
-        logger.info(f"Processing bits from: {self.bits_file}")
-        self.process_bits()
-        logger.info("Finished processing bits")
-
-if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(
-        description='Generate term vector representations for comedy bits.'
-    )
-    parser.add_argument('-b', '--bits-file', type=str, required=True,
-                      help='Path to bits JSON file')
-    parser.add_argument('-m', '--metadata-file', type=str, required=True,
-                      help='Path to metadata JSON file')
-    parser.add_argument('-t', '--transcript-file', type=str, required=True,
-                      help='Path to transcript_clean.json file')
-    parser.add_argument('-v', '--vectors-dir', type=str,
-                      help='Directory to store vector files (default: bit_vectors/ in bits directory)')
-    parser.add_argument('-r', '--regenerate', action='store_true',
-                      help='Force regeneration of all vectors')
-    
-    args = parser.parse_args()
-    
-    logging.basicConfig(level=logging.INFO,
-                      format='%(message)s')
-    
-    tool = TermVectorTool(
-        bits_file=args.bits_file,
-        metadata_file=args.metadata_file,
-        transcript_file=args.transcript_file,
-        vectors_dir=args.vectors_dir,
-        regenerate=args.regenerate
-    )
-    
-    # Run the tool directly without threading
-    tool.run()
+        """Pass for now"""
+        logger.info("Term vector tool running...")
+        return
