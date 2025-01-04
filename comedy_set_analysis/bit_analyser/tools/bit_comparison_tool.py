@@ -26,8 +26,8 @@ import colorama
 from colorama import Fore, Style
 from bit_vector_db import BitVectorDB
 from term_vector_tool import TermVectorTool
-from extract_bit_texts import BitTextExtractor
 from bit_vectors import BitVectors
+from bit_entity import BitEntity
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +58,6 @@ class BitComparisonTool(BaseModel):
     
     # Component instances
     vector_tool: Optional[TermVectorTool] = Field(default=None, description="Vector tool instance")
-    extractor: Optional[BitTextExtractor] = Field(default=None, description="Bit text extractor instance")
     bit_database: Optional[BitVectorDB] = Field(default=None, description="Bit database instance")
     transcript: Optional[List[Dict[str, Any]]] = Field(default=None, description="Transcript data")
     
@@ -163,16 +162,6 @@ class BitComparisonTool(BaseModel):
         except Exception as e:
             logger.error(f"Error initializing comparison tool: {e}")
             raise
-            
-    def print_match_details(self, bit: Dict[str, Any], match: Dict[str, Any]) -> None:
-        """Print details about a match."""
-        print("\nComparing bit '{}' with '{}':\n".format(
-            bit['title'], match['title']
-        ))
-        print("Match type: exact")  # We'll make this dynamic later if needed
-        
-        # No need to print additional details for now
-        # We'll add these back when we have the data
         
     def process_directory(self, directory_path: str) -> None:
         """Process all bits in a directory."""
@@ -200,12 +189,72 @@ class BitComparisonTool(BaseModel):
             
         for bit in bits:
             if isinstance(bit, dict) and 'title' in bit:
-                self._process_bit(bit, directory_path)
+                bit_entity = BitEntity(directory_path)
+                bit_entity.load_from_set(bit)
+                self._process_bit(bit_entity)
             
         logger.info("Finished processing bits")
         # Print summary table at the end
         self._print_summary_table()
+    
+    def _process_bit(self, bit_entity: BitEntity) -> None:
+        """Process a single bit."""
+        try:
+            bit_id = bit_entity.bit_data['bit_id']
+            bit_title = bit_entity.bit_data['bit_info']['title']
+
+            logger.info(f"\nProcessing bit: {bit_title} ({bit_id})")
+
+            if self.bit_database.has_bit(bit_id):
+                logger.warning(f"Bit {bit_id} already exists in database")
+                return
             
+            # Process bit text into vectors
+            vectors = self.vector_tool.process_bit(bit_entity.bit_data['transcript']['text'])
+            if vectors is None:
+                logger.warning(f"Failed to generate vectors for bit {bit_id}")
+                return
+            
+            # Compare with existing bits
+            try:
+                matches = self.bit_database.find_matching_bits(vectors)
+                if matches:
+                    best_match = matches[0]
+                    match_data = {
+                        'original': bit_title,
+                        'matched': best_match.title,
+                        'score': best_match.overall_score
+                    }
+                    
+                    if best_match.overall_score > HARD_MATCH_THRESHOLD:
+                        logger.info(f"\nFound exact match for: '{bit_title}' ({bit_id}):")
+                        logger.info(f"- Matched with: '{best_match.title}' ({best_match.bit_id})")
+                        logger.info(f"- Score: {best_match.overall_score:.3f}")
+                        self.exact_matches.append(match_data)
+                    else:
+                        # Track all other matches as soft matches
+                        logger.info(f"\nFound potential match for '{bit_title}' ({bit_id}):")
+                        logger.info(f"- Matched with: '{best_match.title}' ({best_match.bit_id})")
+                        logger.info(f"- Score: {best_match.overall_score:.3f}")
+                        self.soft_matches.append(match_data)
+            except Exception as e:
+                logger.error(f"Error finding matching bits for {bit_id}: {e}")
+            
+            # Add bit to database if no strong match found
+            try:
+                if (matches and len(matches) > 0 and matches[0].overall_score > HARD_MATCH_THRESHOLD):
+                    self.bit_database.add_to_database(bit_entity, vectors, matches[0])
+                else:
+                    self.bit_database.add_to_database(bit_entity, vectors)
+                logger.info(f"Added bit {bit_id} to database")
+            except Exception as e:
+                logger.error(f"Error adding bit {bit_id} to database: {e}")
+                return
+            
+        except Exception as e:
+            logger.error(f"Error processing bit {bit_id}: {e}")
+            return
+
     def _print_summary_table(self) -> None:
         """Print a summary table of all matches."""
         if not (self.exact_matches or self.soft_matches):
@@ -235,89 +284,6 @@ class BitComparisonTool(BaseModel):
                 print(f"{match['original']:<35} | {match['matched']:<35} | {score_color}{match['score']:.3f}{Style.RESET_ALL}")
         
         print("="*80 + "\n")
-    
-    def _process_bit(self, bit: Dict[str, Any], directory_path: str) -> None:
-        """Process a single bit."""
-        try:
-            bit_title = bit.get('title')
-            if not bit_title:
-                logger.warning("Missing bit title")
-                return
-
-            bit_id = f"{os.path.basename(directory_path)}_{bit_title.lower().replace(' ', '_')}"
-
-            logger.info(f"\nProcessing bit: {bit_title} ({bit_id})")
-
-            if self.bit_database.has_bit(bit_id):
-                logger.warning(f"Bit {bit_id} already exists in database")
-                return
-            
-            # Get bit text from transcript
-            try:
-                bit_text = self.extractor.extract_bit_text(bit, self.transcript)
-                if not bit_text:
-                    logger.warning(f"No text found for bit: {bit_title}")
-                    return
-            except Exception as e:
-                logger.error(f"Error extracting bit text: {e}")
-                return
-            
-            # Process bit text into vectors
-            try:
-                vectors = self.vector_tool.process_bit(bit_text)
-                if vectors is None:
-                    logger.warning(f"Failed to generate vectors for bit: {bit_title}")
-                    return
-
-            except Exception as e:
-                logger.error(f"Error processing bit text: {e}")
-                return
-            
-            # Compare with existing bits
-            try:
-                matches = self.bit_database.find_matching_bits(vectors)
-                if matches:
-                    best_match = matches[0]
-                    match_data = {
-                        'original': bit_title,
-                        'matched': best_match.title,
-                        'score': best_match.overall_score
-                    }
-                    
-                    if best_match.overall_score > HARD_MATCH_THRESHOLD:
-                        logger.info(f"\nFound exact match for '{bit_title}':")
-                        logger.info(f"- Matched with: '{best_match.title}'")
-                        logger.info(f"- Score: {best_match.overall_score:.3f}")
-                        self.print_match_details(bit, {'title': best_match.title})
-                        self.exact_matches.append(match_data)
-                    else:
-                        # Track all other matches as soft matches
-                        logger.info(f"\nFound potential match for '{bit_title}':")
-                        logger.info(f"- Matched with: '{best_match.title}'")
-                        logger.info(f"- Score: {best_match.overall_score:.3f}")
-                        self.print_match_details(bit, {'title': best_match.title})
-                        self.soft_matches.append(match_data)
-            except Exception as e:
-                logger.error(f"Error finding matching bits: {e}")
-            
-            # Add bit to database if no strong match found
-            try:
-                bit_data = {
-                    'bit_info': bit,
-                    'show_info': {'show_identifier': os.path.basename(directory_path)}
-                }
-                if (matches and len(matches) > 0 and matches[0].overall_score > HARD_MATCH_THRESHOLD):
-                    self.bit_database.add_to_database(bit_id, bit_data, vectors, matches[0])
-                else:
-                    self.bit_database.add_to_database(bit_id, bit_data, vectors)
-                logger.info(f"Added bit {bit_id} to database")
-            except Exception as e:
-                logger.error(f"Error adding bit to database: {e}")
-                return
-            
-        except Exception as e:
-            logger.error(f"Error processing bit: {e}")
-            return
             
     def run(self) -> None:
         """Run the bit comparison tool."""

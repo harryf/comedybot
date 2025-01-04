@@ -21,6 +21,7 @@ from typing import Dict, Any, List, Tuple, Optional
 from datetime import datetime
 from pydantic import BaseModel, Field
 from bit_vectors import BitVectors
+from bit_entity import BitEntity
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -102,13 +103,14 @@ class BitStorageManager:
         self.base_dir = os.path.expanduser(base_dir)
         self.vectors_dir = os.path.join(self.base_dir, 'vectors/')
         self.indices_dir = os.path.join(self.base_dir, 'indices/')
+        self.bits_dir = os.path.join(self.base_dir, 'bits/')
         self.registry_file = os.path.join(self.base_dir, 'bit_registry.json')
         self.canonical_bits_file = os.path.join(self.base_dir, 'canonical_bits.json')
         self._init_directories()
 
     def _init_directories(self):
         """Create necessary directories if they don't exist."""
-        for directory in [self.base_dir, self.vectors_dir, self.indices_dir]:
+        for directory in [self.base_dir, self.vectors_dir, self.indices_dir, self.bits_dir]:
             try:
                 os.makedirs(directory, exist_ok=True)
             except PermissionError as e:
@@ -118,7 +120,7 @@ class BitStorageManager:
                 logger.error(f"OS error creating directory {directory}: {e}")
                 raise
 
-    def load_registry(self) -> Dict[str, Any]:
+    def load_registry(self) -> Dict[str, str]:
         """Load bit registry from file."""
         try:
             if os.path.exists(self.registry_file):
@@ -135,7 +137,7 @@ class BitStorageManager:
             logger.error(f"Permission denied accessing registry file: {self.registry_file}")
             return {}
 
-    def save_registry(self, registry: Dict[str, Any]):
+    def save_registry(self, registry: Dict[str, str]):
         """Save bit registry to file."""
         try:
             with open(self.registry_file, 'w') as f:
@@ -245,6 +247,25 @@ class BitStorageManager:
         except (OSError, IOError) as e:
             logger.error(f"Error saving canonical bits: {e}")
             raise
+    
+    def save_bit(self, bit_entity: BitEntity):
+        """Save a bit to the storage."""
+        try:
+            bit_entity.write_to_database(self.bits_dir)
+            logger.info(f"Saved bit {bit_entity.bit_data['bit_id']} to {self.bits_dir}")
+        except Exception as e:
+            logger.error(f"Error saving bit: {e}")
+            raise
+    
+    def load_bit(self, bit_id: str) -> Optional[BitEntity]:
+        """Load a bit from the storage."""
+        try:
+            bit_entity = BitEntity(self.bits_dir)
+            bit_entity.load_from_database(bit_id)
+            return bit_entity
+        except Exception as e:
+            logger.error(f"Error loading bit: {e}")
+            return None
 
 class CanonicalBits:
     """Manages the mapping of canonical bit names to their various versions."""
@@ -364,8 +385,10 @@ class BitVectorDB:
             # Initialize storage manager
             self.storage = BitStorageManager()
 
-            # Load or initialize registry
-            self.registry = self.storage.load_registry()
+            # Load or initialize registry as a dict of bit_id -> timestamp
+            self.registry = self.storage.load_registry() or {}
+
+            self.canonical_bits = CanonicalBits(self.storage)
 
             # Initialize FAISS indices
             self._init_indices()
@@ -379,7 +402,7 @@ class BitVectorDB:
             logger.error(f"Invalid parameter value: {e}")
             raise
 
-    def _load_registry(self) -> Dict[str, Any]:
+    def _load_registry(self) -> Dict[str, str]:
         """Load bit registry from file."""
         return self.storage.load_registry()
 
@@ -450,11 +473,7 @@ class BitVectorDB:
             # Save vector file and update registry
             vector_file = self.storage.save_bit_vectors(bit_id, vectors)
             if bit_id not in self.registry:
-                self.registry[bit_id] = {
-                    'id': bit_id,
-                    'vector_file': vector_file,
-                    'added_at': datetime.now().isoformat()
-                }
+                self.registry[bit_id] = datetime.now().isoformat()
                 self.storage.save_registry(self.registry)
 
             # Save indices
@@ -490,43 +509,42 @@ class BitVectorDB:
             vectors_batch = []
             ids_batch = []
 
-            for bit_id in self.registry:
+            for vector_file in self.storage.list_vector_files():
+                bit_id = os.path.splitext(vector_file)[0]
                 try:
-                    vector_file = os.path.join(self.storage.vectors_dir, f"{bit_id}.npz")
-                    if os.path.exists(vector_file):
-                        with np.load(vector_file) as data:
-                            # Add to full vector batch
-                            vectors_batch.append(round_vector(data['full_vector']))
-                            ids_batch.append(bit_id)
-                            
-                            # Add to sentence index
-                            if 'sentence_vectors' in data and len(data['sentence_vectors']) > 0:
-                                sentence_vectors = data['sentence_vectors']
-                                current_idx = self.sentence_index.ntotal
-                                self.sentence_index.add(sentence_vectors)
-                                for i, sent_vec in enumerate(sentence_vectors):
-                                    self.sentence_map[current_idx + i] = (bit_id, str(sent_vec))
-                            
-                            # Add to ngram index
-                            if 'ngram_vectors' in data and len(data['ngram_vectors']) > 0:
-                                ngram_vectors = data['ngram_vectors']
-                                current_idx = self.ngram_index.ntotal
-                                self.ngram_index.add(ngram_vectors)
-                                for i in range(len(ngram_vectors)):
-                                    self.ngram_map[current_idx + i] = (bit_id, f"ngram_{i}")
-                            
-                            # Add to punchline index
-                            if 'punchline_vectors' in data and len(data['punchline_vectors']) > 0:
-                                punchline_vectors = data['punchline_vectors']
-                                current_idx = self.punchline_index.ntotal
-                                self.punchline_index.add(punchline_vectors)
-                                for i in range(len(punchline_vectors)):
-                                    self.punchline_map[current_idx + i] = (bit_id, f"punchline_{i}")
+                    with np.load(os.path.join(self.storage.vectors_dir, vector_file)) as data:
+                        # Add to full vector batch
+                        vectors_batch.append(round_vector(data['full_vector']))
+                        ids_batch.append(bit_id)
+                        
+                        # Add to sentence index
+                        if 'sentence_vectors' in data and len(data['sentence_vectors']) > 0:
+                            sentence_vectors = data['sentence_vectors']
+                            current_idx = self.sentence_index.ntotal
+                            self.sentence_index.add(sentence_vectors)
+                            for i, sent_vec in enumerate(sentence_vectors):
+                                self.sentence_map[current_idx + i] = (bit_id, str(sent_vec))
+                        
+                        # Add to ngram index
+                        if 'ngram_vectors' in data and len(data['ngram_vectors']) > 0:
+                            ngram_vectors = data['ngram_vectors']
+                            current_idx = self.ngram_index.ntotal
+                            self.ngram_index.add(ngram_vectors)
+                            for i in range(len(ngram_vectors)):
+                                self.ngram_map[current_idx + i] = (bit_id, f"ngram_{i}")
+                        
+                        # Add to punchline index
+                        if 'punchline_vectors' in data and len(data['punchline_vectors']) > 0:
+                            punchline_vectors = data['punchline_vectors']
+                            current_idx = self.punchline_index.ntotal
+                            self.punchline_index.add(punchline_vectors)
+                            for i in range(len(punchline_vectors)):
+                                self.punchline_map[current_idx + i] = (bit_id, f"punchline_{i}")
 
-                            if len(vectors_batch) >= batch_size:
-                                self._add_vectors_batch(vectors_batch, ids_batch)
-                                vectors_batch = []
-                                ids_batch = []
+                        if len(vectors_batch) >= batch_size:
+                            self._add_vectors_batch(vectors_batch, ids_batch)
+                            vectors_batch = []
+                            ids_batch = []
                 except (np.lib.format.FormatError, OSError) as e:
                     logger.error(f"Error loading vectors for bit {bit_id}: {e}")
                     continue
@@ -666,39 +684,38 @@ class BitVectorDB:
         """
         return bit_id in self.registry
     
-    def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors, match: Optional[BitMatch] = None) -> str:
+    def add_to_database(self, bit_entity, vectors: BitVectors, match: Optional[BitMatch] = None) -> str:
         """Add a bit to the database."""
         try:
             # Generate bit ID if not provided
-            if not bit_id:
-                bit_id = self._generate_bit_id(bit_data)
+            bit_id = bit_entity.bit_data['bit_id']
             
             if bit_id in self.registry:
                 logger.warning(f"Bit {bit_id} already exists in database")
                 return
+            
 
             # Update registry
-            self.registry[bit_id] = bit_data
+            self.registry[bit_id] = datetime.now().isoformat()
             self.storage.save_registry(self.registry)
 
-            # Update canonical bits mapping
-            canonical_bits = CanonicalBits(self.storage)
-
             if match:
-                canonical_bits.add_bit(
+                self.canonical_bits.add_bit(
                     match.title,
                     bit_id,
                     match.bit_id
                 )
             else:
-                canonical_bits.add_bit(
-                    bit_data['bit_info']['title'],
+                self.canonical_bits.add_bit(
+                    bit_entity.bit_data['bit_info']['title'],
                     bit_id
                 )
-            canonical_bits.save()
+            self.canonical_bits.save()
 
             # Save vectors and update indices
             self._add_bit_vectors_to_indices(bit_id, vectors)
+
+            self.storage.save_bit(bit_entity)
 
             logger.info(f"Added bit {bit_id} to database")
             return bit_id
@@ -741,7 +758,6 @@ class BitVectorDB:
                     continue
 
                 bit_id = list(self.registry.keys())[idx]
-                bit_data = self.registry[bit_id]
                 logger.info(f"\nChecking match: {bit_id} (distance: {dist:.3f})")
 
                 # Find matching sentences
@@ -871,12 +887,12 @@ class BitVectorDB:
                 
                 match = BitMatch(
                     bit_id=bit_id,
-                    title=bit_data.get('bit_info', {}).get('title', bit_id),
+                    title=self.canonical_bits.get_bit_by_id(bit_id)[0],
                     overall_score=overall_score,
                     sentence_matches=matching_sentences,
                     ngram_matches=matching_ngrams,
                     punchline_matches=matching_punchlines,
-                    show_info=bit_data.get('show_info'),
+                    show_info=None,
                     match_type="exact" if overall_score > BitVectorDBConfig.HARD_MATCH_THRESHOLD else "soft"
                 )
                 matches.append(match)
