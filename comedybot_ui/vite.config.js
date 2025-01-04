@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
+  publicDir: false, // Disable copying of public directory
   build: {
     outDir: '../docs/assets/player',
     emptyOutDir: true,
