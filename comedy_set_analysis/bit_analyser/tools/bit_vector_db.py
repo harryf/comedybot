@@ -472,165 +472,6 @@ class BitVectorDB:
         self.add_to_database(None, bit_data, vectors)
         return bit_data['bit_info']['title']
 
-    def find_matching_bits(self, vectors: BitVectors) -> List[BitMatch]:
-        """Find matching bits in the database."""
-        try:
-            logger.info("Starting bit matching...")
-            logger.info(f"Database stats:\n"
-                      f"- Total bits in registry: {len(self.registry)}\n"
-                      f"- Full index size: {self.full_index.ntotal if self.full_index else 0}\n"
-                      f"- Sentence index size: {self.sentence_index.ntotal if self.sentence_index else 0}\n"
-                      f"- N-gram index size: {self.ngram_index.ntotal if self.ngram_index else 0}\n"
-                      f"- Punchline index size: {self.punchline_index.ntotal if self.punchline_index else 0}")
-
-            # Get initial matches using full vector
-            matches = []
-            if self.full_index is not None and self.full_index.ntotal > 0:
-                D, I = self.full_index.search(vectors.full_vector.reshape(1, -1), 15)
-                for dist, idx in zip(D[0], I[0]):
-                    if idx != -1:  # Valid index
-                        bit_id = self.registry_ids[idx]
-                        matches.append((bit_id, float(dist)))
-            
-            logger.info(f"Found {len(matches)} initial matches")
-            
-            # For each potential match, calculate detailed scores
-            detailed_matches = []
-            for bit_id, dist in matches:
-                try:
-                    # Calculate component scores
-                    full_score = 1 - dist
-                    sentence_score = self._calculate_sentence_score(vectors, bit_id)
-                    ngram_score = self._calculate_ngram_score(vectors, bit_id)
-                    punchline_score = self._calculate_punchline_score(vectors, bit_id)
-                    
-                    # Weight the scores using class constants
-                    weighted_score = (
-                        self.WEIGHTS['full_vector'] * full_score +
-                        self.WEIGHTS['sentences'] * sentence_score +
-                        self.WEIGHTS['ngrams'] * ngram_score +
-                        self.WEIGHTS['punchlines'] * punchline_score
-                    )
-                    
-                    # Apply boosts for strong matches
-                    if sentence_score > self.THRESHOLDS['sentences']:
-                        weighted_score *= self.BOOST_FACTORS['sentence_boost']
-                    if ngram_score > self.THRESHOLDS['ngrams']:
-                        weighted_score *= self.BOOST_FACTORS['ngram_boost']
-                    if punchline_score > self.THRESHOLDS['punchlines']:
-                        weighted_score *= self.BOOST_FACTORS['punchline_boost']
-                    
-                    # Log the scores for debugging
-                    logger.info(f"Match scores for {bit_id}:")
-                    logger.info(f"- Full vector ({self.WEIGHTS['full_vector']}): {full_score:.3f}")
-                    logger.info(f"- Sentences ({self.WEIGHTS['sentences']}): {sentence_score:.3f}")
-                    logger.info(f"- N-grams ({self.WEIGHTS['ngrams']}): {ngram_score:.3f}")
-                    logger.info(f"- Punchlines ({self.WEIGHTS['punchlines']}): {punchline_score:.3f}")
-                    logger.info(f"- Overall: {weighted_score:.3f}")
-                    
-                    # Create match result
-                    match_result = BitMatch(
-                        bit_id=bit_id,
-                        title=self.registry[bit_id]['bit_info']['title'],
-                        overall_score=weighted_score
-                    )
-                    detailed_matches.append(match_result)
-                    
-                except Exception as e:
-                    logger.error(f"Error processing match {bit_id}: {e}")
-                    continue
-            
-            # Sort by overall score
-            detailed_matches.sort(key=lambda x: x.overall_score, reverse=True)
-            
-            return detailed_matches
-            
-        except Exception as e:
-            logger.error(f"Error finding matches: {e}")
-            return []
-
-    def load_all_vectors(self) -> None:
-        """Load all bit vectors and rebuild FAISS indices."""
-        try:
-            # Clear existing maps
-            self.sentence_map.clear()
-            self.ngram_map.clear()
-            self.punchline_map.clear()
-
-            # Initialize collection arrays
-            full_vectors = []
-            sentence_vectors = []
-            ngram_vectors = []
-            punchline_vectors = []
-
-            # Load vectors from central DB
-            for file in os.listdir(self.central_vectors_dir):
-                if not file.endswith(".npz"):
-                    continue
-
-                bit_id = os.path.splitext(file)[0]
-                vector_file = os.path.join(self.central_vectors_dir, file)
-
-                try:
-                    # Load and round vectors
-                    data = np.load(vector_file)
-                    full_vectors.append(round_vector(data['full_vector']))
-
-                    # Process sentence vectors
-                    for sent_idx, sent_vec in enumerate(data['sentence_vectors']):
-                        sentence_vectors.append(round_vector(sent_vec))
-                        self.sentence_map[sent_idx] = (bit_id, str(sent_vec))
-
-                    # Process n-gram vectors
-                    if 'ngram_texts' in data and 'ngram_vectors' in data:
-                        for ng_text, ng_vec in zip(data['ngram_texts'], data['ngram_vectors']):
-                            ngram_vectors.append(round_vector(ng_vec))
-                            self.ngram_map[len(ngram_vectors) - 1] = (bit_id, ng_text)
-
-                    # Process punchline vectors
-                    if 'punchline_texts' in data and 'punchline_vectors' in data:
-                        for p_text, p_vec in zip(data['punchline_texts'], data['punchline_vectors']):
-                            punchline_vectors.append(round_vector(p_vec))
-                            self.punchline_map[len(punchline_vectors) - 1] = (bit_id, p_text)
-
-                    logger.info(f"Loaded vectors for bit: {bit_id}")
-
-                except Exception as e:
-                    logger.error(f"Error loading vectors for bit {bit_id}: {e}")
-                    continue
-
-            # Reset and rebuild indices
-            self._init_indices()
-
-            # Add vectors to indices
-            if full_vectors:
-                self.full_index.add(np.array(full_vectors))
-                faiss.write_index(self.full_index, os.path.join(self.indices_dir, "full_index.bin"))
-
-            if sentence_vectors:
-                self.sentence_index.add(np.array(sentence_vectors))
-                faiss.write_index(self.sentence_index, os.path.join(self.indices_dir, "sentence_index.bin"))
-
-            if ngram_vectors:
-                self.ngram_index.add(np.array(ngram_vectors))
-                faiss.write_index(self.ngram_index, os.path.join(self.indices_dir, "ngram_index.bin"))
-
-            if punchline_vectors:
-                self.punchline_index.add(np.array(punchline_vectors))
-                faiss.write_index(self.punchline_index, os.path.join(self.indices_dir, "punchline_index.bin"))
-
-            logger.info(f"Rebuilt FAISS indices with {len(full_vectors)} bits")
-
-        except Exception as e:
-            logger.error(f"Error loading vectors and rebuilding indices: {e}")
-            raise
-
-    def run(self) -> None:
-        """Required method to satisfy BaseTool abstract class."""
-        # Load vectors and build indices
-        self.load_all_vectors()
-        logger.info(f"Loaded vectors for {len(self.registry)} bits")
-
     def find_matching_bits(self, query_vectors: BitVectors) -> List[BitMatch]:
         """Find matching bits using multi-level comparison."""
         try:
@@ -836,3 +677,86 @@ class BitVectorDB:
         except Exception as e:
             logger.error(f"Error finding matching bits: {e}")
             raise
+
+    def load_all_vectors(self) -> None:
+        """Load all bit vectors and rebuild FAISS indices."""
+        try:
+            # Clear existing maps
+            self.sentence_map.clear()
+            self.ngram_map.clear()
+            self.punchline_map.clear()
+
+            # Initialize collection arrays
+            full_vectors = []
+            sentence_vectors = []
+            ngram_vectors = []
+            punchline_vectors = []
+
+            # Load vectors from central DB
+            for file in os.listdir(self.central_vectors_dir):
+                if not file.endswith(".npz"):
+                    continue
+
+                bit_id = os.path.splitext(file)[0]
+                vector_file = os.path.join(self.central_vectors_dir, file)
+
+                try:
+                    # Load and round vectors
+                    data = np.load(vector_file)
+                    full_vectors.append(round_vector(data['full_vector']))
+
+                    # Process sentence vectors
+                    for sent_idx, sent_vec in enumerate(data['sentence_vectors']):
+                        sentence_vectors.append(round_vector(sent_vec))
+                        self.sentence_map[sent_idx] = (bit_id, str(sent_vec))
+
+                    # Process n-gram vectors
+                    if 'ngram_texts' in data and 'ngram_vectors' in data:
+                        for ng_text, ng_vec in zip(data['ngram_texts'], data['ngram_vectors']):
+                            ngram_vectors.append(round_vector(ng_vec))
+                            self.ngram_map[len(ngram_vectors) - 1] = (bit_id, ng_text)
+
+                    # Process punchline vectors
+                    if 'punchline_texts' in data and 'punchline_vectors' in data:
+                        for p_text, p_vec in zip(data['punchline_texts'], data['punchline_vectors']):
+                            punchline_vectors.append(round_vector(p_vec))
+                            self.punchline_map[len(punchline_vectors) - 1] = (bit_id, p_text)
+
+                    logger.info(f"Loaded vectors for bit: {bit_id}")
+
+                except Exception as e:
+                    logger.error(f"Error loading vectors for bit {bit_id}: {e}")
+                    continue
+
+            # Reset and rebuild indices
+            self._init_indices()
+
+            # Add vectors to indices
+            if full_vectors:
+                self.full_index.add(np.array(full_vectors))
+                faiss.write_index(self.full_index, os.path.join(self.indices_dir, "full_index.bin"))
+
+            if sentence_vectors:
+                self.sentence_index.add(np.array(sentence_vectors))
+                faiss.write_index(self.sentence_index, os.path.join(self.indices_dir, "sentence_index.bin"))
+
+            if ngram_vectors:
+                self.ngram_index.add(np.array(ngram_vectors))
+                faiss.write_index(self.ngram_index, os.path.join(self.indices_dir, "ngram_index.bin"))
+
+            if punchline_vectors:
+                self.punchline_index.add(np.array(punchline_vectors))
+                faiss.write_index(self.punchline_index, os.path.join(self.indices_dir, "punchline_index.bin"))
+
+            logger.info(f"Rebuilt FAISS indices with {len(full_vectors)} bits")
+
+        except Exception as e:
+            logger.error(f"Error loading vectors and rebuilding indices: {e}")
+            raise
+
+    def run(self) -> None:
+        """Required method to satisfy BaseTool abstract class."""
+        # Load vectors and build indices
+        self.load_all_vectors()
+        logger.info(f"Loaded vectors for {len(self.registry)} bits")
+
