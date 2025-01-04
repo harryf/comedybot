@@ -208,7 +208,7 @@ class BitVectorDB:
             self._save_bit_vectors(bit_id, vectors)
 
             # Update indices
-            self.add_bit(bit_id, vectors)
+            self._add_bit_vectors_to_indices(bit_id, vectors)
 
             logger.info(f"Added bit {bit_id} to database")
             return bit_id
@@ -227,7 +227,7 @@ class BitVectorDB:
                     pass
             raise
 
-    def add_bit(self, bit_id: str, vectors: BitVectors):
+    def _add_bit_vectors_to_indices(self, bit_id: str, vectors: BitVectors):
         """Add a bit's vectors to the indices."""
         try:
             # Normalize and reshape vectors
