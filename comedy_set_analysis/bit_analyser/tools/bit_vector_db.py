@@ -128,13 +128,6 @@ class BitVectorDB:
             logger.error(f"Invalid parameter value: {e}")
             raise
 
-    def close(self):
-        """Explicitly close and cleanup resources if needed."""
-        self.full_index = None
-        self.sentence_index = None
-        self.ngram_index = None
-        self.punchline_index = None
-
     def _load_registry(self) -> Dict[str, Any]:
         """Load bit registry from file."""
         try:
@@ -193,6 +186,13 @@ class BitVectorDB:
             logger.error(f"Error saving indices: {e}")
             raise
 
+    def close(self):
+        """Explicitly close and cleanup resources if needed."""
+        self.full_index = None
+        self.sentence_index = None
+        self.ngram_index = None
+        self.punchline_index = None
+    
     def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors) -> str:
         """Add a bit to the database."""
         try:
