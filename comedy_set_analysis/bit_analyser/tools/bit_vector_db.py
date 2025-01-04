@@ -685,67 +685,6 @@ class BitVectorDB:
             self.storage.delete_bit_data(bit_id)
             raise
 
-    def update_bit(self, bit_id: str, bit_data: Dict[str, Any], vectors: Optional[BitVectors] = None) -> bool:
-        """Update a bit in the database with validation."""
-        try:
-            # Validate bit exists
-            if bit_id not in self.registry:
-                raise ValueError(f"Invalid bit_id: {bit_id}")
-
-            # Update registry
-            self.registry[bit_id].update({
-                'bit_info': bit_data.get('bit_info', {}),
-                'show_info': bit_data.get('show_info', {})
-            })
-            self.storage.save_registry(self.registry)
-
-            # Update vectors if provided
-            if vectors is not None:
-                # Validate dimensions
-                if vectors.full_vector.shape[0] != self.dimension:
-                    raise ValueError(
-                        f"Full vector dimension mismatch: "
-                        f"expected {self.dimension}, got {vectors.full_vector.shape[0]}"
-                    )
-
-                # Save new vectors and rebuild indices
-                self.storage.save_bit_vectors(bit_id, vectors)
-                self._load_all_vectors()
-
-            logger.info(f"Updated bit {bit_id}")
-            return True
-
-        except Exception as e:
-            logger.error(f"Error updating bit {bit_id}: {e}")
-            raise
-
-    def compare(self, bit_data: Dict[str, Any], vectors: BitVectors) -> str:
-        """
-        Compare a bit with the database and return the standardized title.
-        If no match is found, adds the bit to the database.
-
-        Args:
-            bit_data: Combined bit data including show info and bit info
-            vectors: Vector representations for the bit
-
-        Returns:
-            Standardized title for the bit
-        """
-        matches = self.find_matching_bits(vectors)
-
-        if matches and matches[0].overall_score > BitVectorDBConfig.HARD_MATCH_THRESHOLD:
-            # Use existing title
-            return matches[0].title
-
-        # Check for soft match
-        if matches and matches[0].overall_score > BitVectorDBConfig.SOFT_MATCH_THRESHOLD:
-            # Use existing title with soft match indication
-            return f"{matches[0].title} (soft match)"
-
-        # No match found, add to database with original title
-        self.add_to_database(None, bit_data, vectors)
-        return bit_data['bit_info']['title']
-
     def find_matching_bits(self, query_vectors: BitVectors) -> List[BitMatch]:
         """Find matching bits using multi-level comparison."""
         try:
