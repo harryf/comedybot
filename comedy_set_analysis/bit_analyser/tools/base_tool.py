@@ -15,19 +15,32 @@ class BaseTool(BaseModel, ABC):
     _caller_agent: Any = None
     _event_handler: Any = None
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = {
+        "arbitrary_types_allowed": True,
+        "validate_assignment": True
+    }
 
-    class ToolConfig:
-        strict: bool = False
-        one_call_at_a_time: bool = False
-        output_as_result: bool = False
-        async_mode: Union[Literal["threading"], None] = None
+    bits_file: str = Field(description="Path to bits JSON file")
+    metadata_file: str = Field(description="Path to metadata JSON file")
+    transcript_file: str = Field(description="Path to transcript JSON file")
+    vectors_dir: str = Field(description="Directory to store bit vectors")
+    regenerate: bool = Field(default=False, description="Force regeneration of vectors")
+    nlp: Any = Field(default=None, description="spaCy language model")
+    sentence_model: Any = Field(default=None, description="Sentence transformer model")
+    dimension: int = Field(default=384, description="Vector dimension")  # Default to SBERT dimension
 
     def __init__(self, **kwargs):
         if not self.__class__._shared_state:
             self.__class__._shared_state = {}
         super().__init__(**kwargs)
+
+        # Validate paths
+        for path in [self.bits_file, self.metadata_file, self.transcript_file]:
+            if not os.path.exists(path):
+                raise FileNotFoundError(f"File not found: {path}")
+
+        # Create vectors directory
+        os.makedirs(self.vectors_dir, exist_ok=True)
 
     @abstractmethod
     def run(self):
