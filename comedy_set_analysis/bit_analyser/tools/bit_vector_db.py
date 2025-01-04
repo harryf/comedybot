@@ -299,6 +299,33 @@ class CanonicalBits:
         self.canonical_map[bit_title] = new_bits
         logger.info(f"Created new canonical entry '{bit_title}' with bits {new_bits}")
 
+    def get_bit_by_title(self, title: str) -> Optional[Tuple[str, List[str]]]:
+        """Get a bit by its exact title.
+        
+        Args:
+            title: The exact title to search for
+            
+        Returns:
+            A tuple of (title, list of bit_ids) if found, None otherwise
+        """
+        if title in self.canonical_map:
+            return (title, self.canonical_map[title])
+        return None
+
+    def get_bit_by_id(self, bit_id: str) -> Optional[Tuple[str, List[str]]]:
+        """Find a bit by searching for its ID in the values of the canonical map.
+        
+        Args:
+            bit_id: The bit ID to search for
+            
+        Returns:
+            A tuple of (title, list of bit_ids) if found, None otherwise
+        """
+        for title, bit_ids in self.canonical_map.items():
+            if bit_id in bit_ids:
+                return (title, bit_ids)
+        return None
+
 class BitMatch(BaseModel):
     """
     Represents a matching bit from the database.
@@ -871,4 +898,3 @@ class BitVectorDB:
         # Load vectors and build indices
         self._load_all_vectors()
         logger.info(f"Loaded vectors for {len(self.registry)} bits")
-
