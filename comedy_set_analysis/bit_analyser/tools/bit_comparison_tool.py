@@ -19,6 +19,7 @@ import json
 import logging
 import argparse
 import numpy as np
+import faiss
 from typing import Dict, List, Any, Optional, Union
 from datetime import datetime
 from pydantic import BaseModel, Field
@@ -133,8 +134,6 @@ class BitComparisonTool(BaseModel):
             except (ModuleNotFoundError, OSError) as e:
                 logger.error(f"Error initializing vector tool: {e}")
                 raise
-            
-            extractor = BitTextExtractor()
 
             # Initialize bit database with proper error handling
             try:
@@ -154,7 +153,6 @@ class BitComparisonTool(BaseModel):
                 transcript_file=input_files['transcript_clean.json'],
                 similarity_threshold=similarity_threshold,
                 vector_tool=vector_tool,
-                extractor=extractor,
                 bit_database=bit_database,
                 transcript=transcript
             )

@@ -267,6 +267,35 @@ class BitStorageManager:
             logger.error(f"Error loading bit: {e}")
             return None
 
+    def load_data(self, filename: str) -> Dict[str, Any]:
+        """Load data from a file."""
+        try:
+            file_path = os.path.join(self.base_dir, filename)
+            if os.path.exists(file_path):
+                with open(file_path, 'r') as f:
+                    return json.load(f)
+            return {}
+        except FileNotFoundError:
+            logger.error(f"File not found: {file_path}")
+            return {}
+        except json.JSONDecodeError as e:
+            logger.error(f"Error parsing file: {e}")
+            return {}
+        except PermissionError:
+            logger.error(f"Permission denied accessing file: {file_path}")
+            return {}
+
+    def save_data(self, filename: str, data: Dict[str, Any]):
+        """Save data to a file."""
+        try:
+            file_path = os.path.join(self.base_dir, filename)
+            with open(file_path, 'w') as f:
+                json.dump(data, f, indent=2)
+            logger.info(f"Saved data to {file_path}")
+        except (OSError, IOError) as e:
+            logger.error(f"Error saving data: {e}")
+            raise
+
 class CanonicalBits:
     """Manages the mapping of canonical bit names to their various versions."""
 
@@ -347,6 +376,49 @@ class CanonicalBits:
                 return (title, bit_ids)
         return None
 
+class JokeTypeTracker:
+    """Manages the mapping of joke types to bit IDs."""
+    
+    def __init__(self, storage_manager: BitStorageManager):
+        """Initialize with a storage manager instance."""
+        self.storage = storage_manager
+        self.joke_type_map = self.storage.load_data('joke_types.json') or {}
+    
+    def save(self):
+        """Save the current joke type mapping to storage."""
+        self.storage.save_data('joke_types.json', self.joke_type_map)
+    
+    def add_bit(self, bit_id: str, joke_types: List[str]):
+        """Add a bit's joke types to the mapping."""
+        for joke_type in joke_types:
+            if joke_type not in self.joke_type_map:
+                self.joke_type_map[joke_type] = []
+            if bit_id not in self.joke_type_map[joke_type]:
+                self.joke_type_map[joke_type].append(bit_id)
+        self.save()
+
+
+class ThemeTracker:
+    """Manages the mapping of themes to bit IDs."""
+    
+    def __init__(self, storage_manager: BitStorageManager):
+        """Initialize with a storage manager instance."""
+        self.storage = storage_manager
+        self.theme_map = self.storage.load_data('themes.json') or {}
+    
+    def save(self):
+        """Save the current theme mapping to storage."""
+        self.storage.save_data('themes.json', self.theme_map)
+    
+    def add_bit(self, bit_id: str, themes: List[str]):
+        """Add a bit's themes to the mapping."""
+        for theme in themes:
+            if theme not in self.theme_map:
+                self.theme_map[theme] = []
+            if bit_id not in self.theme_map[theme]:
+                self.theme_map[theme].append(bit_id)
+        self.save()
+
 class BitMatch(BaseModel):
     """
     Represents a matching bit from the database.
@@ -389,6 +461,8 @@ class BitVectorDB:
             self.registry = self.storage.load_registry() or {}
 
             self.canonical_bits = CanonicalBits(self.storage)
+            self.joke_type_tracker = JokeTypeTracker(self.storage)
+            self.theme_tracker = ThemeTracker(self.storage)
 
             # Initialize FAISS indices
             self._init_indices()
@@ -699,6 +773,7 @@ class BitVectorDB:
             self.registry[bit_id] = datetime.now().isoformat()
             self.storage.save_registry(self.registry)
 
+            bit_title = bit_entity.bit_data['bit_info']['title']
             if match:
                 self.canonical_bits.add_bit(
                     match.title,
@@ -707,10 +782,15 @@ class BitVectorDB:
                 )
             else:
                 self.canonical_bits.add_bit(
-                    bit_entity.bit_data['bit_info']['title'],
+                    bit_title,
                     bit_id
                 )
             self.canonical_bits.save()
+
+            joke_types = bit_entity.bit_data['bit_info'].get('joke_types', [])
+            themes = bit_entity.bit_data['bit_info'].get('themes', [])
+            self.joke_type_tracker.add_bit(bit_id, joke_types)
+            self.theme_tracker.add_bit(bit_id, themes)
 
             # Save vectors and update indices
             self._add_bit_vectors_to_indices(bit_id, vectors)
