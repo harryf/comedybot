@@ -186,47 +186,6 @@ class BitVectorDB:
             logger.error(f"Error saving indices: {e}")
             raise
 
-    def close(self):
-        """Explicitly close and cleanup resources if needed."""
-        self.full_index = None
-        self.sentence_index = None
-        self.ngram_index = None
-        self.punchline_index = None
-    
-    def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors) -> str:
-        """Add a bit to the database."""
-        try:
-            # Generate bit ID if not provided
-            if not bit_id:
-                bit_id = self._generate_bit_id(bit_data)
-
-            # Update registry
-            self.registry[bit_id] = bit_data
-            self._save_registry()
-
-            # Save vectors to file
-            self._save_bit_vectors(bit_id, vectors)
-
-            # Update indices
-            self._add_bit_vectors_to_indices(bit_id, vectors)
-
-            logger.info(f"Added bit {bit_id} to database")
-            return bit_id
-
-        except Exception as e:
-            logger.error(f"Error adding bit to database: {e}")
-            # Clean up any partial saves
-            if bit_id in self.registry:
-                del self.registry[bit_id]
-                self._save_registry()
-            vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
-            if os.path.exists(vector_file):
-                try:
-                    os.remove(vector_file)
-                except OSError:
-                    pass
-            raise
-
     def _add_bit_vectors_to_indices(self, bit_id: str, vectors: BitVectors):
         """Add a bit's vectors to the indices."""
         try:
@@ -372,6 +331,82 @@ class BitVectorDB:
             logger.error(f"Error initializing indices: {e}")
             raise
 
+    def _load_all_vectors(self) -> None:
+        """Load all bit vectors and rebuild FAISS indices."""
+        try:
+            # Clear existing maps
+            self.sentence_map.clear()
+            self.ngram_map.clear()
+            self.punchline_map.clear()
+
+            # Initialize collection arrays
+            full_vectors = []
+            sentence_vectors = []
+            ngram_vectors = []
+            punchline_vectors = []
+
+            # Load vectors from central DB
+            for file in os.listdir(self.central_vectors_dir):
+                if not file.endswith(".npz"):
+                    continue
+
+                bit_id = os.path.splitext(file)[0]
+                vector_file = os.path.join(self.central_vectors_dir, file)
+
+                try:
+                    # Load and round vectors
+                    data = np.load(vector_file)
+                    full_vectors.append(round_vector(data['full_vector']))
+
+                    # Process sentence vectors
+                    for sent_idx, sent_vec in enumerate(data['sentence_vectors']):
+                        sentence_vectors.append(round_vector(sent_vec))
+                        self.sentence_map[sent_idx] = (bit_id, str(sent_vec))
+
+                    # Process n-gram vectors
+                    if 'ngram_texts' in data and 'ngram_vectors' in data:
+                        for ng_text, ng_vec in zip(data['ngram_texts'], data['ngram_vectors']):
+                            ngram_vectors.append(round_vector(ng_vec))
+                            self.ngram_map[len(ngram_vectors) - 1] = (bit_id, ng_text)
+
+                    # Process punchline vectors
+                    if 'punchline_texts' in data and 'punchline_vectors' in data:
+                        for p_text, p_vec in zip(data['punchline_texts'], data['punchline_vectors']):
+                            punchline_vectors.append(round_vector(p_vec))
+                            self.punchline_map[len(punchline_vectors) - 1] = (bit_id, p_text)
+
+                    logger.info(f"Loaded vectors for bit: {bit_id}")
+
+                except Exception as e:
+                    logger.error(f"Error loading vectors for bit {bit_id}: {e}")
+                    continue
+
+            # Reset and rebuild indices
+            self._init_indices()
+
+            # Add vectors to indices
+            if full_vectors:
+                self.full_index.add(np.array(full_vectors))
+                faiss.write_index(self.full_index, os.path.join(self.indices_dir, "full_index.bin"))
+
+            if sentence_vectors:
+                self.sentence_index.add(np.array(sentence_vectors))
+                faiss.write_index(self.sentence_index, os.path.join(self.indices_dir, "sentence_index.bin"))
+
+            if ngram_vectors:
+                self.ngram_index.add(np.array(ngram_vectors))
+                faiss.write_index(self.ngram_index, os.path.join(self.indices_dir, "ngram_index.bin"))
+
+            if punchline_vectors:
+                self.punchline_index.add(np.array(punchline_vectors))
+                faiss.write_index(self.punchline_index, os.path.join(self.indices_dir, "punchline_index.bin"))
+
+            logger.info(f"Rebuilt FAISS indices with {len(full_vectors)} bits")
+
+        except Exception as e:
+            logger.error(f"Error loading vectors and rebuilding indices: {e}")
+            raise
+
     def _add_vectors_batch(self, vectors: List[np.ndarray], bit_ids: List[str]):
         """Add a batch of vectors to indices."""
         if not vectors:
@@ -402,6 +437,47 @@ class BitVectorDB:
         except (KeyError, AttributeError) as e:
             logger.error(f"Error generating bit ID: {e}")
             return str(uuid.uuid4())
+
+    def close(self):
+        """Explicitly close and cleanup resources if needed."""
+        self.full_index = None
+        self.sentence_index = None
+        self.ngram_index = None
+        self.punchline_index = None
+    
+    def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors) -> str:
+        """Add a bit to the database."""
+        try:
+            # Generate bit ID if not provided
+            if not bit_id:
+                bit_id = self._generate_bit_id(bit_data)
+
+            # Update registry
+            self.registry[bit_id] = bit_data
+            self._save_registry()
+
+            # Save vectors to file
+            self._save_bit_vectors(bit_id, vectors)
+
+            # Update indices
+            self._add_bit_vectors_to_indices(bit_id, vectors)
+
+            logger.info(f"Added bit {bit_id} to database")
+            return bit_id
+
+        except Exception as e:
+            logger.error(f"Error adding bit to database: {e}")
+            # Clean up any partial saves
+            if bit_id in self.registry:
+                del self.registry[bit_id]
+                self._save_registry()
+            vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
+            if os.path.exists(vector_file):
+                try:
+                    os.remove(vector_file)
+                except OSError:
+                    pass
+            raise
 
     def update_bit(self, bit_id: str, bit_data: Dict[str, Any], vectors: Optional[BitVectors] = None) -> bool:
         """Update a bit in the database with validation."""
@@ -436,7 +512,7 @@ class BitVectorDB:
                 )
 
                 # Rebuild indices
-                self.load_all_vectors()
+                self._load_all_vectors()
 
             logger.info(f"Updated bit {bit_id}")
             return True
@@ -678,85 +754,9 @@ class BitVectorDB:
             logger.error(f"Error finding matching bits: {e}")
             raise
 
-    def load_all_vectors(self) -> None:
-        """Load all bit vectors and rebuild FAISS indices."""
-        try:
-            # Clear existing maps
-            self.sentence_map.clear()
-            self.ngram_map.clear()
-            self.punchline_map.clear()
-
-            # Initialize collection arrays
-            full_vectors = []
-            sentence_vectors = []
-            ngram_vectors = []
-            punchline_vectors = []
-
-            # Load vectors from central DB
-            for file in os.listdir(self.central_vectors_dir):
-                if not file.endswith(".npz"):
-                    continue
-
-                bit_id = os.path.splitext(file)[0]
-                vector_file = os.path.join(self.central_vectors_dir, file)
-
-                try:
-                    # Load and round vectors
-                    data = np.load(vector_file)
-                    full_vectors.append(round_vector(data['full_vector']))
-
-                    # Process sentence vectors
-                    for sent_idx, sent_vec in enumerate(data['sentence_vectors']):
-                        sentence_vectors.append(round_vector(sent_vec))
-                        self.sentence_map[sent_idx] = (bit_id, str(sent_vec))
-
-                    # Process n-gram vectors
-                    if 'ngram_texts' in data and 'ngram_vectors' in data:
-                        for ng_text, ng_vec in zip(data['ngram_texts'], data['ngram_vectors']):
-                            ngram_vectors.append(round_vector(ng_vec))
-                            self.ngram_map[len(ngram_vectors) - 1] = (bit_id, ng_text)
-
-                    # Process punchline vectors
-                    if 'punchline_texts' in data and 'punchline_vectors' in data:
-                        for p_text, p_vec in zip(data['punchline_texts'], data['punchline_vectors']):
-                            punchline_vectors.append(round_vector(p_vec))
-                            self.punchline_map[len(punchline_vectors) - 1] = (bit_id, p_text)
-
-                    logger.info(f"Loaded vectors for bit: {bit_id}")
-
-                except Exception as e:
-                    logger.error(f"Error loading vectors for bit {bit_id}: {e}")
-                    continue
-
-            # Reset and rebuild indices
-            self._init_indices()
-
-            # Add vectors to indices
-            if full_vectors:
-                self.full_index.add(np.array(full_vectors))
-                faiss.write_index(self.full_index, os.path.join(self.indices_dir, "full_index.bin"))
-
-            if sentence_vectors:
-                self.sentence_index.add(np.array(sentence_vectors))
-                faiss.write_index(self.sentence_index, os.path.join(self.indices_dir, "sentence_index.bin"))
-
-            if ngram_vectors:
-                self.ngram_index.add(np.array(ngram_vectors))
-                faiss.write_index(self.ngram_index, os.path.join(self.indices_dir, "ngram_index.bin"))
-
-            if punchline_vectors:
-                self.punchline_index.add(np.array(punchline_vectors))
-                faiss.write_index(self.punchline_index, os.path.join(self.indices_dir, "punchline_index.bin"))
-
-            logger.info(f"Rebuilt FAISS indices with {len(full_vectors)} bits")
-
-        except Exception as e:
-            logger.error(f"Error loading vectors and rebuilding indices: {e}")
-            raise
-
     def run(self) -> None:
         """Required method to satisfy BaseTool abstract class."""
         # Load vectors and build indices
-        self.load_all_vectors()
+        self._load_all_vectors()
         logger.info(f"Loaded vectors for {len(self.registry)} bits")
 
