@@ -25,6 +25,10 @@ from bit_vectors import BitVectors
 # Configure logging
 logger = logging.getLogger(__name__)
 
+def round_vector(vector: np.ndarray) -> np.ndarray:
+    """Round vector to consistent precision."""
+    return np.round(vector, BitVectorDBConfig.VECTOR_PRECISION)
+
 class BitVectorDBConfig:
     """Configuration constants for BitVectorDB."""
     
@@ -88,9 +92,108 @@ class BitVectorDBConfig:
     # Multi-component boost factor
     MULTI_COMPONENT_BOOST = 1.2  # Boost factor when multiple components are strong
 
-def round_vector(vector: np.ndarray) -> np.ndarray:
-    """Round vector to consistent precision."""
-    return np.round(vector, BitVectorDBConfig.VECTOR_PRECISION)
+
+class BitStorageManager:
+    """Manages filesystem operations for bit vector storage."""
+
+    def __init__(self, base_dir: str = '~/.comedybot/'):
+        """Initialize storage manager with base directory."""
+        self.base_dir = os.path.expanduser(base_dir)
+        self.vectors_dir = os.path.join(self.base_dir, 'vectors/')
+        self.indices_dir = os.path.join(self.base_dir, 'indices/')
+        self.registry_file = os.path.join(self.base_dir, 'bit_registry.json')
+        self._init_directories()
+
+    def _init_directories(self):
+        """Create necessary directories if they don't exist."""
+        for directory in [self.base_dir, self.vectors_dir, self.indices_dir]:
+            try:
+                os.makedirs(directory, exist_ok=True)
+            except PermissionError as e:
+                logger.error(f"Permission denied creating directory {directory}: {e}")
+                raise
+            except OSError as e:
+                logger.error(f"OS error creating directory {directory}: {e}")
+                raise
+
+    def load_registry(self) -> Dict[str, Any]:
+        """Load bit registry from file."""
+        try:
+            if os.path.exists(self.registry_file):
+                with open(self.registry_file, 'r') as f:
+                    return json.load(f)
+            return {}
+        except FileNotFoundError:
+            logger.error(f"Registry file not found: {self.registry_file}")
+            return {}
+        except json.JSONDecodeError as e:
+            logger.error(f"Error parsing registry file: {e}")
+            return {}
+        except PermissionError:
+            logger.error(f"Permission denied accessing registry file: {self.registry_file}")
+            return {}
+
+    def save_registry(self, registry: Dict[str, Any]):
+        """Save bit registry to file."""
+        try:
+            with open(self.registry_file, 'w') as f:
+                json.dump(registry, f, indent=2)
+        except (OSError, IOError) as e:
+            logger.error(f"Error saving registry: {e}")
+            raise
+
+    def save_bit_vectors(self, bit_id: str, vectors: BitVectors):
+        """Save bit vectors to file."""
+        try:
+            vector_file = os.path.join(self.vectors_dir, f"{bit_id}.npz")
+            np.savez(
+                vector_file,
+                full_vector=round_vector(vectors.full_vector),
+                sentence_vectors=np.array([round_vector(vec) for vec in vectors.sentence_vectors]) if vectors.sentence_vectors else np.array([]),
+                ngram_vectors=np.array([round_vector(vec) for _, vec in vectors.ngram_vectors]) if vectors.ngram_vectors else np.array([]),
+                punchline_vectors=np.array([round_vector(vec) for _, vec, _ in vectors.punchline_vectors]) if vectors.punchline_vectors else np.array([])
+            )
+            logger.info(f"Saved vectors for bit {bit_id}")
+            return vector_file
+        except (OSError, ValueError) as e:
+            logger.error(f"Error saving vectors for bit {bit_id}: {e}")
+            raise
+
+    def save_indices(self, indices: Dict[str, Any]):
+        """Save FAISS indices to disk."""
+        try:
+            for name, index in indices.items():
+                if index is not None:
+                    faiss.write_index(index, os.path.join(self.indices_dir, f'{name}_index.faiss'))
+            logger.info("Saved FAISS indices to disk")
+        except (OSError, RuntimeError) as e:
+            logger.error(f"Error saving indices: {e}")
+            raise
+
+    def load_bit_vectors(self, bit_id: str) -> Optional[Dict[str, np.ndarray]]:
+        """Load vectors for a specific bit."""
+        try:
+            vector_file = os.path.join(self.vectors_dir, f"{bit_id}.npz")
+            if os.path.exists(vector_file):
+                return dict(np.load(vector_file))
+            return None
+        except (OSError, ValueError) as e:
+            logger.error(f"Error loading vectors for bit {bit_id}: {e}")
+            return None
+
+    def list_vector_files(self) -> List[str]:
+        """List all vector files in the vectors directory."""
+        return [f for f in os.listdir(self.vectors_dir) if f.endswith(".npz")]
+
+    def delete_bit_data(self, bit_id: str):
+        """Delete all data associated with a bit."""
+        try:
+            vector_file = os.path.join(self.vectors_dir, f"{bit_id}.npz")
+            if os.path.exists(vector_file):
+                os.remove(vector_file)
+        except OSError as e:
+            logger.error(f"Error deleting bit data for {bit_id}: {e}")
+            raise
 
 class BitMatch(BaseModel):
     """
@@ -104,7 +207,6 @@ class BitMatch(BaseModel):
     punchline_matches: List[Tuple[str, str, float]] = Field(default_factory=list)
     show_info: Optional[Dict[str, Any]] = None
     match_type: str = Field(default="exact")  # "exact", "soft", or "none"
-
 
 class BitVectorDB:
     """Database for Comedy Bits with FAISS indexing."""
@@ -128,25 +230,11 @@ class BitVectorDB:
             # Set FAISS to single thread for deterministic results
             faiss.omp_set_num_threads(1)
 
-            # Create central database directory
-            self.central_db_dir = os.path.expanduser('~/.comedybot/')
-            self.central_vectors_dir = os.path.join(self.central_db_dir, 'vectors/')
-            self.indices_dir = os.path.join(self.central_db_dir, 'indices/')
-            self.registry_file = os.path.join(self.central_db_dir, 'bit_registry.json')
-
-            # Create directories efficiently
-            for directory in [self.central_db_dir, self.central_vectors_dir, self.indices_dir]:
-                try:
-                    os.makedirs(directory, exist_ok=True)
-                except PermissionError as e:
-                    logger.error(f"Permission denied creating directory {directory}: {e}")
-                    raise
-                except OSError as e:
-                    logger.error(f"OS error creating directory {directory}: {e}")
-                    raise
+            # Initialize storage manager
+            self.storage = BitStorageManager()
 
             # Load or initialize registry
-            self.registry = self._load_registry()
+            self.registry = self.storage.load_registry()
 
             # Initialize FAISS indices
             self._init_indices()
@@ -162,61 +250,24 @@ class BitVectorDB:
 
     def _load_registry(self) -> Dict[str, Any]:
         """Load bit registry from file."""
-        try:
-            if os.path.exists(self.registry_file):
-                with open(self.registry_file, 'r') as f:
-                    return json.load(f)
-            return {}
-        except FileNotFoundError:
-            logger.error(f"Registry file not found: {self.registry_file}")
-            return {}
-        except json.JSONDecodeError as e:
-            logger.error(f"Error parsing registry file: {e}")
-            return {}
-        except PermissionError:
-            logger.error(f"Permission denied accessing registry file: {self.registry_file}")
-            return {}
+        return self.storage.load_registry()
 
     def _save_registry(self):
         """Save bit registry to file."""
-        try:
-            with open(self.registry_file, 'w') as f:
-                json.dump(self.registry, f, indent=2)
-        except (OSError, IOError) as e:
-            logger.error(f"Error saving registry: {e}")
-            raise
+        self.storage.save_registry(self.registry)
 
     def _save_bit_vectors(self, bit_id: str, vectors: BitVectors):
         """Save bit vectors to file."""
-        try:
-            vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
-            np.savez(
-                vector_file,
-                full_vector=round_vector(vectors.full_vector),
-                sentence_vectors=np.array([round_vector(vec) for vec in vectors.sentence_vectors]) if vectors.sentence_vectors else np.array([]),
-                ngram_vectors=np.array([round_vector(vec) for _, vec in vectors.ngram_vectors]) if vectors.ngram_vectors else np.array([]),
-                punchline_vectors=np.array([round_vector(vec) for _, vec, _ in vectors.punchline_vectors]) if vectors.punchline_vectors else np.array([])
-            )
-            logger.info(f"Saved vectors for bit {bit_id}")
-        except (OSError, ValueError) as e:
-            logger.error(f"Error saving vectors for bit {bit_id}: {e}")
-            raise
+        return self.storage.save_bit_vectors(bit_id, vectors)
 
     def _save_indices(self):
         """Save FAISS indices to disk."""
-        try:
-            if self.full_index is not None:
-                faiss.write_index(self.full_index, os.path.join(self.indices_dir, 'full_index.faiss'))
-            if self.sentence_index is not None:
-                faiss.write_index(self.sentence_index, os.path.join(self.indices_dir, 'sentence_index.faiss'))
-            if self.ngram_index is not None:
-                faiss.write_index(self.ngram_index, os.path.join(self.indices_dir, 'ngram_index.faiss'))
-            if self.punchline_index is not None:
-                faiss.write_index(self.punchline_index, os.path.join(self.indices_dir, 'punchline_index.faiss'))
-            logger.info("Saved FAISS indices to disk")
-        except (OSError, RuntimeError) as e:
-            logger.error(f"Error saving indices: {e}")
-            raise
+        self.storage.save_indices({
+            'full': self.full_index,
+            'sentence': self.sentence_index,
+            'ngram': self.ngram_index,
+            'punchline': self.punchline_index
+        })
 
     def _add_bit_vectors_to_indices(self, bit_id: str, vectors: BitVectors):
         """Add a bit's vectors to the indices."""
@@ -265,27 +316,23 @@ class BitVectorDB:
                     for i, (p_text, _, _) in enumerate(vectors.punchline_vectors):
                         self.punchline_map[current_idx + i] = (bit_id, p_text)
 
-            # Save vector file
-            vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
-            np.savez(
-                vector_file,
-                full_vector=round_vector(vectors.full_vector),
-                sentence_vectors=np.array([round_vector(vec) for vec in vectors.sentence_vectors]) if vectors.sentence_vectors else np.array([]),
-                ngram_vectors=np.array([round_vector(vec) for _, vec in vectors.ngram_vectors]) if vectors.ngram_vectors else np.array([]),
-                punchline_vectors=np.array([round_vector(vec) for _, vec, _ in vectors.punchline_vectors]) if vectors.punchline_vectors else np.array([])
-            )
-
-            # Update registry
+            # Save vector file and update registry
+            vector_file = self.storage.save_bit_vectors(bit_id, vectors)
             if bit_id not in self.registry:
                 self.registry[bit_id] = {
                     'id': bit_id,
                     'vector_file': vector_file,
                     'added_at': datetime.now().isoformat()
                 }
-                self._save_registry()
+                self.storage.save_registry(self.registry)
 
             # Save indices
-            self._save_indices()
+            self.storage.save_indices({
+                'full': self.full_index,
+                'sentence': self.sentence_index,
+                'ngram': self.ngram_index,
+                'punchline': self.punchline_index
+            })
 
             logger.info(f"Successfully added vectors for bit: {bit_id}")
 
@@ -314,7 +361,7 @@ class BitVectorDB:
 
             for bit_id in self.registry:
                 try:
-                    vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
+                    vector_file = os.path.join(self.storage.vectors_dir, f"{bit_id}.npz")
                     if os.path.exists(vector_file):
                         with np.load(vector_file) as data:
                             # Add to full vector batch
@@ -378,12 +425,12 @@ class BitVectorDB:
             punchline_vectors = []
 
             # Load vectors from central DB
-            for file in os.listdir(self.central_vectors_dir):
+            for file in os.listdir(self.storage.vectors_dir):
                 if not file.endswith(".npz"):
                     continue
 
                 bit_id = os.path.splitext(file)[0]
-                vector_file = os.path.join(self.central_vectors_dir, file)
+                vector_file = os.path.join(self.storage.vectors_dir, file)
 
                 try:
                     # Load and round vectors
@@ -419,19 +466,19 @@ class BitVectorDB:
             # Add vectors to indices
             if full_vectors:
                 self.full_index.add(np.array(full_vectors))
-                faiss.write_index(self.full_index, os.path.join(self.indices_dir, "full_index.bin"))
+                faiss.write_index(self.full_index, os.path.join(self.storage.indices_dir, "full_index.bin"))
 
             if sentence_vectors:
                 self.sentence_index.add(np.array(sentence_vectors))
-                faiss.write_index(self.sentence_index, os.path.join(self.indices_dir, "sentence_index.bin"))
+                faiss.write_index(self.sentence_index, os.path.join(self.storage.indices_dir, "sentence_index.bin"))
 
             if ngram_vectors:
                 self.ngram_index.add(np.array(ngram_vectors))
-                faiss.write_index(self.ngram_index, os.path.join(self.indices_dir, "ngram_index.bin"))
+                faiss.write_index(self.ngram_index, os.path.join(self.storage.indices_dir, "ngram_index.bin"))
 
             if punchline_vectors:
                 self.punchline_index.add(np.array(punchline_vectors))
-                faiss.write_index(self.punchline_index, os.path.join(self.indices_dir, "punchline_index.bin"))
+                faiss.write_index(self.punchline_index, os.path.join(self.storage.indices_dir, "punchline_index.bin"))
 
             logger.info(f"Rebuilt FAISS indices with {len(full_vectors)} bits")
 
@@ -486,12 +533,9 @@ class BitVectorDB:
 
             # Update registry
             self.registry[bit_id] = bit_data
-            self._save_registry()
+            self.storage.save_registry(self.registry)
 
-            # Save vectors to file
-            self._save_bit_vectors(bit_id, vectors)
-
-            # Update indices
+            # Save vectors and update indices
             self._add_bit_vectors_to_indices(bit_id, vectors)
 
             logger.info(f"Added bit {bit_id} to database")
@@ -502,13 +546,8 @@ class BitVectorDB:
             # Clean up any partial saves
             if bit_id in self.registry:
                 del self.registry[bit_id]
-                self._save_registry()
-            vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
-            if os.path.exists(vector_file):
-                try:
-                    os.remove(vector_file)
-                except OSError:
-                    pass
+                self.storage.save_registry(self.registry)
+            self.storage.delete_bit_data(bit_id)
             raise
 
     def update_bit(self, bit_id: str, bit_data: Dict[str, Any], vectors: Optional[BitVectors] = None) -> bool:
@@ -523,6 +562,7 @@ class BitVectorDB:
                 'bit_info': bit_data.get('bit_info', {}),
                 'show_info': bit_data.get('show_info', {})
             })
+            self.storage.save_registry(self.registry)
 
             # Update vectors if provided
             if vectors is not None:
@@ -533,17 +573,8 @@ class BitVectorDB:
                         f"expected {self.dimension}, got {vectors.full_vector.shape[0]}"
                     )
 
-                # Save new vectors
-                vector_file = os.path.join(self.central_vectors_dir, f"{bit_id}.npz")
-                np.savez_compressed(
-                    vector_file,
-                    full_vector=round_vector(vectors.full_vector),
-                    sentence_vectors=[round_vector(vec) for vec in vectors.sentence_vectors],
-                    ngram_vectors=[round_vector(vec) for _, vec in vectors.ngram_vectors],
-                    punchline_vectors=[round_vector(vec) for _, vec, _ in vectors.punchline_vectors]
-                )
-
-                # Rebuild indices
+                # Save new vectors and rebuild indices
+                self.storage.save_bit_vectors(bit_id, vectors)
                 self._load_all_vectors()
 
             logger.info(f"Updated bit {bit_id}")
@@ -551,7 +582,7 @@ class BitVectorDB:
 
         except Exception as e:
             logger.error(f"Error updating bit {bit_id}: {e}")
-            return False
+            raise
 
     def compare(self, bit_data: Dict[str, Any], vectors: BitVectors) -> str:
         """
@@ -667,10 +698,10 @@ class BitVectorDB:
 
                 # Component weights - adjust these to change match importance
                 weights = {
-                    'full': BitVectorDBConfig.WEIGHTS['full_vector'],  # Increased weight for full vector
-                    'sent': BitVectorDBConfig.WEIGHTS['sentences'],
-                    'ngram': BitVectorDBConfig.WEIGHTS['ngrams'],  # Reduced n-gram weight
-                    'punch': BitVectorDBConfig.WEIGHTS['punchlines']
+                    'full': 0.45,  # Increased weight for full vector
+                    'sent': 0.30,
+                    'ngram': 0.15,  # Reduced n-gram weight
+                    'punch': 0.10
                 }
                 
                 # Thresholds for different components
