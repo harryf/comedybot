@@ -39,12 +39,12 @@ class BitVectorDBConfig:
     HARD_MATCH_THRESHOLD = 0.7
     SOFT_MATCH_THRESHOLD = 0.6
     
-    # Component weights for scoring
+    # Component weights for scoring - keys match usage in find_matching_bits
     WEIGHTS = {
-        'full_vector': 0.35,  # Reduced from 0.45 - less emphasis on general semantic similarity
-        'sentences': 0.40,    # Increased from 0.30 - more emphasis on specific sentence matches
-        'ngrams': 0.15,      # Keep same
-        'punchlines': 0.10    # Keep same
+        'full': 0.45,  # Weight for full vector comparison
+        'sent': 0.30,  # Weight for sentence matches
+        'ngram': 0.15, # Weight for n-gram matches
+        'punch': 0.10  # Weight for punchline matches
     }
     
     # Thresholds for different components
@@ -57,9 +57,10 @@ class BitVectorDBConfig:
     
     # Boost factors for strong component matches
     BOOST_FACTORS = {
-        'sentence_boost': 1.3,  # Increased from 1.2 - reward strong sentence matches more
-        'ngram_boost': 1.1,     # Reduced from 1.2 - less boost for n-gram matches
-        'punchline_boost': 1.2   # Keep same
+        'full': 1.3,    # Boost for strong full vector matches
+        'sent': 1.2,    # Boost for strong sentence matches
+        'ngram': 1.1,   # Boost for strong n-gram matches
+        'punch': 1.2    # Boost for strong punchline matches
     }
     
     # Search configuration
@@ -696,28 +697,22 @@ class BitVectorDB:
                                         float(p_dist)
                                     ))
 
-                # Component weights - adjust these to change match importance
-                weights = {
-                    'full': 0.45,  # Increased weight for full vector
-                    'sent': 0.30,
-                    'ngram': 0.15,  # Reduced n-gram weight
-                    'punch': 0.10
-                }
+                # Component weights - use config values
+                weights = dict(BitVectorDBConfig.WEIGHTS)
                 
-                # Thresholds for different components
-                thresholds = {
-                    'full_vector': BitVectorDBConfig.THRESHOLDS['full_vector'],   # Keep high to avoid false full matches
-                    'sentences': BitVectorDBConfig.THRESHOLDS['sentences'],     # Lower to catch subset matches better
-                    'ngrams': BitVectorDBConfig.THRESHOLDS['ngrams'],        # Increased from 1.0 to reduce false n-gram matches
-                    'punchlines': BitVectorDBConfig.THRESHOLDS['punchlines']     # Keep same
-                }
-                
-                # Boost factors for strong component matches
-                boost_factors = {
-                    'sentence_boost': BitVectorDBConfig.BOOST_FACTORS['sentence_boost'],  # Increased from 1.2 - reward strong sentence matches more
-                    'ngram_boost': BitVectorDBConfig.BOOST_FACTORS['ngram_boost'],     # Reduced from 1.2 - less boost for n-gram matches
-                    'punchline_boost': BitVectorDBConfig.BOOST_FACTORS['punchline_boost']   # Keep same
-                }
+                # Boost weights for strong component matches
+                if dist < BitVectorDBConfig.BOOST_THRESHOLDS['full_vector']:
+                    weights['full'] *= BitVectorDBConfig.BOOST_FACTORS['full']
+                if matching_sentences and all(s[2] < BitVectorDBConfig.BOOST_THRESHOLDS['sentences'] for s in matching_sentences):
+                    weights['sent'] *= BitVectorDBConfig.BOOST_FACTORS['sent']
+                if matching_ngrams and all(n[2] < BitVectorDBConfig.BOOST_THRESHOLDS['ngrams'] for n in matching_ngrams):
+                    weights['ngram'] *= BitVectorDBConfig.BOOST_FACTORS['ngram']
+                if matching_punchlines and all(p[2] < BitVectorDBConfig.BOOST_THRESHOLDS['punchlines'] for p in matching_punchlines):
+                    weights['punch'] *= BitVectorDBConfig.BOOST_FACTORS['punch']
+                    
+                # Normalize weights
+                total = sum(weights.values())
+                weights = {k: v/total for k, v in weights.items()}
                 
                 # Calculate component scores
                 full_score = 1 - dist
@@ -728,9 +723,9 @@ class BitVectorDB:
                     sent_scores.sort()
                     best_sent_scores = sent_scores[:min(3, len(sent_scores))]
                     # Weight earlier sentences more heavily
-                    weights = np.array([1.2, 1.0, 0.8])[:len(best_sent_scores)]
-                    weights = weights / weights.sum()
-                    sentence_score = 1 - np.average(best_sent_scores, weights=weights)
+                    position_weights = np.array([1.2, 1.0, 0.8])[:len(best_sent_scores)]
+                    position_weights = position_weights / position_weights.sum()
+                    sentence_score = 1 - np.average(best_sent_scores, weights=position_weights)
                 else:
                     sentence_score = 0
                 
@@ -751,28 +746,6 @@ class BitVectorDB:
                 else:
                     punchline_score = 0
 
-                # Calculate overall score with dynamic weighting
-                weights = {
-                    'full': 0.45,  # Increased weight for full vector
-                    'sent': 0.30,
-                    'ngram': 0.15,  # Reduced n-gram weight
-                    'punch': 0.10
-                }
-                
-                # Boost weights for strong component matches
-                if full_score > BitVectorDBConfig.BOOST_THRESHOLDS['full_vector']:  # More stringent full score requirement
-                    weights['full'] *= 1.3
-                if sentence_score > BitVectorDBConfig.BOOST_THRESHOLDS['sentences']:  # More stringent sentence score requirement
-                    weights['sent'] *= 1.2
-                if ngram_score > BitVectorDBConfig.BOOST_THRESHOLDS['ngrams']:
-                    weights['ngram'] *= 1.1
-                if punchline_score > BitVectorDBConfig.BOOST_THRESHOLDS['punchlines']:  # More stringent punchline requirement
-                    weights['punch'] *= 1.2
-                    
-                # Normalize weights
-                total = sum(weights.values())
-                weights = {k: v/total for k, v in weights.items()}
-                
                 # Calculate weighted score
                 overall_score = (
                     full_score * weights['full'] +
@@ -782,7 +755,10 @@ class BitVectorDB:
                 )
                 
                 # Boost score if we have multiple strong components
-                strong_components = sum(1 for score in [full_score, sentence_score, ngram_score, punchline_score] if score > BitVectorDBConfig.BOOST_THRESHOLDS['multi_component'])
+                strong_components = sum(1 for score in [
+                    full_score, sentence_score, ngram_score, punchline_score
+                ] if score > BitVectorDBConfig.BOOST_THRESHOLDS['multi_component'])
+                
                 if strong_components >= 2:
                     overall_score *= BitVectorDBConfig.MULTI_COMPONENT_BOOST
 
@@ -792,7 +768,7 @@ class BitVectorDB:
                 logger.info(f"- N-grams ({weights['ngram']:.2f}): {ngram_score:.3f}")
                 logger.info(f"- Punchlines ({weights['punch']:.2f}): {punchline_score:.3f}")
                 logger.info(f"- Overall: {overall_score:.3f}")
-
+                
                 match = BitMatch(
                     bit_id=bit_id,
                     title=bit_data.get('bit_info', {}).get('title', bit_id),
