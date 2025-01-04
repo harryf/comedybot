@@ -306,7 +306,10 @@ class BitComparisonTool(BaseModel):
                     'bit_info': bit,
                     'show_info': {'show_identifier': os.path.basename(directory_path)}
                 }
-                self.bit_database.add_to_database(bit_id, bit_data, vectors)
+                if (matches and len(matches) > 0 and matches[0].overall_score > HARD_MATCH_THRESHOLD):
+                    self.bit_database.add_to_database(bit_id, bit_data, vectors, matches[0])
+                else:
+                    self.bit_database.add_to_database(bit_id, bit_data, vectors)
                 logger.info(f"Added bit {bit_id} to database")
             except Exception as e:
                 logger.error(f"Error adding bit to database: {e}")

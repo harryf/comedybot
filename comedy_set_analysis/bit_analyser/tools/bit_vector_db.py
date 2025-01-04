@@ -639,7 +639,7 @@ class BitVectorDB:
         """
         return bit_id in self.registry
     
-    def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors) -> str:
+    def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors, match: Optional[BitMatch] = None) -> str:
         """Add a bit to the database."""
         try:
             # Generate bit ID if not provided
@@ -649,6 +649,22 @@ class BitVectorDB:
             # Update registry
             self.registry[bit_id] = bit_data
             self.storage.save_registry(self.registry)
+
+            # Update canonical bits mapping
+            canonical_bits = CanonicalBits(self.storage)
+
+            if match:
+                canonical_bits.add_bit(
+                    match.title,
+                    bit_id,
+                    match.bit_id
+                )
+            else:
+                canonical_bits.add_bit(
+                    bit_data['bit_info']['title'],
+                    bit_id
+                )
+            canonical_bits.save()
 
             # Save vectors and update indices
             self._add_bit_vectors_to_indices(bit_id, vectors)
