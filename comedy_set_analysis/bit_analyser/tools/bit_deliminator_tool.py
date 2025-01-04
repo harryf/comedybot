@@ -1,6 +1,9 @@
+import os, sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from base_tool import BaseTool
 from pydantic import Field
-import os, argparse, json, sys
+import argparse, json
 from openai import OpenAI
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv(), override=True)

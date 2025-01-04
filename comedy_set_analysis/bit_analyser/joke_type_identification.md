@@ -2,7 +2,7 @@
 
 The following is a list of common joke types, well known in standup comedy. With a comedy bit there may be multiple jokes with different types. These can be used to identify and add the joke types to the analysis of the bit.
 
-name: "Rule of Three"
+name: Rule of Three
 description: Setup where the first two items follow a pattern, and the third one surprises.
 example: "I love Italian food: pasta, pizza, depression."
 

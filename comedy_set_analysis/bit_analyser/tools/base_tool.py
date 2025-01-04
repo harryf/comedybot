@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class BaseTool(BaseModel, ABC):
     """
-    Custom BaseTool to replace dependency on agency_swarm.
+    Custom BaseTool
     Implements basic shared state handling and configuration defaults.
     """
     _shared_state: ClassVar[Any] = None
