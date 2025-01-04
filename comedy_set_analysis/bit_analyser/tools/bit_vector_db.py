@@ -25,35 +25,16 @@ from bit_vectors import BitVectors
 # Configure logging
 logger = logging.getLogger(__name__)
 
-# Constants
-VECTOR_PRECISION = 6  # Number of decimal places for vector rounding
-HARD_MATCH_THRESHOLD = 0.7
-SOFT_MATCH_THRESHOLD = 0.6
-
-def round_vector(vector: np.ndarray) -> np.ndarray:
-    """Round vector to consistent precision."""
-    return np.round(vector, VECTOR_PRECISION)
-
-# Matching thresholds
-
-
-class BitMatch(BaseModel):
-    """
-    Represents a matching bit from the database.
-    """
-    bit_id: str
-    title: str
-    overall_score: float
-    sentence_matches: List[Tuple[str, str, float]] = Field(default_factory=list)
-    ngram_matches: List[Tuple[str, str, float]] = Field(default_factory=list)
-    punchline_matches: List[Tuple[str, str, float]] = Field(default_factory=list)
-    show_info: Optional[Dict[str, Any]] = None
-    match_type: str = Field(default="exact")  # "exact", "soft", or "none"
-
-
-class BitVectorDB:
-    """Database for Comedy Bits with FAISS indexing."""
-
+class BitVectorDBConfig:
+    """Configuration constants for BitVectorDB."""
+    
+    # Vector precision
+    VECTOR_PRECISION = 6  # Number of decimal places for vector rounding
+    
+    # Match thresholds
+    HARD_MATCH_THRESHOLD = 0.7
+    SOFT_MATCH_THRESHOLD = 0.6
+    
     # Component weights for scoring
     WEIGHTS = {
         'full_vector': 0.35,  # Reduced from 0.45 - less emphasis on general semantic similarity
@@ -76,6 +57,57 @@ class BitVectorDB:
         'ngram_boost': 1.1,     # Reduced from 1.2 - less boost for n-gram matches
         'punchline_boost': 1.2   # Keep same
     }
+    
+    # Search configuration
+    SEARCH = {
+        'initial_candidates': 15,  # Number of initial candidates to consider
+        'sentence_candidates': 5,  # Number of sentence matches to consider per sentence
+        'ngram_candidates': 3,     # Number of n-gram matches to consider per n-gram
+        'punchline_candidates': 3  # Number of punchline matches to consider per punchline
+    }
+    
+    # Component-specific thresholds
+    COMPONENT_THRESHOLDS = {
+        'sentence': {
+            'early': 0.9,  # Threshold for early sentences
+            'late': 1.1    # Threshold for later sentences
+        },
+        'ngram': 0.9,      # Threshold for n-gram matches
+        'punchline': 1.1   # Threshold for punchline matches
+    }
+    
+    # Score boost thresholds
+    BOOST_THRESHOLDS = {
+        'full_vector': 0.75,
+        'sentences': 0.7,
+        'ngrams': 0.6,
+        'punchlines': 0.7,
+        'multi_component': 0.6  # Threshold for considering a component "strong"
+    }
+    
+    # Multi-component boost factor
+    MULTI_COMPONENT_BOOST = 1.2  # Boost factor when multiple components are strong
+
+def round_vector(vector: np.ndarray) -> np.ndarray:
+    """Round vector to consistent precision."""
+    return np.round(vector, BitVectorDBConfig.VECTOR_PRECISION)
+
+class BitMatch(BaseModel):
+    """
+    Represents a matching bit from the database.
+    """
+    bit_id: str
+    title: str
+    overall_score: float
+    sentence_matches: List[Tuple[str, str, float]] = Field(default_factory=list)
+    ngram_matches: List[Tuple[str, str, float]] = Field(default_factory=list)
+    punchline_matches: List[Tuple[str, str, float]] = Field(default_factory=list)
+    show_info: Optional[Dict[str, Any]] = None
+    match_type: str = Field(default="exact")  # "exact", "soft", or "none"
+
+
+class BitVectorDB:
+    """Database for Comedy Bits with FAISS indexing."""
 
     def __init__(self, dimension: int = 384, similarity_threshold: float = 0.7):
         """Initialize the bit database."""
@@ -535,12 +567,12 @@ class BitVectorDB:
         """
         matches = self.find_matching_bits(vectors)
 
-        if matches and matches[0].overall_score > HARD_MATCH_THRESHOLD:
+        if matches and matches[0].overall_score > BitVectorDBConfig.HARD_MATCH_THRESHOLD:
             # Use existing title
             return matches[0].title
 
         # Check for soft match
-        if matches and matches[0].overall_score > SOFT_MATCH_THRESHOLD:
+        if matches and matches[0].overall_score > BitVectorDBConfig.SOFT_MATCH_THRESHOLD:
             # Use existing title with soft match indication
             return f"{matches[0].title} (soft match)"
 
@@ -566,13 +598,13 @@ class BitVectorDB:
             logger.info(f"- Punchline index size: {self.punchline_index.ntotal}")
 
             # Get overall similarity with more candidates
-            D, I = self.full_index.search(query_full, 15)  # Search more candidates
+            D, I = self.full_index.search(query_full, BitVectorDBConfig.SEARCH['initial_candidates'])  # Search more candidates
             logger.info(f"Found {len(I[0])} initial matches")
 
             matches = []
             for dist, idx in zip(D[0], I[0]):
                 # Skip if distance is way too high
-                if dist > 1.2:  # More lenient initial threshold
+                if dist > BitVectorDBConfig.THRESHOLDS['full_vector']:  # More lenient initial threshold
                     logger.debug(f"Skipping match with distance {dist:.3f} (too high)")
                     continue
 
@@ -582,11 +614,11 @@ class BitVectorDB:
 
                 # Find matching sentences
                 matching_sentences = []
-                sent_D, sent_I = self.sentence_index.search(query_sentences, 5)
+                sent_D, sent_I = self.sentence_index.search(query_sentences, BitVectorDBConfig.SEARCH['sentence_candidates'])
                 
                 for query_idx, (sent_dists, sent_idxs) in enumerate(zip(sent_D, sent_I)):
                     # More stringent threshold for sentences
-                    sent_threshold = 0.9 if query_idx < 3 else 1.1
+                    sent_threshold = BitVectorDBConfig.COMPONENT_THRESHOLDS['sentence']['early'] if query_idx < 3 else BitVectorDBConfig.COMPONENT_THRESHOLDS['sentence']['late']
                     
                     for sent_dist, sent_idx in zip(sent_dists, sent_idxs):
                         if sent_dist < sent_threshold:
@@ -603,10 +635,10 @@ class BitVectorDB:
                 matching_ngrams = []
                 for i, (query_ng, query_vec) in enumerate(query_vectors.ngram_vectors):
                     query_vec = round_vector(query_vec).reshape(1, -1)
-                    ng_D, ng_I = self.ngram_index.search(query_vec, 3)
+                    ng_D, ng_I = self.ngram_index.search(query_vec, BitVectorDBConfig.SEARCH['ngram_candidates'])
                     
                     for ng_dist, ng_idx in zip(ng_D[0], ng_I[0]):
-                        if ng_dist < 0.9:  # More stringent n-gram threshold
+                        if ng_dist < BitVectorDBConfig.COMPONENT_THRESHOLDS['ngram']:  # More stringent n-gram threshold
                             if ng_idx in self.ngram_map:
                                 match_bit_id, match_ng = self.ngram_map[ng_idx]
                                 if match_bit_id == bit_id:
@@ -620,10 +652,10 @@ class BitVectorDB:
                 matching_punchlines = []
                 for query_p, query_vec, query_weight in query_vectors.punchline_vectors:
                     query_vec = round_vector(query_vec).reshape(1, -1)
-                    p_D, p_I = self.punchline_index.search(query_vec, 3)
+                    p_D, p_I = self.punchline_index.search(query_vec, BitVectorDBConfig.SEARCH['punchline_candidates'])
                     
                     for p_dist, p_idx in zip(p_D[0], p_I[0]):
-                        if p_dist < 1.1:  # Adjusted punchline threshold
+                        if p_dist < BitVectorDBConfig.COMPONENT_THRESHOLDS['punchline']:  # Adjusted punchline threshold
                             if p_idx in self.punchline_map:
                                 match_bit_id, match_p = self.punchline_map[p_idx]
                                 if match_bit_id == bit_id:
@@ -635,25 +667,25 @@ class BitVectorDB:
 
                 # Component weights - adjust these to change match importance
                 weights = {
-                    'full_vector': 0.45,  # Increased weight for full vector
-                    'sentences': 0.30,
-                    'ngrams': 0.15,  # Reduced n-gram weight
-                    'punchlines': 0.10
+                    'full': BitVectorDBConfig.WEIGHTS['full_vector'],  # Increased weight for full vector
+                    'sent': BitVectorDBConfig.WEIGHTS['sentences'],
+                    'ngram': BitVectorDBConfig.WEIGHTS['ngrams'],  # Reduced n-gram weight
+                    'punch': BitVectorDBConfig.WEIGHTS['punchlines']
                 }
                 
                 # Thresholds for different components
                 thresholds = {
-                    'full_vector': 1.2,   # Keep high to avoid false full matches
-                    'sentences': 0.8,     # Lower to catch subset matches better
-                    'ngrams': 1.2,        # Increased from 1.0 to reduce false n-gram matches
-                    'punchlines': 1.2     # Keep same
+                    'full_vector': BitVectorDBConfig.THRESHOLDS['full_vector'],   # Keep high to avoid false full matches
+                    'sentences': BitVectorDBConfig.THRESHOLDS['sentences'],     # Lower to catch subset matches better
+                    'ngrams': BitVectorDBConfig.THRESHOLDS['ngrams'],        # Increased from 1.0 to reduce false n-gram matches
+                    'punchlines': BitVectorDBConfig.THRESHOLDS['punchlines']     # Keep same
                 }
                 
                 # Boost factors for strong component matches
                 boost_factors = {
-                    'sentence_boost': 1.3,  # Increased from 1.2 - reward strong sentence matches more
-                    'ngram_boost': 1.1,     # Reduced from 1.2 - less boost for n-gram matches
-                    'punchline_boost': 1.2   # Keep same
+                    'sentence_boost': BitVectorDBConfig.BOOST_FACTORS['sentence_boost'],  # Increased from 1.2 - reward strong sentence matches more
+                    'ngram_boost': BitVectorDBConfig.BOOST_FACTORS['ngram_boost'],     # Reduced from 1.2 - less boost for n-gram matches
+                    'punchline_boost': BitVectorDBConfig.BOOST_FACTORS['punchline_boost']   # Keep same
                 }
                 
                 # Calculate component scores
@@ -697,13 +729,13 @@ class BitVectorDB:
                 }
                 
                 # Boost weights for strong component matches
-                if full_score > 0.75:  # More stringent full score requirement
+                if full_score > BitVectorDBConfig.BOOST_THRESHOLDS['full_vector']:  # More stringent full score requirement
                     weights['full'] *= 1.3
-                if sentence_score > 0.7:  # More stringent sentence score requirement
+                if sentence_score > BitVectorDBConfig.BOOST_THRESHOLDS['sentences']:  # More stringent sentence score requirement
                     weights['sent'] *= 1.2
-                if ngram_score > 0.6:
+                if ngram_score > BitVectorDBConfig.BOOST_THRESHOLDS['ngrams']:
                     weights['ngram'] *= 1.1
-                if punchline_score > 0.7:  # More stringent punchline requirement
+                if punchline_score > BitVectorDBConfig.BOOST_THRESHOLDS['punchlines']:  # More stringent punchline requirement
                     weights['punch'] *= 1.2
                     
                 # Normalize weights
@@ -719,9 +751,9 @@ class BitVectorDB:
                 )
                 
                 # Boost score if we have multiple strong components
-                strong_components = sum(1 for score in [full_score, sentence_score, ngram_score, punchline_score] if score > 0.6)
+                strong_components = sum(1 for score in [full_score, sentence_score, ngram_score, punchline_score] if score > BitVectorDBConfig.BOOST_THRESHOLDS['multi_component'])
                 if strong_components >= 2:
-                    overall_score *= 1.2
+                    overall_score *= BitVectorDBConfig.MULTI_COMPONENT_BOOST
 
                 logger.info(f"Match scores for {bit_id}:")
                 logger.info(f"- Full vector ({weights['full']:.2f}): {full_score:.3f}")
@@ -738,7 +770,7 @@ class BitVectorDB:
                     ngram_matches=matching_ngrams,
                     punchline_matches=matching_punchlines,
                     show_info=bit_data.get('show_info'),
-                    match_type="exact" if overall_score > 0.7 else "soft"
+                    match_type="exact" if overall_score > BitVectorDBConfig.HARD_MATCH_THRESHOLD else "soft"
                 )
                 matches.append(match)
 
@@ -759,4 +791,3 @@ class BitVectorDB:
         # Load vectors and build indices
         self._load_all_vectors()
         logger.info(f"Loaded vectors for {len(self.registry)} bits")
-
