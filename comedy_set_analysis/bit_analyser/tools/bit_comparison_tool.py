@@ -243,8 +243,14 @@ class BitComparisonTool(BaseModel):
             if not bit_title:
                 logger.warning("Missing bit title")
                 return
-                
-            logger.info(f"\nProcessing bit: {bit_title}")
+
+            bit_id = f"{os.path.basename(directory_path)}_{bit_title.lower().replace(' ', '_')}"
+
+            logger.info(f"\nProcessing bit: {bit_title} ({bit_id})")
+
+            if self.bit_database.has_bit(bit_id):
+                logger.warning(f"Bit {bit_id} already exists in database")
+                return
             
             # Get bit text from transcript
             try:
@@ -262,11 +268,7 @@ class BitComparisonTool(BaseModel):
                 if vectors is None:
                     logger.warning(f"Failed to generate vectors for bit: {bit_title}")
                     return
-                logger.info("Successfully generated vectors:")
-                logger.info(f"- Full vector: {vectors.full_vector.shape}")
-                logger.info(f"- Sentences: {len(vectors.sentence_vectors)}")
-                logger.info(f"- N-grams: {len(vectors.ngram_vectors)}")
-                logger.info(f"- Punchlines: {len(vectors.punchline_vectors)}")
+
             except Exception as e:
                 logger.error(f"Error processing bit text: {e}")
                 return
@@ -300,7 +302,6 @@ class BitComparisonTool(BaseModel):
             
             # Add bit to database if no strong match found
             try:
-                bit_id = f"{os.path.basename(directory_path)}_{bit_title.lower().replace(' ', '_')}"
                 bit_data = {
                     'bit_info': bit,
                     'show_info': {'show_identifier': os.path.basename(directory_path)}

@@ -103,6 +103,7 @@ class BitStorageManager:
         self.vectors_dir = os.path.join(self.base_dir, 'vectors/')
         self.indices_dir = os.path.join(self.base_dir, 'indices/')
         self.registry_file = os.path.join(self.base_dir, 'bit_registry.json')
+        self.canonical_bits_file = os.path.join(self.base_dir, 'canonical_bits.json')
         self._init_directories()
 
     def _init_directories(self):
@@ -195,6 +196,108 @@ class BitStorageManager:
         except OSError as e:
             logger.error(f"Error deleting bit data for {bit_id}: {e}")
             raise
+
+    def load_canonical_bits(self) -> Dict[str, List[str]]:
+        """Load canonical bits mapping from file.
+        
+        Returns:
+            Dict mapping canonical bit names to lists of bit IDs.
+            Example:
+            {
+                "Not Breeding": [
+                    "20241102_The_Comedy_Clubhouse_not_breeding",
+                    "20241231_Skyline_Conedy_not_breeding"
+                ]
+            }
+        """
+        try:
+            if os.path.exists(self.canonical_bits_file):
+                with open(self.canonical_bits_file, 'r') as f:
+                    return json.load(f)
+            return {}
+        except FileNotFoundError:
+            logger.error(f"Canonical bits file not found: {self.canonical_bits_file}")
+            return {}
+        except json.JSONDecodeError as e:
+            logger.error(f"Error parsing canonical bits file: {e}")
+            return {}
+        except PermissionError:
+            logger.error(f"Permission denied accessing canonical bits file: {self.canonical_bits_file}")
+            return {}
+
+    def save_canonical_bits(self, canonical_bits: Dict[str, List[str]]):
+        """Save canonical bits mapping to file.
+        
+        Args:
+            canonical_bits: Dict mapping canonical bit names to lists of bit IDs.
+            Example:
+            {
+                "Not Breeding": [
+                    "20241102_The_Comedy_Clubhouse_not_breeding",
+                    "20241231_Skyline_Conedy_not_breeding"
+                ]
+            }
+        """
+        try:
+            with open(self.canonical_bits_file, 'w') as f:
+                json.dump(canonical_bits, f, indent=2)
+            logger.info("Saved canonical bits mapping")
+        except (OSError, IOError) as e:
+            logger.error(f"Error saving canonical bits: {e}")
+            raise
+
+class CanonicalBits:
+    """Manages the mapping of canonical bit names to their various versions."""
+
+    def __init__(self, storage_manager: BitStorageManager):
+        """Initialize with a storage manager instance."""
+        self.storage = storage_manager
+        self.canonical_map = self.storage.load_canonical_bits()
+
+    def save(self):
+        """Save the current canonical bits mapping to storage."""
+        self.storage.save_canonical_bits(self.canonical_map)
+
+    def add_bit(self, bit_title: str, bit_id: str, matching_bit_id: Optional[str] = None):
+        """Add a bit to the canonical mapping.
+        
+        Args:
+            bit_title: The title of the bit to add
+            bit_id: The ID of the bit to add
+            matching_bit_id: Optional ID of a matching bit to group with
+        
+        The method follows these steps:
+        1. If bit_id already exists anywhere in the mapping, return
+        2. If bit_title exists as a key, add bit_id to its list
+        3. If matching_bit_id is provided and exists, add bit_id to that bit's group
+        4. If none of the above, create a new entry with bit_title as key
+        """
+        # Check if bit_id already exists anywhere
+        for bit_ids in self.canonical_map.values():
+            if bit_id in bit_ids:
+                logger.info(f"Bit ID {bit_id} already exists in canonical mapping")
+                return
+
+        # Check if bit_title exists as a key
+        if bit_title in self.canonical_map:
+            self.canonical_map[bit_title].append(bit_id)
+            logger.info(f"Added {bit_id} to existing canonical title '{bit_title}'")
+            return
+
+        # If matching_bit_id provided, look for it
+        if matching_bit_id is not None:
+            for title, bit_ids in self.canonical_map.items():
+                if matching_bit_id in bit_ids:
+                    bit_ids.append(bit_id)
+                    logger.info(f"Added {bit_id} to group with matching bit {matching_bit_id}")
+                    return
+
+        # Create new entry
+        new_bits = [bit_id]
+        if matching_bit_id is not None:
+            new_bits.append(matching_bit_id)
+        self.canonical_map[bit_title] = new_bits
+        logger.info(f"Created new canonical entry '{bit_title}' with bits {new_bits}")
 
 class BitMatch(BaseModel):
     """
@@ -524,6 +627,17 @@ class BitVectorDB:
         self.sentence_index = None
         self.ngram_index = None
         self.punchline_index = None
+
+    def has_bit(self, bit_id: str) -> bool:
+        """Check if a bit ID exists in the registry.
+        
+        Args:
+            bit_id: The ID of the bit to check
+            
+        Returns:
+            True if the bit exists in the registry, False otherwise
+        """
+        return bit_id in self.registry
     
     def add_to_database(self, bit_id: str, bit_data: Dict[str, Any], vectors: BitVectors) -> str:
         """Add a bit to the database."""
@@ -798,3 +912,4 @@ class BitVectorDB:
         # Load vectors and build indices
         self._load_all_vectors()
         logger.info(f"Loaded vectors for {len(self.registry)} bits")
+
