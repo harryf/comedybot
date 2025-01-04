@@ -645,6 +645,10 @@ class BitVectorDB:
             # Generate bit ID if not provided
             if not bit_id:
                 bit_id = self._generate_bit_id(bit_data)
+            
+            if bit_id in self.registry:
+                logger.warning(f"Bit {bit_id} already exists in database")
+                return
 
             # Update registry
             self.registry[bit_id] = bit_data
