@@ -29,7 +29,7 @@ title: Comedy Bot
   </div> -->
 
   <div class="recent-shows">
-    <h2>Recent Shows</h2>
+    <h1 align="center">Recent Shows</h1>
     <div class="show-list">
       {% for show in site.data.shows %}
         <div class="show-card">

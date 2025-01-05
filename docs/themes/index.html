@@ -30,9 +30,9 @@ title: Comedy Themes
                 <a href="{{ site.baseurl }}/bits/{{ bit_id }}">
                   {{ canonical_name }}
                   <div class="bit-details">
-                    <span class="bit-date">{{ bit.show_info.date_of_show }}</span>
-                    <span class="bit-length">{{ minutes }}:{% if seconds < 10 %}0{% endif %}{{ seconds }}</span>
-                    <span class="bit-lpm">LPM: {{ bit.show_info.lpm }}</span>
+                    <span class="bit-date"><i class="fas fa-calendar-alt"></i> {{ bit.show_info.date_of_show }}</span>
+                    <span class="bit-length"><i class="fas fa-clock"></i> {{ minutes }}:{% if seconds < 10 %}0{% endif %}{{ seconds }}</span>
+                    <span class="bit-lpm"><i class="fas fa-bolt"></i> {{ bit.show_info.lpm }}</span>
                   </div>
                 </a>
               </li>
