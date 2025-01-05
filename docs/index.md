@@ -13,6 +13,11 @@ title: Comedy Bot
 
   <div class="section-links">
     <div class="section-card">
+      <h2><a href="{{ site.baseurl }}/bits/">Comedy Bits</a></h2>
+      <p>View all comedy bits chronologically, with performance dates and venues.</p>
+    </div>
+    
+    <div class="section-card">
       <h2><a href="{{ site.baseurl }}/themes/">Themes</a></h2>
       <p>Browse bits by theme, such as Cultural Differences, Family Life, and more.</p>
     </div>
@@ -20,11 +25,6 @@ title: Comedy Bot
     <div class="section-card">
       <h2><a href="{{ site.baseurl }}/joke-types/">Joke Types</a></h2>
       <p>Explore different styles of comedy, from Wordplay to Observational humor.</p>
-    </div>
-
-    <div class="section-card">
-      <h2><a href="{{ site.baseurl }}/bits/">Comedy Bits</a></h2>
-      <p>View all comedy bits chronologically, with performance dates and venues.</p>
     </div>
   </div>
 
