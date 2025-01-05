@@ -33,23 +33,34 @@ title: Comedy Bot
     <div class="show-list">
       {% for show in site.data.shows %}
         <div class="show-card">
-          <a href="{{ site.baseurl }}/player/{{ show.folder }}" class="show-link">
+          <div>
             <h3>{{ show.name_of_show }}</h3>
             <ul class="show-details">
-              <li class="comedian">{{ show.date_of_show }} - {{ show.comedian }}</li>
+              <li class="comedian">
+                <i class="fas fa-calendar-alt"></i>
+                {{ show.date_of_show }} - {{ show.comedian }}
+              </li>
               <li class="venue">
+                <i class="fas fa-map-marker-alt"></i>
                 {% if show.link_to_venue_on_google_maps %}
                   <a href="{{ show.link_to_venue_on_google_maps }}" target="_blank" class="venue-link">
-                    {{ show.name_of_venue }} 📍
+                    {{ show.name_of_venue }}
                   </a>
                 {% else %}
                   {{ show.name_of_venue }}
                 {% endif %}
               </li>
               {% if show.notes %}
-                <li class="notes">{{ show.notes }}</li>
+                <li class="notes">
+                  <i class="fas fa-info-circle"></i>
+                  {{ show.notes }}
+                </li>
               {% endif %}
             </ul>
+          </div>
+          <a href="{{ site.baseurl }}/player/{{ show.folder }}" class="listen-button mt-4">
+            <i class="fas fa-headphones"></i>
+            Listen to Show
           </a>
         </div>
       {% endfor %}
@@ -196,6 +207,19 @@ title: Comedy Bot
 .notes {
   color: #95a5a6 !important;
   font-style: italic;
+}
+
+.listen-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.listen-button:hover {
+  background-color: #2e6da4;
 }
 
 @media (max-width: 992px) {

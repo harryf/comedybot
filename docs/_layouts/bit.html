@@ -12,12 +12,14 @@ layout: default
   <h1>{{ page.canonical_name }}</h1>
 
   <div class="bit-metadata">
-    <p><strong>Date:</strong> {{ bit_data.show_info.date_of_show }}</p>
-    <p><strong>Venue:</strong> {{ bit_data.show_info.name_of_venue }}</p>
-    <p><strong>Length:</strong> {{ minutes }}:{% if seconds < 10 %}0{% endif %}{{ seconds }}</p>
-    <p><strong>LPM:</strong> {{ bit_data.show_info.lpm }}</p>
+    <p><i class="fas fa-calendar-alt"></i> <strong>Date:</strong> {{ bit_data.show_info.date_of_show }}</p>
+    <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> {{ bit_data.show_info.name_of_venue }}</p>
+    <p><i class="fas fa-clock"></i> <strong>Length:</strong> {{ minutes }}:{% if seconds < 10 %}0{% endif %}{{ seconds }}</p>
+    <p><i class="fas fa-chart-line"></i> <strong>LPM:</strong> {{ bit_data.show_info.lpm }}</p>
     <p>
-      <a href="{{ site.baseurl }}/player/{{ bit_data.show_info.show_identifier }}/#t={{ bit_data.bit_info.start }}">
+      <a href="{{ site.baseurl }}/player/{{ bit_data.show_info.show_identifier }}/#t={{ bit_data.bit_info.start }}"
+         class="listen-button mt-4">
+        <i class="fas fa-headphones"></i>
         Listen to this bit
       </a>
     </p>
