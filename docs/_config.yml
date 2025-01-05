@@ -1,5 +1,5 @@
-title: Comedy Transcripts
-description: Audio transcripts from comedy shows
+title: Comedy Bot
+description: automated audio transcripts from comedy shows
 baseurl: "/comedybot" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol, leave empty for GitHub Pages
 
