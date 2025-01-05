@@ -54,6 +54,10 @@ def check_time_gaps(bits_data):
     gaps = []
     
     items = bits_data.get("items", [])
+
+    if not items:
+        return False, "No bits found in response"
+    
     for i in range(len(items) - 1):
         current_bit = items[i]
         next_bit = items[i + 1]
