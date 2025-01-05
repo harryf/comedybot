@@ -501,7 +501,7 @@ class BitVectorDB:
         """Add a bit's vectors to the indices."""
         try:
             # Normalize and reshape vectors
-            full_vector = round_vector(vectors.full_vector).reshape(1, -1)
+            full_vector = round_vector(vectors.full_vector).reshape(1, -1).astype(np.float32)
             faiss.normalize_L2(full_vector)
 
             # Add to indices
@@ -510,7 +510,7 @@ class BitVectorDB:
 
             # Add sentence vectors if available
             if vectors.sentence_vectors:
-                sentence_vectors = np.array([round_vector(vec) for vec in vectors.sentence_vectors])
+                sentence_vectors = np.array([round_vector(vec) for vec in vectors.sentence_vectors], dtype=np.float32)
                 sentence_vectors = sentence_vectors.reshape(len(sentence_vectors), -1)
                 faiss.normalize_L2(sentence_vectors)
                 if self.sentence_index is not None:
@@ -522,7 +522,7 @@ class BitVectorDB:
 
             # Add ngram vectors if available
             if vectors.ngram_vectors:
-                ngram_vectors = np.array([round_vector(vec) for _, vec in vectors.ngram_vectors])
+                ngram_vectors = np.array([round_vector(vec) for _, vec in vectors.ngram_vectors], dtype=np.float32)
                 ngram_vectors = ngram_vectors.reshape(len(ngram_vectors), -1)
                 faiss.normalize_L2(ngram_vectors)
                 if self.ngram_index is not None:
@@ -534,7 +534,7 @@ class BitVectorDB:
 
             # Add punchline vectors if available
             if vectors.punchline_vectors:
-                punchline_vectors = np.array([round_vector(vec) for _, vec, _ in vectors.punchline_vectors])
+                punchline_vectors = np.array([round_vector(vec) for _, vec, _ in vectors.punchline_vectors],dtype=np.float32)
                 punchline_vectors = punchline_vectors.reshape(len(punchline_vectors), -1)
                 faiss.normalize_L2(punchline_vectors)
                 if self.punchline_index is not None:
@@ -587,13 +587,19 @@ class BitVectorDB:
                 bit_id = os.path.splitext(vector_file)[0]
                 try:
                     with np.load(os.path.join(self.storage.vectors_dir, vector_file)) as data:
+
+                        # Convert to float32, normalize
+                        full_vec = round_vector(data['full_vector']).astype(np.float32).reshape(1, -1)
+                        faiss.normalize_L2(full_vec)
+
                         # Add to full vector batch
-                        vectors_batch.append(round_vector(data['full_vector']))
+                        vectors_batch.append(full_vec[0])  # pass as 1D array if you want batch
                         ids_batch.append(bit_id)
-                        
+
                         # Add to sentence index
                         if 'sentence_vectors' in data and len(data['sentence_vectors']) > 0:
-                            sentence_vectors = data['sentence_vectors']
+                            sentence_vectors = data['sentence_vectors'].astype(np.float32)
+                            faiss.normalize_L2(sentence_vectors)
                             current_idx = self.sentence_index.ntotal
                             self.sentence_index.add(sentence_vectors)
                             for i, sent_vec in enumerate(sentence_vectors):
@@ -601,7 +607,8 @@ class BitVectorDB:
                         
                         # Add to ngram index
                         if 'ngram_vectors' in data and len(data['ngram_vectors']) > 0:
-                            ngram_vectors = data['ngram_vectors']
+                            ngram_vectors = data['ngram_vectors'].astype(np.float32)
+                            faiss.normalize_L2(ngram_vectors)
                             current_idx = self.ngram_index.ntotal
                             self.ngram_index.add(ngram_vectors)
                             for i in range(len(ngram_vectors)):
@@ -609,7 +616,8 @@ class BitVectorDB:
                         
                         # Add to punchline index
                         if 'punchline_vectors' in data and len(data['punchline_vectors']) > 0:
-                            punchline_vectors = data['punchline_vectors']
+                            punchline_vectors = data['punchline_vectors'].astype(np.float32)
+                            faiss.normalize_L2(punchline_vectors)
                             current_idx = self.punchline_index.ntotal
                             self.punchline_index.add(punchline_vectors)
                             for i in range(len(punchline_vectors)):
@@ -619,7 +627,7 @@ class BitVectorDB:
                             self._add_vectors_batch(vectors_batch, ids_batch)
                             vectors_batch = []
                             ids_batch = []
-                except (np.lib.format.FormatError, OSError) as e:
+                except (ValueError, OSError) as e:
                     logger.error(f"Error loading vectors for bit {bit_id}: {e}")
                     continue
 
@@ -715,12 +723,9 @@ class BitVectorDB:
             return
 
         # Stack vectors and normalize
-        vectors_array = np.stack(vectors)
+        vectors_array = np.stack(vectors).astype(np.float32)
         faiss.normalize_L2(vectors_array)
-
-        # Add to indices
         self.full_index.add(vectors_array)
-        # Add to other indices as needed...
 
     def _generate_bit_id(self, bit_data: Dict[str, Any]) -> str:
         """Generate a unique bit ID."""
@@ -813,11 +818,12 @@ class BitVectorDB:
         """Find matching bits using multi-level comparison."""
         try:
             logger.info("Starting bit matching...")
-            
+
             # Round query vectors for consistency
-            query_full = round_vector(query_vectors.full_vector).reshape(1, -1)
-            query_sentences = np.array([round_vector(vec) for vec in query_vectors.sentence_vectors])
-            
+            query_full = round_vector(query_vectors.full_vector).reshape(1, -1).astype(np.float32)
+            faiss.normalize_L2(query_full)
+            query_sentences = [round_vector(vec) for vec in query_vectors.sentence_vectors]
+
             # Log index stats
             logger.info(f"Database stats:")
             logger.info(f"- Total bits in registry: {len(self.registry)}")
@@ -826,47 +832,58 @@ class BitVectorDB:
             logger.info(f"- N-gram index size: {self.ngram_index.ntotal}")
             logger.info(f"- Punchline index size: {self.punchline_index.ntotal}")
 
-            # Get overall similarity with more candidates
-            D, I = self.full_index.search(query_full, BitVectorDBConfig.SEARCH['initial_candidates'])  # Search more candidates
+            # 1) Full-index search to find initial candidates
+            D, I = self.full_index.search(query_full.astype(np.float32), BitVectorDBConfig.SEARCH['initial_candidates'])
             logger.info(f"Found {len(I[0])} initial matches")
 
             matches = []
             for dist, idx in zip(D[0], I[0]):
                 # Skip if distance is way too high
-                if dist > BitVectorDBConfig.THRESHOLDS['full_vector']:  # More lenient initial threshold
+                if dist > BitVectorDBConfig.THRESHOLDS['full_vector']:
                     logger.debug(f"Skipping match with distance {dist:.3f} (too high)")
                     continue
 
+                # Determine which bit_id corresponds to this index
                 bit_id = list(self.registry.keys())[idx]
                 logger.info(f"\nChecking match: {bit_id} (distance: {dist:.3f})")
 
-                # Find matching sentences
+                # 2) Sentence-level search (only if we actually have sentences)
                 matching_sentences = []
-                sent_D, sent_I = self.sentence_index.search(query_sentences, BitVectorDBConfig.SEARCH['sentence_candidates'])
-                
-                for query_idx, (sent_dists, sent_idxs) in enumerate(zip(sent_D, sent_I)):
-                    # More stringent threshold for sentences
-                    sent_threshold = BitVectorDBConfig.COMPONENT_THRESHOLDS['sentence']['early'] if query_idx < 3 else BitVectorDBConfig.COMPONENT_THRESHOLDS['sentence']['late']
-                    
-                    for sent_dist, sent_idx in zip(sent_dists, sent_idxs):
-                        if sent_dist < sent_threshold:
-                            if sent_idx in self.sentence_map:
-                                match_bit_id, match_sent = self.sentence_map[sent_idx]
-                                if match_bit_id == bit_id:
-                                    matching_sentences.append((
-                                        str(query_vectors.sentence_vectors[query_idx]),
-                                        str(match_sent),
-                                        float(sent_dist)
-                                    ))
+                if len(query_sentences) > 0:
+                    # Convert query_sentences to a proper 2D array: (num_sentences, dimension)
+                    query_sentences_arr = np.array(query_sentences, dtype=np.float32).reshape(-1, self.dimension)
+                    faiss.normalize_L2(query_sentences_arr)
+                    sent_D, sent_I = self.sentence_index.search(
+                        query_sentences_arr,
+                        BitVectorDBConfig.SEARCH['sentence_candidates']
+                    )
 
-                # Find matching n-grams
+                    for query_idx, (sent_dists, sent_idxs) in enumerate(zip(sent_D, sent_I)):
+                        # More stringent threshold for earlier sentences
+                        sent_threshold = (
+                            BitVectorDBConfig.COMPONENT_THRESHOLDS['sentence']['early']
+                            if query_idx < 3
+                            else BitVectorDBConfig.COMPONENT_THRESHOLDS['sentence']['late']
+                        )
+                        for sent_dist, sent_idx in zip(sent_dists, sent_idxs):
+                            if sent_dist < sent_threshold:
+                                if sent_idx in self.sentence_map:
+                                    match_bit_id, match_sent = self.sentence_map[sent_idx]
+                                    if match_bit_id == bit_id:
+                                        matching_sentences.append((
+                                            str(query_vectors.sentence_vectors[query_idx]),
+                                            str(match_sent),
+                                            float(sent_dist)
+                                        ))
+
+                # 3) N-gram matching
                 matching_ngrams = []
-                for i, (query_ng, query_vec) in enumerate(query_vectors.ngram_vectors):
-                    query_vec = round_vector(query_vec).reshape(1, -1)
+                for (query_ng, query_vec) in query_vectors.ngram_vectors:
+                    query_vec = round_vector(query_vec).reshape(1, -1).astype(np.float32)
+                    faiss.normalize_L2(query_vec)
                     ng_D, ng_I = self.ngram_index.search(query_vec, BitVectorDBConfig.SEARCH['ngram_candidates'])
-                    
                     for ng_dist, ng_idx in zip(ng_D[0], ng_I[0]):
-                        if ng_dist < BitVectorDBConfig.COMPONENT_THRESHOLDS['ngram']:  # More stringent n-gram threshold
+                        if ng_dist < BitVectorDBConfig.COMPONENT_THRESHOLDS['ngram']:
                             if ng_idx in self.ngram_map:
                                 match_bit_id, match_ng = self.ngram_map[ng_idx]
                                 if match_bit_id == bit_id:
@@ -876,14 +893,14 @@ class BitVectorDB:
                                         float(ng_dist)
                                     ))
 
-                # Find matching punchlines
+                # 4) Punchline matching
                 matching_punchlines = []
-                for query_p, query_vec, query_weight in query_vectors.punchline_vectors:
-                    query_vec = round_vector(query_vec).reshape(1, -1)
+                for (query_p, query_vec, query_weight) in query_vectors.punchline_vectors:
+                    query_vec = round_vector(query_vec).reshape(1, -1).astype(np.float32)
+                    faiss.normalize_L2(query_vec)
                     p_D, p_I = self.punchline_index.search(query_vec, BitVectorDBConfig.SEARCH['punchline_candidates'])
-                    
                     for p_dist, p_idx in zip(p_D[0], p_I[0]):
-                        if p_dist < BitVectorDBConfig.COMPONENT_THRESHOLDS['punchline']:  # Adjusted punchline threshold
+                        if p_dist < BitVectorDBConfig.COMPONENT_THRESHOLDS['punchline']:
                             if p_idx in self.punchline_map:
                                 match_bit_id, match_p = self.punchline_map[p_idx]
                                 if match_bit_id == bit_id:
@@ -893,10 +910,10 @@ class BitVectorDB:
                                         float(p_dist)
                                     ))
 
-                # Component weights - use config values
+                # Weighting logic for each component
                 weights = dict(BitVectorDBConfig.WEIGHTS)
-                
-                # Boost weights for strong component matches
+
+                # Boost weights if strong
                 if dist < BitVectorDBConfig.BOOST_THRESHOLDS['full_vector']:
                     weights['full'] *= BitVectorDBConfig.BOOST_FACTORS['full']
                 if matching_sentences and all(s[2] < BitVectorDBConfig.BOOST_THRESHOLDS['sentences'] for s in matching_sentences):
@@ -905,56 +922,46 @@ class BitVectorDB:
                     weights['ngram'] *= BitVectorDBConfig.BOOST_FACTORS['ngram']
                 if matching_punchlines and all(p[2] < BitVectorDBConfig.BOOST_THRESHOLDS['punchlines'] for p in matching_punchlines):
                     weights['punch'] *= BitVectorDBConfig.BOOST_FACTORS['punch']
-                    
+
                 # Normalize weights
                 total = sum(weights.values())
                 weights = {k: v/total for k, v in weights.items()}
-                
+
                 # Calculate component scores
                 full_score = 1 - dist
-                
-                # Sentence score focuses on best matches with position weighting
+                sentence_score = 0
                 if matching_sentences:
-                    sent_scores = [s[2] for s in matching_sentences]
-                    sent_scores.sort()
+                    sent_scores = sorted(s[2] for s in matching_sentences)
                     best_sent_scores = sent_scores[:min(3, len(sent_scores))]
                     # Weight earlier sentences more heavily
                     position_weights = np.array([1.2, 1.0, 0.8])[:len(best_sent_scores)]
-                    position_weights = position_weights / position_weights.sum()
+                    position_weights /= position_weights.sum()
                     sentence_score = 1 - np.average(best_sent_scores, weights=position_weights)
-                else:
-                    sentence_score = 0
-                
-                # N-gram score weighted by position
+
+                ngram_score = 0
                 if matching_ngrams:
-                    ng_scores = [n[2] for n in matching_ngrams]
-                    ng_scores.sort()
+                    ng_scores = sorted(n[2] for n in matching_ngrams)
                     best_ng_scores = ng_scores[:min(2, len(ng_scores))]
                     ngram_score = 1 - np.mean(best_ng_scores)
-                else:
-                    ngram_score = 0
-                
-                # Punchline score emphasizes best match
-                if matching_punchlines:
-                    punch_scores = [p[2] for p in matching_punchlines]
-                    punch_scores.sort()
-                    punchline_score = 1 - punch_scores[0]  # Best match only
-                else:
-                    punchline_score = 0
 
-                # Calculate weighted score
+                punchline_score = 0
+                if matching_punchlines:
+                    punch_scores = sorted(p[2] for p in matching_punchlines)
+                    punchline_score = 1 - punch_scores[0]  # best match only
+
+                # Weighted score
                 overall_score = (
                     full_score * weights['full'] +
                     sentence_score * weights['sent'] +
                     ngram_score * weights['ngram'] +
                     punchline_score * weights['punch']
                 )
-                
-                # Boost score if we have multiple strong components
-                strong_components = sum(1 for score in [
-                    full_score, sentence_score, ngram_score, punchline_score
-                ] if score > BitVectorDBConfig.BOOST_THRESHOLDS['multi_component'])
-                
+
+                # Boost if multiple strong components
+                strong_components = sum(
+                    1 for score in (full_score, sentence_score, ngram_score, punchline_score)
+                    if score > BitVectorDBConfig.BOOST_THRESHOLDS['multi_component']
+                )
                 if strong_components >= 2:
                     overall_score *= BitVectorDBConfig.MULTI_COMPONENT_BOOST
 
@@ -964,10 +971,15 @@ class BitVectorDB:
                 logger.info(f"- N-grams ({weights['ngram']:.2f}): {ngram_score:.3f}")
                 logger.info(f"- Punchlines ({weights['punch']:.2f}): {punchline_score:.3f}")
                 logger.info(f"- Overall: {overall_score:.3f}")
-                
+
+                title_tuple = self.canonical_bits.get_bit_by_id(bit_id)
+                if title_tuple is None:
+                    raise RuntimeError(f"Bit ID {bit_id} not found in canonical bits!")
+
+                # Build result
                 match = BitMatch(
                     bit_id=bit_id,
-                    title=self.canonical_bits.get_bit_by_id(bit_id)[0],
+                    title=title_tuple[0],
                     overall_score=overall_score,
                     sentence_matches=matching_sentences,
                     ngram_matches=matching_ngrams,
