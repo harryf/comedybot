@@ -10,11 +10,11 @@
 <body>
     <div class="wrapper">
         
-        <header class="site-header bg-blue-600 text-white py-6 shadow-lg">
-            <div class="container mx-auto flex flex-col items-center">
+        <header class="site-header">
+            <div class="header-content">
                 <div class="title-section text-center">
-                    <a class="site-title flex items-center justify-center" href="/comedybot/">
-                        <i class="fas fa-robot mr-3"></i>Comedy Bot
+                    <a class="site-title flex items-center justify-center gap-4" href="/comedybot/">
+                        <i class="fas fa-robot"></i>Comedy Bot<i class="fas fa-robot"></i>
                     </a>
                     <p class="tagline">automated audio transcripts from comedy shows</p>
                 </div>
@@ -38,24 +38,27 @@
 
 
 <div class="bit-page">
-  <h1>Harry Fucks</h1>
+  <h1><i class="fa fa-quote-left"></i>Harry Fucks<i class="fa fa-quote-right"></i></h1>
 
   <div class="bit-metadata">
-    <p><i class="fas fa-calendar-alt"></i> <strong>Date:</strong> 02 Nov 2024, 19:30</p>
-    <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> The Comedy Clubhouse</p>
-    <p><i class="fas fa-clock"></i> <strong>Length:</strong> 0:24</p>
-    <p><i class="fas fa-chart-line"></i> <strong>LPM:</strong> 18</p>
-    <p>
-      <a href="/comedybot/player/20241102_The_Comedy_Clubhouse/#t=19"
-         class="listen-button mt-4">
-        <i class="fas fa-headphones"></i>
-        Listen to this bit
-      </a>
-    </p>
+    <div class="bit-info">
+      <p><i class="fas fa-calendar-alt"></i> <strong>Date:</strong> 02 Nov 2024, 19:30</p>
+      <p><i class="fas fa-map-marker-alt"></i> <strong>Venue:</strong> The Comedy Clubhouse</p>
+      <p><i class="fas fa-clock"></i> <strong>Length:</strong> 0:24</p>
+      <p><i class="fas fa-chart-line"></i> <strong>LPM:</strong> 18</p>
+    </div>
   </div>
 
+  <p>
+    <a href="/comedybot/player/20241102_The_Comedy_Clubhouse/#t=19"
+       class="listen-button mt-4">
+      <i class="fas fa-headphones"></i>
+      Listen to this bit
+    </a>
+  </p>
+
   <div class="bit-transcript">
-    <h2>Transcript</h2>
+    <h2><i class="fas fa-file-alt"></i> Transcript</h2>
     <div class="transcript-text">
       
         <p>But I've got to start with a little correction, my name's actually not Harry Fox, it's Harry Fuchs.</p>
@@ -80,6 +83,13 @@
   border-radius: 8px;
   padding: 1rem;
   margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.bit-metadata .bit-info {
+  flex-basis: 60%;
 }
 
 .bit-metadata p {
