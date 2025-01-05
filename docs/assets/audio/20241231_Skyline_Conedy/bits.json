@@ -1,0 +1,145 @@
+{
+  "type": "object",
+  "properties": {},
+  "items": [
+    {
+      "title": "Bizarre Location",
+      "start": 0.0,
+      "end": 28.58,
+      "joke_types": [
+        "Observational",
+        "Comparison",
+        "Surreal"
+      ],
+      "themes": [
+        "Unexpected Locations",
+        "Travel"
+      ],
+      "lpm": 10
+    },
+    {
+      "title": "Name Pronunciation",
+      "start": 28.58,
+      "end": 65.96,
+      "joke_types": [
+        "Wordplay",
+        "Misdirect",
+        "Exaggeration"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Family Life",
+        "Names"
+      ],
+      "lpm": 10
+    },
+    {
+      "title": "Parenting Challenges",
+      "start": 77.52,
+      "end": 185.12,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Dark Humor",
+        "Sarcasm",
+        "Repetition",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Parenting",
+        "Modern Life",
+        "Human History"
+      ],
+      "lpm": 17
+    },
+    {
+      "title": "Company Retreat Woes",
+      "start": 192.12,
+      "end": 268.28,
+      "joke_types": [
+        "Observational",
+        "Sarcasm",
+        "Dark Humor",
+        "Repetition",
+        "Wordplay"
+      ],
+      "themes": [
+        "Work",
+        "Corporate Culture"
+      ],
+      "lpm": 4
+    },
+    {
+      "title": "HR Drama",
+      "start": 269.36,
+      "end": 311.46,
+      "joke_types": [
+        "Observational",
+        "Double Entendre",
+        "Self-Deprecation",
+        "Wordplay",
+        "Confessional"
+      ],
+      "themes": [
+        "Work",
+        "Gender"
+      ],
+      "lpm": 6
+    },
+    {
+      "title": "Cultural Fun",
+      "start": 311.46,
+      "end": 396.06,
+      "joke_types": [
+        "Self-Deprecation",
+        "Observational",
+        "Misdirect",
+        "Sarcasm",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "National Identity"
+      ],
+      "lpm": 14
+    },
+    {
+      "title": "World War Anxiety",
+      "start": 421.04,
+      "end": 462.16,
+      "joke_types": [
+        "Observational",
+        "Double Entendre",
+        "Misdirect",
+        "Dark Humor",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "World Events",
+        "Anxiety",
+        "Politics"
+      ],
+      "lpm": 12
+    },
+    {
+      "title": "Horoscope Specificity",
+      "start": 462.34,
+      "end": 583.24,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Surreal",
+        "Misdirect",
+        "Relatable Struggle",
+        "Wordplay"
+      ],
+      "themes": [
+        "Astrology",
+        "Humor",
+        "Generational Differences",
+        "Cultural Observations"
+      ],
+      "lpm": 13
+    }
+  ]
+}
