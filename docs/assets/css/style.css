@@ -407,32 +407,45 @@ body {
 }
 
 .bit-versions {
-  background-color: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  padding: 0.75rem;
-  margin-top: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
 }
-
-.bit-versions h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.bit-versions h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
 }
-
+.bit-versions h2 i {
+  margin-right: 0.5rem;
+  color: #666;
+}
+.bit-versions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.bit-versions li {
+  margin: 0.5rem 0;
+}
 .bit-versions a {
+  display: block;
   color: #2563eb;
   text-decoration: none;
   transition: color 0.2s;
 }
-
 .bit-versions a:hover {
   color: #1d4ed8;
   text-decoration: underline;
 }
-
-.bit-versions li {
-  margin: 0.25rem 0;
+.bit-versions a.current-version {
+  color: #666;
+  font-weight: 500;
+  cursor: default;
+}
+.bit-versions a.current-version:hover {
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
