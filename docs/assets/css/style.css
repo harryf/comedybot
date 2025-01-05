@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * Reset some basic elements
  */
@@ -741,63 +742,96 @@ body {
   text-decoration: none;
 }
 
-.show-list {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  margin-top: 1rem;
-}
-
 .show-card {
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  padding: 1rem;
 }
 .show-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
-.show-link {
-  color: inherit;
-  display: block;
-  padding: 1rem;
-  text-decoration: none;
+.show-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
-.show-link:hover {
-  text-decoration: none;
-}
-
-.show-title {
-  color: #333;
-  font-size: 1.2rem;
-  margin: 0 0 1rem;
-}
-
-.show-info {
+.show-details li {
+  font-size: 0.95rem;
   color: #666;
-  font-size: 0.9rem;
+  padding-left: 1.2rem;
+  position: relative;
+  line-height: 1.3;
+  margin: 0;
 }
-.show-info p {
-  margin: 0.5rem 0;
+.show-details li:first-child {
+  margin-top: 0;
+}
+.show-details li:before {
+  content: "•";
+  position: absolute;
+  left: 0.3rem;
+  color: #ddd;
+}
+.show-details .show-date {
+  color: #e74c3c;
+  font-weight: 600;
+  padding-left: 0;
+}
+.show-details .show-date:before {
+  display: none;
+}
+
+.venue-notes {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .venue-link {
-  color: #007bff;
+  color: #2c3e50;
   text-decoration: none;
+  font-weight: 500;
 }
 .venue-link:hover {
   text-decoration: underline;
 }
 
 .notes {
-  color: #888;
+  font-size: 0.85rem;
+  color: #666;
   font-style: italic;
-  margin-top: 0.5rem;
 }
 
+.show-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 2rem 0;
+}
+
+@media (max-width: 992px) {
+  .show-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .show-list {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .show-card {
+    padding: 0.75rem;
+  }
+}
 .welcome {
   text-align: center;
   margin: 2rem 0;
