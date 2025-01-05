@@ -2,14 +2,20 @@
 layout: default
 ---
 {% assign bit_data = site.data.bits[page.bit_id] %}
+{% assign start_seconds = bit_data.bit_info.start | round %}
+{% assign end_seconds = bit_data.bit_info.end | round %}
+{% assign duration_seconds = end_seconds | minus: start_seconds %}
+{% assign minutes = duration_seconds | divided_by: 60 | floor %}
+{% assign seconds = duration_seconds | modulo: 60 | floor %}
 
 <div class="bit-page">
   <h1>{{ page.canonical_name }}</h1>
 
   <div class="bit-metadata">
     <p><strong>Date:</strong> {{ bit_data.show_info.date_of_show }}</p>
-    <p><strong>LPM:</strong> {{ bit_data.show_info.lpm }}</p>
     <p><strong>Venue:</strong> {{ bit_data.show_info.name_of_venue }}</p>
+    <p><strong>Length:</strong> {{ minutes }}:{% if seconds < 10 %}0{% endif %}{{ seconds }}</p>
+    <p><strong>LPM:</strong> {{ bit_data.show_info.lpm }}</p>
     <p>
       <a href="{{ site.baseurl }}/player/{{ bit_data.show_info.show_identifier }}/#t={{ bit_data.bit_info.start }}">
         Listen to this bit

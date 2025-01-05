@@ -19,10 +19,21 @@ title: Joke Types
             {% for bit_id in bit_ids %}
               {% assign bit = site.data.bits[bit_id] %}
               {% assign canonical_name = site.data.bit_to_canonical[bit_id] %}
+              
+              {% assign start_seconds = bit.bit_info.start | round %}
+              {% assign end_seconds = bit.bit_info.end | round %}
+              {% assign duration_seconds = end_seconds | minus: start_seconds %}
+              {% assign minutes = duration_seconds | divided_by: 60 | floor %}
+              {% assign seconds = duration_seconds | modulo: 60 | floor %}
+              
               <li>
                 <a href="{{ site.baseurl }}/bits/{{ bit_id }}">
                   {{ canonical_name }}
-                  <span class="bit-date">({{ bit.show_info.date_of_show }})</span>
+                  <div class="bit-details">
+                    <span class="bit-date">{{ bit.show_info.date_of_show }}</span>
+                    <span class="bit-length">{{ minutes }}:{% if seconds < 10 %}0{% endif %}{{ seconds }}</span>
+                    <span class="bit-lpm">LPM: {{ bit.show_info.lpm }}</span>
+                  </div>
                 </a>
               </li>
             {% endfor %}
@@ -89,8 +100,17 @@ title: Joke Types
   text-decoration: underline;
 }
 
-.bit-date {
+.bit-details {
   color: #666;
   font-size: 0.9em;
+  margin-top: 0.2rem;
+}
+
+.bit-details span {
+  margin-right: 1rem;
+}
+
+.bit-details span:last-child {
+  margin-right: 0;
 }
 </style>
