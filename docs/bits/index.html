@@ -1,0 +1,110 @@
+---
+layout: default
+title: Comedy Bits
+---
+
+<div class="bits-page">
+  <h1>Comedy Bits</h1>
+  <p class="page-description">Browse all comedy bits by their canonical names.</p>
+
+  <div class="bits-list">
+    {% for canonical_entry in site.data.canonical_bits %}
+      {% assign canonical_name = canonical_entry[0] %}
+      {% assign bit_ids = canonical_entry[1] %}
+      {% assign latest_bit = site.data.bits[bit_ids.first] %}
+      
+      <div class="bit-card">
+        <h2>{{ canonical_name }}</h2>
+        <div class="bit-info">
+          <p>Latest performance: {{ latest_bit.show_info.date_of_show }}</p>
+          <p>Venue: {{ latest_bit.show_info.name_of_venue }}</p>
+          <p>LPM: {{ latest_bit.show_info.lpm }}</p>
+        </div>
+        <div class="bit-versions">
+          <h3>Versions:</h3>
+          <ul>
+            {% for bit_id in bit_ids %}
+              {% assign bit = site.data.bits[bit_id] %}
+              <li>
+                <a href="{{ site.baseurl }}/bits/{{ bit_id }}">
+                  {{ bit.show_info.date_of_show }} at {{ bit.show_info.name_of_venue }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.bits-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.bits-list {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.bit-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bit-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bit-info {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+}
+
+.bit-info p {
+  margin: 0.5rem 0;
+}
+
+.bit-versions {
+  margin-top: 1rem;
+}
+
+.bit-versions h3 {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.bit-versions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bit-versions li {
+  margin: 0.5rem 0;
+}
+
+.bit-versions a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.bit-versions a:hover {
+  text-decoration: underline;
+}
+</style>

@@ -1,0 +1,96 @@
+---
+layout: default
+title: Comedy Themes
+---
+
+<div class="themes-page">
+  <h1>Comedy Themes</h1>
+  <p class="page-description">Browse comedy bits organized by common themes and subjects.</p>
+
+  <div class="themes-list">
+    {% for theme_entry in site.data.themes %}
+      {% assign theme_name = theme_entry[0] %}
+      {% assign bit_ids = theme_entry[1] %}
+      
+      <div class="theme-card">
+        <h2>{{ theme_name }}</h2>
+        <div class="bits-list">
+          <ul>
+            {% for bit_id in bit_ids %}
+              {% assign bit = site.data.bits[bit_id] %}
+              {% assign canonical_name = site.data.bit_to_canonical[bit_id] %}
+              <li>
+                <a href="{{ site.baseurl }}/bits/{{ bit_id }}">
+                  {{ canonical_name }}
+                  <span class="bit-date">({{ bit.show_info.date_of_show }})</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.themes-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.themes-list {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.theme-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.theme-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-card h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.bits-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bits-list li {
+  margin: 0.5rem 0;
+}
+
+.bits-list a {
+  color: #007bff;
+  text-decoration: none;
+  display: block;
+}
+
+.bits-list a:hover {
+  text-decoration: underline;
+}
+
+.bit-date {
+  color: #666;
+  font-size: 0.9em;
+}
+</style>

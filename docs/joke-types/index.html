@@ -1,0 +1,96 @@
+---
+layout: default
+title: Joke Types
+---
+
+<div class="joke-types-page">
+  <h1>Joke Types</h1>
+  <p class="page-description">Explore different styles of comedy and humor techniques.</p>
+
+  <div class="joke-types-list">
+    {% for type_entry in site.data.joke_types %}
+      {% assign type_name = type_entry[0] %}
+      {% assign bit_ids = type_entry[1] %}
+      
+      <div class="type-card">
+        <h2>{{ type_name }}</h2>
+        <div class="bits-list">
+          <ul>
+            {% for bit_id in bit_ids %}
+              {% assign bit = site.data.bits[bit_id] %}
+              {% assign canonical_name = site.data.bit_to_canonical[bit_id] %}
+              <li>
+                <a href="{{ site.baseurl }}/bits/{{ bit_id }}">
+                  {{ canonical_name }}
+                  <span class="bit-date">({{ bit.show_info.date_of_show }})</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.joke-types-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.joke-types-list {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.type-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.type-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.type-card h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.bits-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bits-list li {
+  margin: 0.5rem 0;
+}
+
+.bits-list a {
+  color: #007bff;
+  text-decoration: none;
+  display: block;
+}
+
+.bits-list a:hover {
+  text-decoration: underline;
+}
+
+.bit-date {
+  color: #666;
+  font-size: 0.9em;
+}
+</style>
