@@ -15,6 +15,11 @@ plugins:
 # Data settings
 data_dir: assets/audio
 
+# Include additional files & directories
+include:
+  - assets/player
+  - assets/audio
+
 # Collections
 collections:
   players:
