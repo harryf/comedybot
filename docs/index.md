@@ -1,28 +1,29 @@
 ---
 layout: default
-title: Comedy Transcripts
+title: Comedy Bot
 ---
 
 <div class="home">
-  <h1>Comedy Transcripts</h1>
-  
-  <p class="page-description">
-    Welcome to the Comedy Transcripts archive. Browse through comedy bits by theme, joke type, or view all bits chronologically.
-  </p>
+  <div class="welcome">
+    <h1>{{ site.title }}</h1>
+    <p class="page-description">
+      {{ site.description }}
+    </p>
+  </div>
 
   <div class="section-links">
     <div class="section-card">
-      <h2><a href="{{ '/themes/' | relative_url }}">Themes</a></h2>
+      <h2><a href="{{ site.baseurl }}/themes/">Themes</a></h2>
       <p>Browse bits by theme, such as Cultural Differences, Family Life, and more.</p>
     </div>
 
     <div class="section-card">
-      <h2><a href="{{ '/joke-types/' | relative_url }}">Joke Types</a></h2>
+      <h2><a href="{{ site.baseurl }}/joke-types/">Joke Types</a></h2>
       <p>Explore different styles of comedy, from Wordplay to Observational humor.</p>
     </div>
 
     <div class="section-card">
-      <h2><a href="{{ '/bits/' | relative_url }}">Comedy Bits</a></h2>
+      <h2><a href="{{ site.baseurl }}/bits/">Comedy Bits</a></h2>
       <p>View all comedy bits chronologically, with performance dates and venues.</p>
     </div>
   </div>
@@ -31,92 +32,156 @@ title: Comedy Transcripts
     <h2>Recent Shows</h2>
     <div class="show-list">
       {% for show in site.data.shows %}
-        <div class="show-card" data-date="{{ show.date_of_show }}">
+        <div class="show-card">
           <a href="{{ site.baseurl }}/player/{{ show.folder }}" class="show-link">
-            <h3 class="show-title">{{ show.name_of_show }}</h3>
-            <div class="show-details">
-              <div class="show-info">
-                <p class="show-date">{{ show.date_of_show }}</p>
-                <p class="comedian">{{ show.comedian }}</p>
-                <p class="venue">
-                  {% if show.link_to_venue_on_google_maps %}
-                    <a href="{{ show.link_to_venue_on_google_maps }}" target="_blank" class="venue-link">
-                      {{ show.name_of_venue }} 📍
-                    </a>
-                  {% else %}
-                    {{ show.name_of_venue }}
-                  {% endif %}
-                </p>
-                {% if show.notes %}
-                  <p class="notes">{{ show.notes }}</p>
+            <h3>{{ show.name_of_show }}</h3>
+            <ul class="show-details">
+              <li class="comedian">{{ show.date_of_show }} - {{ show.comedian }}</li>
+              <li class="venue">
+                {% if show.link_to_venue_on_google_maps %}
+                  <a href="{{ show.link_to_venue_on_google_maps }}" target="_blank" class="venue-link">
+                    {{ show.name_of_venue }} 📍
+                  </a>
+                {% else %}
+                  {{ show.name_of_venue }}
                 {% endif %}
-              </div>
-            </div>
+              </li>
+              {% if show.notes %}
+                <li class="notes">{{ show.notes }}</li>
+              {% endif %}
+            </ul>
           </a>
         </div>
       {% endfor %}
     </div>
   </div>
+</div>
 
-  <style>
-.transcript-list {
+<style>
+.welcome {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.welcome h1 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.page-description {
+  color: #666;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-links {
   display: grid;
-  gap: 1.5rem;
-  padding: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+  padding: 0 1rem;
+}
+
+.section-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-card h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.section-card h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.section-card p {
+  color: #666;
+  margin-bottom: 0;
+}
+
+.recent-shows {
+  margin-top: 3rem;
+  padding: 0 1rem;
+}
+
+.recent-shows h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.show-list {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .show-card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .show-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .show-link {
-  display: block;
-  padding: 1.5rem;
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
+  padding: 1.5rem;
+  display: block;
 }
 
-.show-title {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-  color: #2c3e50;
+.show-link h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 0 1rem;
 }
 
 .show-details {
-  display: flex;
-  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.show-info {
-  flex: 1;
+.show-details li {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #666;
 }
 
 .show-date {
-  font-size: 1.1rem;
-  color: #e74c3c;
-  margin: 0 0 0.5rem 0;
+  color: #e74c3c !important;
   font-weight: 600;
 }
 
 .comedian {
-  font-size: 1rem;
-  color: #34495e;
-  margin: 0 0 0.5rem 0;
-}
-
-.venue {
-  font-size: 1rem;
-  color: #7f8c8d;
-  margin: 0 0 0.5rem 0;
+  color: #34495e !important;
 }
 
 .venue-link {
@@ -129,15 +194,23 @@ title: Comedy Transcripts
 }
 
 .notes {
-  font-size: 0.9rem;
-  color: #95a5a6;
-  margin: 0;
+  color: #95a5a6 !important;
   font-style: italic;
 }
 
-@media (min-width: 768px) {
-  .transcript-list {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+@media (max-width: 992px) {
+  .show-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-links {
+    grid-template-columns: 1fr;
+  }
+  
+  .show-list {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -149,8 +222,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const cards = Array.from(container.children);
   
   cards.sort((a, b) => {
-    const dateA = new Date(a.querySelector('.show-date').textContent.replace(',', ''));
-    const dateB = new Date(b.querySelector('.show-date').textContent.replace(',', ''));
+    const dateA = new Date(a.dataset.date.replace(',', ''));
+    const dateB = new Date(b.dataset.date.replace(',', ''));
     return dateB - dateA;
   });
   
