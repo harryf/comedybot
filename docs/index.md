@@ -4,7 +4,7 @@ title: Comedy Bot
 ---
 
 <div class="home">
-  <div class="welcome">
+  <!-- <div class="welcome">
     <h1>{{ site.title }}</h1>
     <p class="page-description">
       {{ site.description }}
@@ -26,7 +26,7 @@ title: Comedy Bot
       <h2><a href="{{ site.baseurl }}/joke-types/">Joke Types</a></h2>
       <p>Explore different styles of comedy, from Wordplay to Observational humor.</p>
     </div>
-  </div>
+  </div> -->
 
   <div class="recent-shows">
     <h2>Recent Shows</h2>
