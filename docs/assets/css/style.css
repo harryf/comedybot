@@ -502,6 +502,35 @@ body {
     font-size: 1.75rem;
   }
 }
+@media (max-width: 768px) {
+  .site-nav {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .site-nav a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+  }
+  .site-nav a i {
+    font-size: 1rem;
+    width: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .page-content,
+  .wrapper {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .site-nav {
+    gap: 0.5rem;
+  }
+  .bits-list {
+    gap: 1rem;
+  }
+}
 .bits-page h1 {
   text-align: center;
   font-size: 2rem;
