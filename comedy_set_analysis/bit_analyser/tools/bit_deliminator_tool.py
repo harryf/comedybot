@@ -114,7 +114,7 @@ class BitDeliminatorTool(SimpleBaseTool):
             self.bits_file_path = generate_default_bits_path(self.transcript_file_path)
 
     def run(self):
-        MAX_RETRIES = 3
+        MAX_RETRIES = 6
         BASE_RETRY_DELAY = 5  # Base delay between retries in seconds
         openai_api_key = os.getenv("OPENAI_API_KEY")
         assistant_id = os.getenv("BIT_FINDER_ASSISTANT_ID")
@@ -132,6 +132,7 @@ class BitDeliminatorTool(SimpleBaseTool):
         transcript = json.dumps(cleaned_transcript, indent=2)
 
         thread = client.beta.threads.create()
+        time.sleep(1)
         
         for attempt in range(MAX_RETRIES):
             try:
@@ -142,6 +143,7 @@ class BitDeliminatorTool(SimpleBaseTool):
                         content=transcript,
                         role="user"
                     )
+                    time.sleep(1)
                 else:
                     # Retry attempt - send error message
                     message = client.beta.threads.messages.create(
@@ -149,11 +151,13 @@ class BitDeliminatorTool(SimpleBaseTool):
                         content=f"Please try again. The previous response had the following issue: {error_message}",
                         role="user"
                     )
+                    time.sleep(1)
 
                 run = client.beta.threads.runs.create(
                     thread_id=thread.id,
                     assistant_id=assistant_id,
                 )
+                time.sleep(1)
                 
                 while True:
                     run = client.beta.threads.runs.retrieve(
@@ -166,6 +170,7 @@ class BitDeliminatorTool(SimpleBaseTool):
                         logger.error(f"Run failure reason: {run.last_error}")
                         raise Exception(f"Failed to generate text due to: {run.last_error}")
                     logger.info(f"Run status: {run.status}")
+                    time.sleep(2)
                 
                 messages = client.beta.threads.messages.list(
                     thread_id=thread.id,
@@ -208,6 +213,7 @@ class BitDeliminatorTool(SimpleBaseTool):
                         f"- {error}" for error in validation_errors
                     ])
                     logger.warning(f"Validation failed (attempt {attempt + 1}/{MAX_RETRIES}). All errors:\n{error_message}")
+                    time.sleep(2)
                     raise ValueError(error_message)
                 
                 # If we get here, all validations passed
