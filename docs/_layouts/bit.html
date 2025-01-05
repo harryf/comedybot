@@ -36,6 +36,32 @@ layout: default
       {% endfor %}
     </div>
   </div>
+
+  <div class="bit-versions">
+    <h2><i class="fas fa-history"></i> Other Versions</h2>
+    <ul>
+      {% assign canonical_name = page.canonical_name %}
+      {% assign bit_ids = site.data.canonical_bits[canonical_name] %}
+      {% assign sorted_dates = '' | split: '' %}
+      {% for bit_id in bit_ids %}
+        {% assign bit = site.data.bits[bit_id] %}
+        {% assign date_with_id = bit.show_info.date_of_show | append: '|' | append: bit_id %}
+        {% assign sorted_dates = sorted_dates | push: date_with_id %}
+      {% endfor %}
+      {% assign sorted_dates = sorted_dates | sort | reverse %}
+      
+      {% for date_with_id in sorted_dates %}
+        {% assign parts = date_with_id | split: '|' %}
+        {% assign bit_id = parts[1] %}
+        {% assign bit = site.data.bits[bit_id] %}
+        <li>
+          <a href="{{ site.baseurl }}/bits/{{ bit_id }}" {% if bit_id == page.bit_id %}class="current-version"{% endif %}>
+            {{ bit.show_info.date_of_show }} at {{ bit.show_info.name_of_venue }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 
 <style>
