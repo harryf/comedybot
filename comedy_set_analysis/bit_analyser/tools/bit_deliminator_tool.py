@@ -1,7 +1,7 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from base_tool import BaseTool
+from base_tool import SimpleBaseTool
 from pydantic import Field
 import argparse, json
 from openai import OpenAI
@@ -96,7 +96,7 @@ def extract_wait_time(error_message):
 def generate_default_bits_path(transcript_path: str) -> str:
     return os.path.join(os.path.dirname(transcript_path), "bits.json")
 
-class BitDeliminatorTool(BaseTool):
+class BitDeliminatorTool(SimpleBaseTool):
     """
     Identifies and extracts bits from a transcription JSON file supported by the audience reactions JSON file
     using an OpenAI assistant.
@@ -227,7 +227,8 @@ class BitDeliminatorTool(BaseTool):
                 if "rate_limit_exceeded" in error_message.lower():
                     wait_time = extract_wait_time(error_message)
                     logger.warning(f"Rate limit exceeded. Waiting {wait_time} seconds before retrying...")
-                    time.sleep(wait_time)
+                    time.sleep(wait_time + BASE_RETRY_DELAY)
+                    attempt -= 1 # Retry the same attempt
                     continue
                 raise
             

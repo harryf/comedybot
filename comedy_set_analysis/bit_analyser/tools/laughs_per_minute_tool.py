@@ -20,12 +20,12 @@ import argparse
 import logging
 from typing import List, Dict, Any, Optional
 from pydantic import Field
-from base_tool import BaseTool
+from base_tool import SimpleBaseTool
 from bit_utils import read_bits_file, write_bits_file, should_process_bit
 
 logger = logging.getLogger(__name__)
 
-class LaughsPerMinuteTool(BaseTool):
+class LaughsPerMinuteTool(SimpleBaseTool):
     bits_file_path: str = Field(description="Path to the bits JSON file")
     reactions_file_path: str = Field(description="Path to the audience reactions JSON file")
     regenerate: bool = Field(default=False, description="Force regeneration of all LPM calculations")

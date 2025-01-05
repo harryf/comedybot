@@ -6,6 +6,21 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+class SimpleBaseTool(BaseModel, ABC):
+    """Base class for tools that don't require vector processing"""
+    _shared_state: ClassVar[Any] = None
+    _caller_agent: Any = None
+    _event_handler: Any = None
+
+    model_config = {
+        "arbitrary_types_allowed": True,
+        "validate_assignment": True
+    }
+
+    @abstractmethod
+    def run(self):
+        pass
+
 class BaseTool(BaseModel, ABC):
     """
     Custom BaseTool

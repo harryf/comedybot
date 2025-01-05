@@ -10,7 +10,7 @@ from typing import List, Dict, Any, Optional
 from openai import OpenAI
 from dotenv import load_dotenv, find_dotenv
 from pydantic import Field
-from base_tool import BaseTool
+from base_tool import SimpleBaseTool
 from bit_utils import (
     read_bits_file, write_bits_file, select_bit,
     flatten_bit, should_process_bit
@@ -65,14 +65,19 @@ class JokeTypeValidator:
             
         return True, None
 
-class JokeTypeTool(BaseTool):
+class JokeTypeTool(SimpleBaseTool):
     bits_file_path: str = Field(description="Path to the bits JSON file")
     transcript_file_path: Optional[str] = Field(None, description="Optional path to the transcript JSON file")
     validator: JokeTypeValidator = Field(default_factory=JokeTypeValidator, description="Validator for joke type responses")
     regenerate: bool = Field(default=False, description="Force regeneration of all joke types")
     
     def __init__(self, bits_file_path: str, transcript_file_path: str = None, regenerate: bool = False):
-        super().__init__(bits_file_path=bits_file_path, transcript_file_path=transcript_file_path, regenerate=regenerate)
+        super().__init__(
+            bits_file_path=bits_file_path,
+            transcript_file_path=transcript_file_path,
+            regenerate=regenerate,
+            validator=JokeTypeValidator()
+        )
 
     def run(self):
         MAX_RETRIES = 3

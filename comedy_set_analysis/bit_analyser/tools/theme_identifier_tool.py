@@ -11,7 +11,7 @@ from typing import List, Dict, Any, Optional
 from openai import OpenAI
 from dotenv import load_dotenv, find_dotenv
 from pydantic import Field
-from base_tool import BaseTool
+from base_tool import SimpleBaseTool
 from bit_utils import (
     read_bits_file, write_bits_file, select_bit,
     flatten_bit, should_process_bit
@@ -56,7 +56,7 @@ class ThemeValidator:
             
         return True, None
 
-class ThemeIdentifierTool(BaseTool):
+class ThemeIdentifierTool(SimpleBaseTool):
     bits_file_path: str = Field(description="Path to the bits JSON file")
     transcript_file_path: Optional[str] = Field(None, description="Optional path to the transcript JSON file")
     validator: ThemeValidator = Field(default_factory=ThemeValidator, description="Validator for theme responses")
