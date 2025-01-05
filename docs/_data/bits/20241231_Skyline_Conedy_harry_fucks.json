@@ -1,0 +1,268 @@
+{
+  "bit_id": "20241231_Skyline_Conedy_harry_fucks",
+  "show_info": {
+    "show_identifier": "20241231_Skyline_Conedy",
+    "comedian": "Harry F\u00fccks",
+    "name_of_show": "Skyline Comedy",
+    "date_of_show": "20 Nov 2024, 20:00",
+    "name_of_venue": "Bar Rouge",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/K7BZ9iDvWh5vMe8u9",
+    "length_of_set": 588.24,
+    "lpm": 11,
+    "notes": "Top of a large building in Basel"
+  },
+  "bit_info": {
+    "title": "Harry Fucks",
+    "start": 33.56,
+    "end": 73.8,
+    "joke_types": [
+      "Wordplay",
+      "Exaggeration",
+      "Awkward",
+      "Observational"
+    ],
+    "themes": [
+      "Cultural Differences",
+      "Family Life",
+      "Language"
+    ],
+    "lpm": 9
+  },
+  "transcript": {
+    "text": "My name is not Harry Fuchs. It's actually Harry Fuchs. That is a German name. Of course, when I'm with English speakers like this, you'll think my name is Harry Fuchs. And in my family, when we have a family get-together, we get very upset when you call us a group of fuckers. And I have two kids. I had to call them Halva and what the fuck? Okay, now that was interesting. It's sped like the Mexican wave, that laugh. And it landed with you, sir, finally for the longest laugh. It's a laugh. Thank you.",
+    "lines": [
+      {
+        "start": 33.56,
+        "end": 37.64,
+        "text": "My name is not Harry Fuchs. It's actually Harry Fuchs."
+      },
+      {
+        "start": 38.0,
+        "end": 39.4,
+        "text": "That is a German name."
+      },
+      {
+        "start": 40.46,
+        "end": 44.12,
+        "text": "Of course, when I'm with English speakers like this, you'll think my name is Harry Fuchs."
+      },
+      {
+        "start": 45.34,
+        "end": 52.72,
+        "text": "And in my family, when we have a family get-together, we get very upset when you call us a group of fuckers."
+      },
+      {
+        "start": 56.72,
+        "end": 58.44,
+        "text": "And I have two kids."
+      },
+      {
+        "start": 58.58,
+        "end": 62.96,
+        "text": "I had to call them Halva and what the fuck?"
+      },
+      {
+        "start": 65.96,
+        "end": 69.64,
+        "text": "Okay, now that was interesting. It's sped like the Mexican wave, that laugh."
+      },
+      {
+        "start": 69.72,
+        "end": 72.62,
+        "text": "And it landed with you, sir, finally for the longest laugh."
+      },
+      {
+        "start": 72.74,
+        "end": 73.8,
+        "text": "It's a laugh. Thank you."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      33.6,
+      34.8,
+      0
+    ],
+    [
+      34.8,
+      36.0,
+      0
+    ],
+    [
+      36.0,
+      37.2,
+      0
+    ],
+    [
+      37.2,
+      38.4,
+      0
+    ],
+    [
+      38.4,
+      39.6,
+      0
+    ],
+    [
+      39.6,
+      40.8,
+      0
+    ],
+    [
+      40.8,
+      42.0,
+      0
+    ],
+    [
+      42.0,
+      43.2,
+      0
+    ],
+    [
+      43.2,
+      44.4,
+      0
+    ],
+    [
+      44.4,
+      45.6,
+      0
+    ],
+    [
+      45.6,
+      46.8,
+      0
+    ],
+    [
+      46.8,
+      48.0,
+      0
+    ],
+    [
+      48.0,
+      49.2,
+      0
+    ],
+    [
+      49.2,
+      50.4,
+      0
+    ],
+    [
+      50.4,
+      51.6,
+      0
+    ],
+    [
+      51.6,
+      52.8,
+      0
+    ],
+    [
+      52.8,
+      54.0,
+      3
+    ],
+    [
+      54.0,
+      55.2,
+      2
+    ],
+    [
+      55.2,
+      56.4,
+      0
+    ],
+    [
+      56.4,
+      57.6,
+      0
+    ],
+    [
+      57.6,
+      58.8,
+      0
+    ],
+    [
+      58.8,
+      60.0,
+      0
+    ],
+    [
+      60.0,
+      61.2,
+      0
+    ],
+    [
+      61.2,
+      62.4,
+      1
+    ],
+    [
+      62.4,
+      63.6,
+      0
+    ],
+    [
+      63.6,
+      64.8,
+      0
+    ],
+    [
+      64.8,
+      66.0,
+      0
+    ],
+    [
+      66.0,
+      67.2,
+      0
+    ],
+    [
+      67.2,
+      68.4,
+      0
+    ],
+    [
+      68.4,
+      69.6,
+      0
+    ],
+    [
+      69.6,
+      70.8,
+      0
+    ],
+    [
+      70.8,
+      72.0,
+      0
+    ],
+    [
+      72.0,
+      73.2,
+      0
+    ],
+    [
+      73.2,
+      74.4,
+      0
+    ],
+    [
+      74.4,
+      75.6,
+      0
+    ],
+    [
+      75.6,
+      76.8,
+      0
+    ],
+    [
+      76.8,
+      78.0,
+      0
+    ]
+  ]
+}

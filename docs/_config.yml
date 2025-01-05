@@ -20,6 +20,15 @@ collections:
   players:
     output: true
     permalink: /player/:title
+  themes:
+    output: true
+    permalink: /themes/:title
+  joke_types:
+    output: true
+    permalink: /joke-types/:title
+  bits:
+    output: true
+    permalink: /bits/:name
 
 defaults:
   - scope:
@@ -27,6 +36,21 @@ defaults:
       type: "players"
     values:
       layout: "player"
+  - scope:
+      path: ""
+      type: "themes"
+    values:
+      layout: "theme"
+  - scope:
+      path: ""
+      type: "joke_types"
+    values:
+      layout: "joke_type"
+  - scope:
+      path: ""
+      type: "bits"
+    values:
+      layout: "bit"
 
 exclude:
   - .sass-cache/

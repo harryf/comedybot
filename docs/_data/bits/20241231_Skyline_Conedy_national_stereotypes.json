@@ -1,0 +1,740 @@
+{
+  "bit_id": "20241231_Skyline_Conedy_national_stereotypes",
+  "show_info": {
+    "show_identifier": "20241231_Skyline_Conedy",
+    "comedian": "Harry F\u00fccks",
+    "name_of_show": "Skyline Comedy",
+    "date_of_show": "20 Nov 2024, 20:00",
+    "name_of_venue": "Bar Rouge",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/K7BZ9iDvWh5vMe8u9",
+    "length_of_set": 588.24,
+    "lpm": 11,
+    "notes": "Top of a large building in Basel"
+  },
+  "bit_info": {
+    "title": "National Stereotypes",
+    "start": 285.68,
+    "end": 396.06,
+    "joke_types": [
+      "Observational",
+      "Wordplay",
+      "Self-Deprecation",
+      "Comparison",
+      "Crowd Work",
+      "Reversal"
+    ],
+    "themes": [
+      "Work",
+      "Cultural Differences",
+      "Gender"
+    ],
+    "lpm": 12
+  },
+  "transcript": {
+    "text": "Fantastic. Because all day long they deal with drama. In the evening it's just peace and quiet. You just have a quarterly review now and again. You know, you've got to look at your KPIs, guys. Your key penis indicators. Okay, we're here. I don't know where we're going with this. It's penis jokes. We should be doing jokes about trans. I don't have any trans jokes tonight. How many of you guys are Swiss here, by the way? Oh, we do have some Swiss people. Very nice. And, you know, you're in the minority, of course. It's nice to be reminded you're a minority. I'm actually, as Teddy said, I'm actually half English, half German. Which is funny, because normally when I tell people that, I have this joke, I go like, that means I want to take over the world. But I'm too polite to do it. For one time, actually, I was travelling in India and I did that joke. And they were like, yes, Germans. Very polite people. Excellent history knowledge. Do you have any Germans here? Okay, that's a great . I like the way she did the bag. She grabbed it off and take it down. Are you Frenchman as well? Where are you from? Let me see. Can I ask? Yes, you've got a Frenchman there. I don't know if you know the German. Croatia. You're from Croatia? Yes. Okay, this is an interesting cluster of a nation that goes. Yes. I've got a German friend. No, no , no, no. Consort, where is face. No, bring it on back, I don't know. All right, this is an interesting structure. All right, last question.",
+    "lines": [
+      {
+        "start": 285.68,
+        "end": 286.16,
+        "text": "Fantastic."
+      },
+      {
+        "start": 286.74,
+        "end": 288.72,
+        "text": "Because all day long they deal with drama."
+      },
+      {
+        "start": 288.90000000000003,
+        "end": 291.0,
+        "text": "In the evening it's just peace and quiet."
+      },
+      {
+        "start": 291.84000000000003,
+        "end": 294.28000000000003,
+        "text": "You just have a quarterly review now and again."
+      },
+      {
+        "start": 294.28,
+        "end": 297.64,
+        "text": "You know, you've got to look at your KPIs, guys."
+      },
+      {
+        "start": 298.85999999999996,
+        "end": 300.35999999999996,
+        "text": "Your key penis indicators."
+      },
+      {
+        "start": 301.79999999999995,
+        "end": 303.09999999999997,
+        "text": "Okay, we're here."
+      },
+      {
+        "start": 304.03999999999996,
+        "end": 305.29999999999995,
+        "text": "I don't know where we're going with this."
+      },
+      {
+        "start": 305.5,
+        "end": 306.52,
+        "text": "It's penis jokes."
+      },
+      {
+        "start": 306.64,
+        "end": 308.28,
+        "text": "We should be doing jokes about trans."
+      },
+      {
+        "start": 308.94,
+        "end": 311.35999999999996,
+        "text": "I don't have any trans jokes tonight."
+      },
+      {
+        "start": 311.46,
+        "end": 313.44,
+        "text": "How many of you guys are Swiss here, by the way?"
+      },
+      {
+        "start": 314.64,
+        "end": 316.08,
+        "text": "Oh, we do have some Swiss people."
+      },
+      {
+        "start": 316.23999999999995,
+        "end": 316.67999999999995,
+        "text": "Very nice."
+      },
+      {
+        "start": 317.35999999999996,
+        "end": 320.34,
+        "text": "And, you know, you're in the minority, of course."
+      },
+      {
+        "start": 320.34,
+        "end": 323.82,
+        "text": "It's nice to be reminded you're a minority."
+      },
+      {
+        "start": 324.28,
+        "end": 329.15999999999997,
+        "text": "I'm actually, as Teddy said, I'm actually half English, half German."
+      },
+      {
+        "start": 330.02,
+        "end": 332.41999999999996,
+        "text": "Which is funny, because normally when I tell people that,"
+      },
+      {
+        "start": 332.5,
+        "end": 333.35999999999996,
+        "text": "I have this joke, I go like,"
+      },
+      {
+        "start": 333.59999999999997,
+        "end": 336.02,
+        "text": "that means I want to take over the world."
+      },
+      {
+        "start": 337.0,
+        "end": 338.73999999999995,
+        "text": "But I'm too polite to do it."
+      },
+      {
+        "start": 339.85999999999996,
+        "end": 343.14,
+        "text": "For one time, actually, I was travelling in India and I did that joke."
+      },
+      {
+        "start": 343.91999999999996,
+        "end": 346.05999999999995,
+        "text": "And they were like, yes, Germans."
+      },
+      {
+        "start": 347.05999999999995,
+        "end": 348.41999999999996,
+        "text": "Very polite people."
+      },
+      {
+        "start": 352.35999999999996,
+        "end": 353.78,
+        "text": "Excellent history knowledge."
+      },
+      {
+        "start": 354.28,
+        "end": 356.84,
+        "text": "Do you have any Germans here?"
+      },
+      {
+        "start": 357.9,
+        "end": 359.52,
+        "text": "Okay, that's a great ."
+      },
+      {
+        "start": 359.52,
+        "end": 363.52,
+        "text": "I like the way she did the bag."
+      },
+      {
+        "start": 366.2,
+        "end": 368.21999999999997,
+        "text": "She grabbed it off and take it down."
+      },
+      {
+        "start": 368.21999999999997,
+        "end": 371.59999999999997,
+        "text": "Are you Frenchman as well?"
+      },
+      {
+        "start": 372.21999999999997,
+        "end": 372.9,
+        "text": "Where are you from?"
+      },
+      {
+        "start": 372.9,
+        "end": 373.28,
+        "text": "Let me see."
+      },
+      {
+        "start": 373.28,
+        "end": 373.78,
+        "text": "Can I ask?"
+      },
+      {
+        "start": 373.96,
+        "end": 375.59999999999997,
+        "text": "Yes, you've got a Frenchman there."
+      },
+      {
+        "start": 375.59999999999997,
+        "end": 377.38,
+        "text": "I don't know if you know the German."
+      },
+      {
+        "start": 377.38,
+        "end": 377.67999999999995,
+        "text": "Croatia."
+      },
+      {
+        "start": 377.67999999999995,
+        "end": 379.55999999999995,
+        "text": "You're from Croatia?"
+      },
+      {
+        "start": 379.55999999999995,
+        "end": 379.78,
+        "text": "Yes."
+      },
+      {
+        "start": 380.14,
+        "end": 384.05999999999995,
+        "text": "Okay, this is an interesting cluster of a nation that goes."
+      },
+      {
+        "start": 384.05999999999995,
+        "end": 384.26,
+        "text": "Yes."
+      },
+      {
+        "start": 384.26,
+        "end": 385.24,
+        "text": "I've got a German friend."
+      },
+      {
+        "start": 385.28,
+        "end": 387.42,
+        "text": "No, no , no, no."
+      },
+      {
+        "start": 389.42,
+        "end": 392.18,
+        "text": "Consort, where is face."
+      },
+      {
+        "start": 392.46,
+        "end": 393.5,
+        "text": "No, bring it on back, I don't know."
+      },
+      {
+        "start": 393.65999999999997,
+        "end": 396.0,
+        "text": "All right, this is an interesting structure."
+      },
+      {
+        "start": 396.02,
+        "end": 396.06,
+        "text": "All right, last question."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      286.8,
+      288.0,
+      0
+    ],
+    [
+      288.0,
+      289.2,
+      0
+    ],
+    [
+      289.2,
+      290.4,
+      0
+    ],
+    [
+      290.4,
+      291.6,
+      0
+    ],
+    [
+      291.6,
+      292.8,
+      0
+    ],
+    [
+      292.8,
+      294.0,
+      0
+    ],
+    [
+      294.0,
+      295.2,
+      0
+    ],
+    [
+      295.2,
+      296.4,
+      0
+    ],
+    [
+      296.4,
+      297.6,
+      0
+    ],
+    [
+      297.6,
+      298.8,
+      0
+    ],
+    [
+      298.8,
+      300.0,
+      0
+    ],
+    [
+      300.0,
+      301.2,
+      0
+    ],
+    [
+      301.2,
+      302.4,
+      1
+    ],
+    [
+      302.4,
+      303.6,
+      0
+    ],
+    [
+      303.6,
+      304.8,
+      1
+    ],
+    [
+      304.8,
+      306.0,
+      0
+    ],
+    [
+      306.0,
+      307.2,
+      0
+    ],
+    [
+      307.2,
+      308.4,
+      0
+    ],
+    [
+      308.4,
+      309.6,
+      0
+    ],
+    [
+      309.6,
+      310.8,
+      0
+    ],
+    [
+      310.8,
+      312.0,
+      0
+    ],
+    [
+      312.0,
+      313.2,
+      0
+    ],
+    [
+      313.2,
+      314.4,
+      0
+    ],
+    [
+      314.4,
+      315.6,
+      0
+    ],
+    [
+      315.6,
+      316.8,
+      0
+    ],
+    [
+      316.8,
+      318.0,
+      0
+    ],
+    [
+      318.0,
+      319.2,
+      0
+    ],
+    [
+      319.2,
+      320.4,
+      0
+    ],
+    [
+      320.4,
+      321.6,
+      0
+    ],
+    [
+      321.6,
+      322.8,
+      0
+    ],
+    [
+      322.8,
+      324.0,
+      1
+    ],
+    [
+      324.0,
+      325.2,
+      0
+    ],
+    [
+      325.2,
+      326.4,
+      0
+    ],
+    [
+      326.4,
+      327.6,
+      0
+    ],
+    [
+      327.6,
+      328.8,
+      0
+    ],
+    [
+      328.8,
+      330.0,
+      0
+    ],
+    [
+      330.0,
+      331.2,
+      0
+    ],
+    [
+      331.2,
+      332.4,
+      0
+    ],
+    [
+      332.4,
+      333.6,
+      0
+    ],
+    [
+      333.6,
+      334.8,
+      0
+    ],
+    [
+      334.8,
+      336.0,
+      0
+    ],
+    [
+      336.0,
+      337.2,
+      0
+    ],
+    [
+      337.2,
+      338.4,
+      0
+    ],
+    [
+      338.4,
+      339.6,
+      0
+    ],
+    [
+      339.6,
+      340.8,
+      0
+    ],
+    [
+      340.8,
+      342.0,
+      0
+    ],
+    [
+      342.0,
+      343.2,
+      0
+    ],
+    [
+      343.2,
+      344.4,
+      0
+    ],
+    [
+      344.4,
+      345.6,
+      0
+    ],
+    [
+      345.6,
+      346.8,
+      0
+    ],
+    [
+      346.8,
+      348.0,
+      0
+    ],
+    [
+      348.0,
+      349.2,
+      0
+    ],
+    [
+      349.2,
+      350.4,
+      2
+    ],
+    [
+      350.4,
+      351.6,
+      1
+    ],
+    [
+      351.6,
+      352.8,
+      0
+    ],
+    [
+      352.8,
+      354.0,
+      1
+    ],
+    [
+      354.0,
+      355.2,
+      3
+    ],
+    [
+      355.2,
+      356.4,
+      0
+    ],
+    [
+      356.4,
+      357.6,
+      0
+    ],
+    [
+      357.6,
+      358.8,
+      1
+    ],
+    [
+      358.8,
+      360.0,
+      1
+    ],
+    [
+      360.0,
+      361.2,
+      2
+    ],
+    [
+      361.2,
+      362.4,
+      2
+    ],
+    [
+      362.4,
+      363.6,
+      1
+    ],
+    [
+      363.6,
+      364.8,
+      1
+    ],
+    [
+      364.8,
+      366.0,
+      1
+    ],
+    [
+      366.0,
+      367.2,
+      0
+    ],
+    [
+      367.2,
+      368.4,
+      1
+    ],
+    [
+      368.4,
+      369.6,
+      0
+    ],
+    [
+      369.6,
+      370.8,
+      0
+    ],
+    [
+      370.8,
+      372.0,
+      0
+    ],
+    [
+      372.0,
+      373.2,
+      0
+    ],
+    [
+      373.2,
+      374.4,
+      0
+    ],
+    [
+      374.4,
+      375.6,
+      0
+    ],
+    [
+      375.6,
+      376.8,
+      0
+    ],
+    [
+      376.8,
+      378.0,
+      0
+    ],
+    [
+      378.0,
+      379.2,
+      0
+    ],
+    [
+      379.2,
+      380.4,
+      0
+    ],
+    [
+      380.4,
+      381.6,
+      1
+    ],
+    [
+      381.6,
+      382.8,
+      0
+    ],
+    [
+      382.8,
+      384.0,
+      0
+    ],
+    [
+      384.0,
+      385.2,
+      0
+    ],
+    [
+      385.2,
+      386.4,
+      0
+    ],
+    [
+      386.4,
+      387.6,
+      1
+    ],
+    [
+      387.6,
+      388.8,
+      0
+    ],
+    [
+      388.8,
+      390.0,
+      0
+    ],
+    [
+      390.0,
+      391.2,
+      0
+    ],
+    [
+      391.2,
+      392.4,
+      0
+    ],
+    [
+      392.4,
+      393.6,
+      0
+    ],
+    [
+      393.6,
+      394.8,
+      0
+    ],
+    [
+      394.8,
+      396.0,
+      0
+    ],
+    [
+      396.0,
+      397.2,
+      0
+    ],
+    [
+      397.2,
+      398.4,
+      0
+    ],
+    [
+      398.4,
+      399.6,
+      0
+    ]
+  ]
+}

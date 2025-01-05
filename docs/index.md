@@ -6,36 +6,59 @@ title: Comedy Transcripts
 <div class="home">
   <h1>Comedy Transcripts</h1>
   
-  <div class="transcript-list">
-    {% for show in site.data.shows %}
-      <div class="show-card" data-date="{{ show.date_of_show }}">
-        <a href="{{ site.baseurl }}/player/{{ show.folder }}" class="show-link">
-          <h2 class="show-title">{{ show.name_of_show }}</h2>
-          <div class="show-details">
-            <div class="show-info">
-              <p class="show-date">{{ show.date_of_show }}</p>
-              <p class="comedian">{{ show.comedian }}</p>
-              <p class="venue">
-                {% if show.link_to_venue_on_google_maps %}
-                  <a href="{{ show.link_to_venue_on_google_maps }}" target="_blank" class="venue-link">
-                    {{ show.name_of_venue }} 📍
-                  </a>
-                {% else %}
-                  {{ show.name_of_venue }}
-                {% endif %}
-              </p>
-              {% if show.notes %}
-                <p class="notes">{{ show.notes }}</p>
-              {% endif %}
-            </div>
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-  </div>
-</div>
+  <p class="page-description">
+    Welcome to the Comedy Transcripts archive. Browse through comedy bits by theme, joke type, or view all bits chronologically.
+  </p>
 
-<style>
+  <div class="section-links">
+    <div class="section-card">
+      <h2><a href="{{ '/themes/' | relative_url }}">Themes</a></h2>
+      <p>Browse bits by theme, such as Cultural Differences, Family Life, and more.</p>
+    </div>
+
+    <div class="section-card">
+      <h2><a href="{{ '/joke-types/' | relative_url }}">Joke Types</a></h2>
+      <p>Explore different styles of comedy, from Wordplay to Observational humor.</p>
+    </div>
+
+    <div class="section-card">
+      <h2><a href="{{ '/bits/' | relative_url }}">Comedy Bits</a></h2>
+      <p>View all comedy bits chronologically, with performance dates and venues.</p>
+    </div>
+  </div>
+
+  <div class="recent-shows">
+    <h2>Recent Shows</h2>
+    <div class="show-list">
+      {% for show in site.data.shows %}
+        <div class="show-card" data-date="{{ show.date_of_show }}">
+          <a href="{{ site.baseurl }}/player/{{ show.folder }}" class="show-link">
+            <h3 class="show-title">{{ show.name_of_show }}</h3>
+            <div class="show-details">
+              <div class="show-info">
+                <p class="show-date">{{ show.date_of_show }}</p>
+                <p class="comedian">{{ show.comedian }}</p>
+                <p class="venue">
+                  {% if show.link_to_venue_on_google_maps %}
+                    <a href="{{ show.link_to_venue_on_google_maps }}" target="_blank" class="venue-link">
+                      {{ show.name_of_venue }} 📍
+                    </a>
+                  {% else %}
+                    {{ show.name_of_venue }}
+                  {% endif %}
+                </p>
+                {% if show.notes %}
+                  <p class="notes">{{ show.notes }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
 .transcript-list {
   display: grid;
   gap: 1.5rem;
@@ -122,7 +145,7 @@ title: Comedy Transcripts
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Sort show cards by date
-  const container = document.querySelector('.transcript-list');
+  const container = document.querySelector('.show-list');
   const cards = Array.from(container.children);
   
   cards.sort((a, b) => {

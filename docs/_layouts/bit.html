@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{% assign bit_data = site.data.bits[page.bit_id] %}
+
+<div class="bit-page">
+  <h1>{{ page.canonical_name }}</h1>
+
+  <div class="bit-metadata">
+    <p><strong>Date:</strong> {{ bit_data.show_info.date_of_show }}</p>
+    <p><strong>LPM:</strong> {{ bit_data.show_info.lpm }}</p>
+    <p><strong>Venue:</strong> {{ bit_data.show_info.name_of_venue }}</p>
+    <p>
+      <a href="{{ site.baseurl }}/player/{{ bit_data.show_info.show_identifier }}/#t={{ bit_data.bit_info.start }}">
+        Listen to this bit
+      </a>
+    </p>
+  </div>
+
+  <div class="bit-transcript">
+    <h2>Transcript</h2>
+    <div class="transcript-text">
+      {% for line in bit_data.transcript.lines %}
+        <p>{{ line.text }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.bit-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.bit-metadata {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.bit-metadata p {
+  margin: 0.5rem 0;
+}
+
+.bit-transcript {
+  margin-top: 2rem;
+}
+
+.transcript-text {
+  line-height: 1.6;
+}
+
+.transcript-text p {
+  margin: 1rem 0;
+}
+</style>

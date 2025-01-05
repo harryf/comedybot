@@ -1,0 +1,248 @@
+{
+  "bit_id": "20241231_Skyline_Conedy_world_war_iii_anxiety",
+  "show_info": {
+    "show_identifier": "20241231_Skyline_Conedy",
+    "comedian": "Harry F\u00fccks",
+    "name_of_show": "Skyline Comedy",
+    "date_of_show": "20 Nov 2024, 20:00",
+    "name_of_venue": "Bar Rouge",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/K7BZ9iDvWh5vMe8u9",
+    "length_of_set": 588.24,
+    "lpm": 11,
+    "notes": "Top of a large building in Basel"
+  },
+  "bit_info": {
+    "title": "World War III Anxiety",
+    "start": 409.26,
+    "end": 446.44,
+    "joke_types": [
+      "Double Entendre",
+      "Observational",
+      "Relatable Struggle",
+      "Wordplay"
+    ],
+    "themes": [
+      "Aging",
+      "World Events",
+      "Anxiety"
+    ],
+    "lpm": 11
+  },
+  "transcript": {
+    "text": "And that's how you do it? In fact, if I make a movie about my life, I'll probably call it Fifty Shades of Fux. And, yeah, but, you know, it's a weird thing at this age. I don't know, it's like looking at the world, do you get a bit of anxiety about what's going on in the world at the moment? You know, like, because I feel like we're edging World War III. And that's, I'm very conflicted about that, because I don't like the idea of World War III. But I do like edging. And this guy knows what I'm talking about. Oh, no. God damn.",
+    "lines": [
+      {
+        "start": 409.26,
+        "end": 409.42,
+        "text": "And that's how you do it?"
+      },
+      {
+        "start": 409.42,
+        "end": 413.58000000000004,
+        "text": "In fact, if I make a movie about my life, I'll probably call it Fifty Shades of Fux."
+      },
+      {
+        "start": 415.66,
+        "end": 420.90000000000003,
+        "text": "And, yeah, but, you know, it's a weird thing at this age."
+      },
+      {
+        "start": 421.04,
+        "end": 426.8,
+        "text": "I don't know, it's like looking at the world, do you get a bit of anxiety about what's going on in the world at the moment?"
+      },
+      {
+        "start": 427.56,
+        "end": 430.64,
+        "text": "You know, like, because I feel like we're edging World War III."
+      },
+      {
+        "start": 431.54,
+        "end": 436.74,
+        "text": "And that's, I'm very conflicted about that, because I don't like the idea of World War III."
+      },
+      {
+        "start": 437.36,
+        "end": 438.54,
+        "text": "But I do like edging."
+      },
+      {
+        "start": 439.42,
+        "end": 444.28000000000003,
+        "text": "And this guy knows what I'm talking about."
+      },
+      {
+        "start": 444.44,
+        "end": 446.44,
+        "text": "Oh, no. God damn."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      410.4,
+      411.6,
+      0
+    ],
+    [
+      411.6,
+      412.8,
+      0
+    ],
+    [
+      412.8,
+      414.0,
+      0
+    ],
+    [
+      414.0,
+      415.2,
+      1
+    ],
+    [
+      415.2,
+      416.4,
+      0
+    ],
+    [
+      416.4,
+      417.6,
+      0
+    ],
+    [
+      417.6,
+      418.8,
+      0
+    ],
+    [
+      418.8,
+      420.0,
+      0
+    ],
+    [
+      420.0,
+      421.2,
+      0
+    ],
+    [
+      421.2,
+      422.4,
+      0
+    ],
+    [
+      422.4,
+      423.6,
+      0
+    ],
+    [
+      423.6,
+      424.8,
+      0
+    ],
+    [
+      424.8,
+      426.0,
+      0
+    ],
+    [
+      426.0,
+      427.2,
+      0
+    ],
+    [
+      427.2,
+      428.4,
+      0
+    ],
+    [
+      428.4,
+      429.6,
+      0
+    ],
+    [
+      429.6,
+      430.8,
+      0
+    ],
+    [
+      430.8,
+      432.0,
+      0
+    ],
+    [
+      432.0,
+      433.2,
+      0
+    ],
+    [
+      433.2,
+      434.4,
+      0
+    ],
+    [
+      434.4,
+      435.6,
+      0
+    ],
+    [
+      435.6,
+      436.8,
+      0
+    ],
+    [
+      436.8,
+      438.0,
+      0
+    ],
+    [
+      438.0,
+      439.2,
+      0
+    ],
+    [
+      439.2,
+      440.4,
+      1
+    ],
+    [
+      440.4,
+      441.6,
+      1
+    ],
+    [
+      441.6,
+      442.8,
+      1
+    ],
+    [
+      442.8,
+      444.0,
+      0
+    ],
+    [
+      444.0,
+      445.2,
+      1
+    ],
+    [
+      445.2,
+      446.4,
+      1
+    ],
+    [
+      446.4,
+      447.6,
+      1
+    ],
+    [
+      447.6,
+      448.8,
+      0
+    ],
+    [
+      448.8,
+      450.0,
+      0
+    ]
+  ]
+}

@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<h1>{{ page.title }}</h1>
+
+{% assign theme_bits = site.data.themes_collection[page.title] %}
+{% if theme_bits %}
+  <ul class="bits-list">
+    {% for bit in theme_bits %}
+      <li>
+        <a href="{{ '/bits/' | append: bit.bit_id | relative_url }}">{{ bit.canonical_name }}</a>
+        <div class="bit-info">
+          <span>{{ bit.date_of_show }}</span> |
+          <span>{{ bit.venue }}</span> |
+          <span>LPM: {{ bit.lpm }}</span>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No bits found for this theme.</p>
+{% endif %}

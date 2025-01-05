@@ -1,0 +1,8 @@
+- name: Home
+  link: /
+- name: Themes
+  link: /themes/
+- name: Joke Types
+  link: /joke-types/
+- name: Comedy Bits
+  link: /bits/

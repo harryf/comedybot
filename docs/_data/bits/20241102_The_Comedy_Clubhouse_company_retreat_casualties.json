@@ -1,0 +1,402 @@
+{
+  "bit_id": "20241102_The_Comedy_Clubhouse_company_retreat_casualties",
+  "show_info": {
+    "show_identifier": "20241102_The_Comedy_Clubhouse",
+    "comedian": "Harry F\u00fccks",
+    "name_of_show": "Saturday Spotlight",
+    "date_of_show": "02 Nov 2024, 19:30",
+    "name_of_venue": "The Comedy Clubhouse",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/AUBNNyCAU8VFg4jh7",
+    "length_of_set": "13m0s",
+    "lpm": 18,
+    "notes": "This is a markdown text for the comedian's notes on the show."
+  },
+  "bit_info": {
+    "title": "Company Retreat Casualties",
+    "start": 64,
+    "end": 137,
+    "joke_types": [
+      "Misdirect",
+      "Observational",
+      "Sarcasm",
+      "Wordplay"
+    ],
+    "themes": [
+      "Work",
+      "Corporate Culture"
+    ],
+    "lpm": 17
+  },
+  "transcript": {
+    "text": "I don't know, but guys, I've got to come straight with you, I'm not really in the mood to do comedy today because last week I went on a company retreat. And nothing makes you want to retreat your company like a company retreat. And we had to work on it. We had to work on our company values. Who here works at a company with values? What is that shit? Like honestly, why are these companies pretending to be nice? It's always the same, they're like, here at Evil Corporation, we believe in diversity and inclusion and... I mean sustainability, I mean sustainability guys. So we're working, and I'm in this workshop, and some idiot on the workshop came up with this company value, they were like, we before I. And I thought to myself, yeah, but what about who before gives a fuck? That is my kind of company value.",
+    "lines": [
+      {
+        "start": 64.0,
+        "end": 74.0,
+        "text": "I don't know, but guys, I've got to come straight with you, I'm not really in the mood to do comedy today because last week I went on a company retreat."
+      },
+      {
+        "start": 76.0,
+        "end": 82.0,
+        "text": "And nothing makes you want to retreat your company like a company retreat."
+      },
+      {
+        "start": 83.0,
+        "end": 84.0,
+        "text": "And we had to work on it."
+      },
+      {
+        "start": 86.0,
+        "end": 89.0,
+        "text": "We had to work on our company values. Who here works at a company with values?"
+      },
+      {
+        "start": 92.0,
+        "end": 97.0,
+        "text": "What is that shit? Like honestly, why are these companies pretending to be nice?"
+      },
+      {
+        "start": 98.0,
+        "end": 107.0,
+        "text": "It's always the same, they're like, here at Evil Corporation, we believe in diversity and inclusion and..."
+      },
+      {
+        "start": 108.0,
+        "end": 113.0,
+        "text": "I mean sustainability, I mean sustainability guys."
+      },
+      {
+        "start": 113.0,
+        "end": 124.0,
+        "text": "So we're working, and I'm in this workshop, and some idiot on the workshop came up with this company value, they were like, we before I."
+      },
+      {
+        "start": 126.0,
+        "end": 132.0,
+        "text": "And I thought to myself, yeah, but what about who before gives a fuck?"
+      },
+      {
+        "start": 135.0,
+        "end": 137.0,
+        "text": "That is my kind of company value."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      64.8,
+      66.0,
+      0
+    ],
+    [
+      66.0,
+      67.2,
+      0
+    ],
+    [
+      67.2,
+      68.4,
+      0
+    ],
+    [
+      68.4,
+      69.6,
+      0
+    ],
+    [
+      69.6,
+      70.8,
+      0
+    ],
+    [
+      70.8,
+      72.0,
+      0
+    ],
+    [
+      72.0,
+      73.2,
+      0
+    ],
+    [
+      73.2,
+      74.4,
+      1
+    ],
+    [
+      74.4,
+      75.6,
+      1
+    ],
+    [
+      75.6,
+      76.8,
+      0
+    ],
+    [
+      76.8,
+      78.0,
+      0
+    ],
+    [
+      78.0,
+      79.2,
+      1
+    ],
+    [
+      79.2,
+      80.4,
+      0
+    ],
+    [
+      80.4,
+      81.6,
+      1
+    ],
+    [
+      81.6,
+      82.8,
+      0
+    ],
+    [
+      82.8,
+      84.0,
+      0
+    ],
+    [
+      84.0,
+      85.2,
+      0
+    ],
+    [
+      85.2,
+      86.4,
+      0
+    ],
+    [
+      86.4,
+      87.6,
+      0
+    ],
+    [
+      87.6,
+      88.8,
+      1
+    ],
+    [
+      88.8,
+      90.0,
+      1
+    ],
+    [
+      90.0,
+      91.2,
+      0
+    ],
+    [
+      91.2,
+      92.4,
+      0
+    ],
+    [
+      92.4,
+      93.6,
+      0
+    ],
+    [
+      93.6,
+      94.8,
+      0
+    ],
+    [
+      94.8,
+      96.0,
+      0
+    ],
+    [
+      96.0,
+      97.2,
+      0
+    ],
+    [
+      97.2,
+      98.4,
+      0
+    ],
+    [
+      98.4,
+      99.6,
+      1
+    ],
+    [
+      99.6,
+      100.8,
+      1
+    ],
+    [
+      100.8,
+      102.0,
+      1
+    ],
+    [
+      102.0,
+      103.2,
+      1
+    ],
+    [
+      103.2,
+      104.4,
+      1
+    ],
+    [
+      104.4,
+      105.6,
+      0
+    ],
+    [
+      105.6,
+      106.8,
+      0
+    ],
+    [
+      106.8,
+      108.0,
+      0
+    ],
+    [
+      108.0,
+      109.2,
+      1
+    ],
+    [
+      109.2,
+      110.4,
+      0
+    ],
+    [
+      110.4,
+      111.6,
+      0
+    ],
+    [
+      111.6,
+      112.8,
+      0
+    ],
+    [
+      112.8,
+      114.0,
+      0
+    ],
+    [
+      114.0,
+      115.2,
+      0
+    ],
+    [
+      115.2,
+      116.4,
+      0
+    ],
+    [
+      116.4,
+      117.6,
+      0
+    ],
+    [
+      117.6,
+      118.8,
+      0
+    ],
+    [
+      118.8,
+      120.0,
+      0
+    ],
+    [
+      120.0,
+      121.2,
+      0
+    ],
+    [
+      121.2,
+      122.4,
+      0
+    ],
+    [
+      122.4,
+      123.6,
+      1
+    ],
+    [
+      123.6,
+      124.8,
+      0
+    ],
+    [
+      124.8,
+      126.0,
+      0
+    ],
+    [
+      126.0,
+      127.2,
+      0
+    ],
+    [
+      127.2,
+      128.4,
+      0
+    ],
+    [
+      128.4,
+      129.6,
+      0
+    ],
+    [
+      129.6,
+      130.8,
+      1
+    ],
+    [
+      130.8,
+      132.0,
+      2
+    ],
+    [
+      132.0,
+      133.2,
+      2
+    ],
+    [
+      133.2,
+      134.4,
+      2
+    ],
+    [
+      134.4,
+      135.6,
+      0
+    ],
+    [
+      135.6,
+      136.8,
+      0
+    ],
+    [
+      136.8,
+      138.0,
+      1
+    ],
+    [
+      138.0,
+      139.2,
+      0
+    ],
+    [
+      139.2,
+      140.4,
+      0
+    ]
+  ]
+}

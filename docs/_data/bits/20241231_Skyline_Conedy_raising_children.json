@@ -1,0 +1,725 @@
+{
+  "bit_id": "20241231_Skyline_Conedy_raising_children",
+  "show_info": {
+    "show_identifier": "20241231_Skyline_Conedy",
+    "comedian": "Harry F\u00fccks",
+    "name_of_show": "Skyline Comedy",
+    "date_of_show": "20 Nov 2024, 20:00",
+    "name_of_venue": "Bar Rouge",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/K7BZ9iDvWh5vMe8u9",
+    "length_of_set": 588.24,
+    "lpm": 11,
+    "notes": "Top of a large building in Basel"
+  },
+  "bit_info": {
+    "title": "Raising Children",
+    "start": 75.64,
+    "end": 189.92,
+    "joke_types": [
+      "Observational",
+      "Dark Humor",
+      "Exaggeration",
+      "Observational Absurdity",
+      "Sarcasm",
+      "Relatable Struggle"
+    ],
+    "themes": [
+      "Parenting",
+      "Modern Society",
+      "Human History"
+    ],
+    "lpm": 16
+  },
+  "transcript": {
+    "text": "We're doing a lot of stuff about babies. Do we have any parents here tonight? Parents, make some noise. Okay, do we... Does anyone here have parents? Parents. Make some noise. All right, good. We'll find some of them. I don't know. I mean, all these people complaining about kids. I'm a dad myself. And it annoys me. That annoys me, people going on about kids. I've got this friend. Every time she talks about it, she's like, the way the world is today, I just don't know if I want to have children. And I don't understand that, guys, because as a dad, having children is shit. But the thing is, is if you think about that, human beings have been on this planet for more than 300,000 years. And sex only got good about 23 years ago. In fact, we only invented soap about 100 years ago. Or penicillin. Or penicillin. That's definitely the... Or, but another thing we invented was consent about five years ago. . . Okay, it's always uncomfortable who laughs at that. . But, I don't know. I mean, what I'm trying to tell you guys is that you think about it. Do you know how much traumatic stuff the human race had to go through for you guys all to be here just going like, I'd just rather drink a green tea frappuccino with oat milk. Just like, make some effort, guys, for all your ancestors, what they had to go through. Guys, having kids is easy. It's so easy now. It's so easy to just unzip your stomach and out pops the kid. And then you hand them an iPad, you're done. . See, you're already down.",
+    "lines": [
+      {
+        "start": 75.64,
+        "end": 77.36,
+        "text": "We're doing a lot of stuff about babies."
+      },
+      {
+        "start": 77.52,
+        "end": 79.24,
+        "text": "Do we have any parents here tonight?"
+      },
+      {
+        "start": 79.36,
+        "end": 80.32,
+        "text": "Parents, make some noise."
+      },
+      {
+        "start": 85.6,
+        "end": 86.64,
+        "text": "Okay, do we..."
+      },
+      {
+        "start": 86.64,
+        "end": 88.46,
+        "text": "Does anyone here have parents?"
+      },
+      {
+        "start": 88.46,
+        "end": 88.56,
+        "text": "Parents."
+      },
+      {
+        "start": 88.58,
+        "end": 89.3,
+        "text": "Make some noise."
+      },
+      {
+        "start": 91.34,
+        "end": 92.02,
+        "text": "All right, good."
+      },
+      {
+        "start": 92.12,
+        "end": 93.42,
+        "text": "We'll find some of them."
+      },
+      {
+        "start": 94.96,
+        "end": 95.44,
+        "text": "I don't know."
+      },
+      {
+        "start": 95.53999999999999,
+        "end": 97.67999999999999,
+        "text": "I mean, all these people complaining about kids."
+      },
+      {
+        "start": 97.78,
+        "end": 98.9,
+        "text": "I'm a dad myself."
+      },
+      {
+        "start": 99.28,
+        "end": 100.36,
+        "text": "And it annoys me."
+      },
+      {
+        "start": 100.42,
+        "end": 102.7,
+        "text": "That annoys me, people going on about kids."
+      },
+      {
+        "start": 102.75999999999999,
+        "end": 103.53999999999999,
+        "text": "I've got this friend."
+      },
+      {
+        "start": 103.64,
+        "end": 106.18,
+        "text": "Every time she talks about it, she's like,"
+      },
+      {
+        "start": 106.24,
+        "end": 111.44,
+        "text": "the way the world is today, I just don't know if I want to have children."
+      },
+      {
+        "start": 112.25999999999999,
+        "end": 117.32,
+        "text": "And I don't understand that, guys, because as a dad, having children is shit."
+      },
+      {
+        "start": 117.32,
+        "end": 125.55999999999999,
+        "text": "But the thing is, is if you think about that, human beings have been on this planet for more than 300,000 years."
+      },
+      {
+        "start": 125.63999999999999,
+        "end": 129.82,
+        "text": "And sex only got good about 23 years ago."
+      },
+      {
+        "start": 129.9,
+        "end": 136.82,
+        "text": "In fact, we only invented soap about 100 years ago."
+      },
+      {
+        "start": 136.92,
+        "end": 139.0,
+        "text": "Or penicillin."
+      },
+      {
+        "start": 139.1,
+        "end": 140.2,
+        "text": "Or penicillin."
+      },
+      {
+        "start": 140.29999999999998,
+        "end": 141.42,
+        "text": "That's definitely the..."
+      },
+      {
+        "start": 141.51999999999998,
+        "end": 145.88,
+        "text": "Or, but another thing we invented was consent about five years ago."
+      },
+      {
+        "start": 145.98,
+        "end": 147.01999999999998,
+        "text": "."
+      },
+      {
+        "start": 147.32,
+        "end": 149.32,
+        "text": "."
+      },
+      {
+        "start": 149.42,
+        "end": 152.07999999999998,
+        "text": "Okay, it's always uncomfortable who laughs at that."
+      },
+      {
+        "start": 152.18,
+        "end": 153.85999999999999,
+        "text": "."
+      },
+      {
+        "start": 153.95999999999998,
+        "end": 154.82,
+        "text": "But, I don't know."
+      },
+      {
+        "start": 154.92,
+        "end": 157.82,
+        "text": "I mean, what I'm trying to tell you guys is that you think about it."
+      },
+      {
+        "start": 157.92,
+        "end": 165.92,
+        "text": "Do you know how much traumatic stuff the human race had to go through for you guys all to be here just going like,"
+      },
+      {
+        "start": 166.01999999999998,
+        "end": 171.12,
+        "text": "I'd just rather drink a green tea frappuccino with oat milk."
+      },
+      {
+        "start": 171.22,
+        "end": 175.62,
+        "text": "Just like, make some effort, guys, for all your ancestors, what they had to go through."
+      },
+      {
+        "start": 175.72,
+        "end": 177.29999999999998,
+        "text": "Guys, having kids is easy."
+      },
+      {
+        "start": 177.4,
+        "end": 178.4,
+        "text": "It's so easy now."
+      },
+      {
+        "start": 178.5,
+        "end": 182.82,
+        "text": "It's so easy to just unzip your stomach and out pops the kid."
+      },
+      {
+        "start": 182.92,
+        "end": 185.01999999999998,
+        "text": "And then you hand them an iPad, you're done."
+      },
+      {
+        "start": 185.12,
+        "end": 187.92,
+        "text": "."
+      },
+      {
+        "start": 188.01999999999998,
+        "end": 189.82,
+        "text": "See, you're already down."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      76.8,
+      78.0,
+      0
+    ],
+    [
+      78.0,
+      79.2,
+      0
+    ],
+    [
+      79.2,
+      80.4,
+      0
+    ],
+    [
+      80.4,
+      81.6,
+      2
+    ],
+    [
+      81.6,
+      82.8,
+      3
+    ],
+    [
+      82.8,
+      84.0,
+      2
+    ],
+    [
+      84.0,
+      85.2,
+      1
+    ],
+    [
+      85.2,
+      86.4,
+      0
+    ],
+    [
+      86.4,
+      87.6,
+      0
+    ],
+    [
+      87.6,
+      88.8,
+      2
+    ],
+    [
+      88.8,
+      90.0,
+      2
+    ],
+    [
+      90.0,
+      91.2,
+      0
+    ],
+    [
+      91.2,
+      92.4,
+      0
+    ],
+    [
+      92.4,
+      93.6,
+      1
+    ],
+    [
+      93.6,
+      94.8,
+      0
+    ],
+    [
+      94.8,
+      96.0,
+      0
+    ],
+    [
+      96.0,
+      97.2,
+      0
+    ],
+    [
+      97.2,
+      98.4,
+      0
+    ],
+    [
+      98.4,
+      99.6,
+      0
+    ],
+    [
+      99.6,
+      100.8,
+      0
+    ],
+    [
+      100.8,
+      102.0,
+      0
+    ],
+    [
+      102.0,
+      103.2,
+      0
+    ],
+    [
+      103.2,
+      104.4,
+      0
+    ],
+    [
+      104.4,
+      105.6,
+      0
+    ],
+    [
+      105.6,
+      106.8,
+      0
+    ],
+    [
+      106.8,
+      108.0,
+      0
+    ],
+    [
+      108.0,
+      109.2,
+      0
+    ],
+    [
+      109.2,
+      110.4,
+      0
+    ],
+    [
+      110.4,
+      111.6,
+      0
+    ],
+    [
+      111.6,
+      112.8,
+      0
+    ],
+    [
+      112.8,
+      114.0,
+      0
+    ],
+    [
+      114.0,
+      115.2,
+      0
+    ],
+    [
+      115.2,
+      116.4,
+      0
+    ],
+    [
+      116.4,
+      117.6,
+      0
+    ],
+    [
+      117.6,
+      118.8,
+      0
+    ],
+    [
+      118.8,
+      120.0,
+      0
+    ],
+    [
+      120.0,
+      121.2,
+      0
+    ],
+    [
+      121.2,
+      122.4,
+      0
+    ],
+    [
+      122.4,
+      123.6,
+      0
+    ],
+    [
+      123.6,
+      124.8,
+      0
+    ],
+    [
+      124.8,
+      126.0,
+      0
+    ],
+    [
+      126.0,
+      127.2,
+      0
+    ],
+    [
+      127.2,
+      128.4,
+      0
+    ],
+    [
+      128.4,
+      129.6,
+      0
+    ],
+    [
+      129.6,
+      130.8,
+      0
+    ],
+    [
+      130.8,
+      132.0,
+      2
+    ],
+    [
+      132.0,
+      133.2,
+      2
+    ],
+    [
+      133.2,
+      134.4,
+      1
+    ],
+    [
+      134.4,
+      135.6,
+      0
+    ],
+    [
+      135.6,
+      136.8,
+      0
+    ],
+    [
+      136.8,
+      138.0,
+      1
+    ],
+    [
+      138.0,
+      139.2,
+      0
+    ],
+    [
+      139.2,
+      140.4,
+      1
+    ],
+    [
+      140.4,
+      141.6,
+      0
+    ],
+    [
+      141.6,
+      142.8,
+      0
+    ],
+    [
+      142.8,
+      144.0,
+      0
+    ],
+    [
+      144.0,
+      145.2,
+      0
+    ],
+    [
+      145.2,
+      146.4,
+      1
+    ],
+    [
+      146.4,
+      147.6,
+      2
+    ],
+    [
+      147.6,
+      148.8,
+      2
+    ],
+    [
+      148.8,
+      150.0,
+      1
+    ],
+    [
+      150.0,
+      151.2,
+      1
+    ],
+    [
+      151.2,
+      152.4,
+      0
+    ],
+    [
+      152.4,
+      153.6,
+      0
+    ],
+    [
+      153.6,
+      154.8,
+      0
+    ],
+    [
+      154.8,
+      156.0,
+      0
+    ],
+    [
+      156.0,
+      157.2,
+      0
+    ],
+    [
+      157.2,
+      158.4,
+      0
+    ],
+    [
+      158.4,
+      159.6,
+      0
+    ],
+    [
+      159.6,
+      160.8,
+      0
+    ],
+    [
+      160.8,
+      162.0,
+      0
+    ],
+    [
+      162.0,
+      163.2,
+      0
+    ],
+    [
+      163.2,
+      164.4,
+      0
+    ],
+    [
+      164.4,
+      165.6,
+      0
+    ],
+    [
+      165.6,
+      166.8,
+      0
+    ],
+    [
+      166.8,
+      168.0,
+      0
+    ],
+    [
+      168.0,
+      169.2,
+      0
+    ],
+    [
+      169.2,
+      170.4,
+      0
+    ],
+    [
+      170.4,
+      171.6,
+      0
+    ],
+    [
+      171.6,
+      172.8,
+      0
+    ],
+    [
+      172.8,
+      174.0,
+      0
+    ],
+    [
+      174.0,
+      175.2,
+      0
+    ],
+    [
+      175.2,
+      176.4,
+      0
+    ],
+    [
+      176.4,
+      177.6,
+      0
+    ],
+    [
+      177.6,
+      178.8,
+      0
+    ],
+    [
+      178.8,
+      180.0,
+      0
+    ],
+    [
+      180.0,
+      181.2,
+      0
+    ],
+    [
+      181.2,
+      182.4,
+      0
+    ],
+    [
+      182.4,
+      183.6,
+      0
+    ],
+    [
+      183.6,
+      184.8,
+      1
+    ],
+    [
+      184.8,
+      186.0,
+      2
+    ],
+    [
+      186.0,
+      187.2,
+      0
+    ],
+    [
+      187.2,
+      188.4,
+      0
+    ],
+    [
+      188.4,
+      189.6,
+      1
+    ],
+    [
+      189.6,
+      190.8,
+      0
+    ],
+    [
+      190.8,
+      192.0,
+      0
+    ],
+    [
+      192.0,
+      193.2,
+      0
+    ]
+  ]
+}

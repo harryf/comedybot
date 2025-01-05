@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="site-header">
+            <div class="wrapper">
+                <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+                <nav class="site-nav">
+                    <div class="trigger">
+                        {% for item in site.data.navigation %}
+                        <a class="page-link {% if page.url == item.link %}current{% endif %}" href="{{ item.link | relative_url }}">
+                            {{ item.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="page-content">
+            <div class="wrapper">
+                {{ content }}
+            </div>
+        </main>
+    </div>
+</body>
+</html>
