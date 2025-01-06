@@ -274,6 +274,89 @@ class TestBitVectorDB(unittest.TestCase):
         self.assertGreater(len(matches), 0)
         self.assertEqual(matches[0].bit_id, "bit_a")  # Expect "bit_a" to be top
 
+    def test_sentence_match_boost(self):
+        """Test that strong sentence matches can boost overall ranking."""
+        # Create a base vector that both bits will be similar to
+        base_vec = np.ones(384, dtype=np.float32) / np.sqrt(384)  # Unit vector
+        
+        # Create a sentence vector that will be shared between bit1 and query
+        sentence_vec = np.ones(384, dtype=np.float32) / np.sqrt(384)  # Unit vector
+
+        # Bit 1: Similar full vector + matching sentence
+        bit1_full = base_vec + np.random.normal(0, 0.01, (384,)).astype(np.float32)  # Small perturbation
+        bit1_full = bit1_full / np.linalg.norm(bit1_full)  # Normalize
+        bit1_vectors = BitVectors(
+            full_vector=bit1_full,
+            sentence_vectors=[sentence_vec],  # Exact matching sentence
+            ngram_vectors=[],
+            punchline_vectors=[]
+        )
+        bit1_entity = BitEntity("dummy_path")
+        bit1_entity.bit_data = {
+            "bit_id": "bit1",
+            "show_info": {},
+            "bit_info": {
+                "title": "Bit 1",
+                "joke_types": [],
+                "themes": []
+            },
+            "transcript": {
+                "text": "Test bit text with matching sentence",
+            },
+            "audience_reactions": []
+        }
+        self.db.add_to_database(bit1_entity, bit1_vectors)
+
+        # Bit 2: Similar full vector but different sentence
+        bit2_full = base_vec + np.random.normal(0, 0.01, (384,)).astype(np.float32)  # Small perturbation
+        bit2_full = bit2_full / np.linalg.norm(bit2_full)  # Normalize
+        bit2_sentence = np.random.rand(384).astype(np.float32)
+        bit2_sentence = bit2_sentence / np.linalg.norm(bit2_sentence)  # Normalize
+        bit2_vectors = BitVectors(
+            full_vector=bit2_full,
+            sentence_vectors=[bit2_sentence],
+            ngram_vectors=[],
+            punchline_vectors=[]
+        )
+        bit2_entity = BitEntity("dummy_path")
+        bit2_entity.bit_data = {
+            "bit_id": "bit2",
+            "show_info": {},
+            "bit_info": {
+                "title": "Bit 2",
+                "joke_types": [],
+                "themes": []
+            },
+            "transcript": {
+                "text": "Test bit text with different sentence",
+            },
+            "audience_reactions": []
+        }
+        self.db.add_to_database(bit2_entity, bit2_vectors)
+
+        # Query: Similar to both in full vector, but has matching sentence with bit1
+        query_full = base_vec + np.random.normal(0, 0.01, (384,)).astype(np.float32)  # Small perturbation
+        query_full = query_full / np.linalg.norm(query_full)  # Normalize
+        query_vectors = BitVectors(
+            full_vector=query_full,
+            sentence_vectors=[sentence_vec],  # Exact match with bit1's sentence
+            ngram_vectors=[],
+            punchline_vectors=[]
+        )
+
+        # Find matches
+        matches = self.db.find_matching_bits(query_vectors)
+        
+        # Verify we got matches
+        self.assertGreater(len(matches), 0)
+        
+        # Verify bit1 (with matching sentence) ranks higher than bit2
+        bit1_rank = next((i for i, m in enumerate(matches) if m.bit_id == "bit1"), -1)
+        bit2_rank = next((i for i, m in enumerate(matches) if m.bit_id == "bit2"), -1)
+        
+        self.assertNotEqual(bit1_rank, -1, "Bit1 should be in matches")
+        self.assertNotEqual(bit2_rank, -1, "Bit2 should be in matches")
+        self.assertLess(bit1_rank, bit2_rank, "Bit1 should rank higher than Bit2 due to sentence match")
 
 
 if __name__ == '__main__':
