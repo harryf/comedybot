@@ -174,10 +174,10 @@ class TestBitVectorDB(unittest.TestCase):
 
         # Replace indexes with small dimension indexes for testing
         import faiss
-        self.db.full_index = faiss.IndexFlatL2(3)
-        self.db.sentence_index = faiss.IndexFlatL2(3)
-        self.db.ngram_index = faiss.IndexFlatL2(3)
-        self.db.punchline_index = faiss.IndexFlatL2(3)
+        self.db.full_index = faiss.IndexFlatL2(384)
+        self.db.sentence_index = faiss.IndexFlatL2(384)
+        self.db.ngram_index = faiss.IndexFlatL2(384)
+        self.db.punchline_index = faiss.IndexFlatL2(384)
 
     def tearDown(self):
         shutil.rmtree(self.test_dir, ignore_errors=True)
@@ -198,7 +198,7 @@ class TestBitVectorDB(unittest.TestCase):
 
         # create some vectors
         vectors = BitVectors(
-            full_vector=np.array([0.1, 0.2, 0.3], dtype=np.float32),
+            full_vector=np.random.rand(384).astype(np.float32),
             sentence_vectors=[],
             ngram_vectors=[],
             punchline_vectors=[]
@@ -210,7 +210,8 @@ class TestBitVectorDB(unittest.TestCase):
 
     def test_find_matching_bits(self):
         # Add a single vector to full_index for demonstration
-        sample_vec = np.array([[0.5, 0.5, 0.5]], dtype=np.float32)
+        sample_vec = np.random.rand(384).reshape(1, -1).astype(np.float32)
+        faiss.normalize_L2(sample_vec)
         self.db.full_index.add(sample_vec)
 
         # Put bit_xyz in the registry
@@ -222,7 +223,7 @@ class TestBitVectorDB(unittest.TestCase):
 
         # Create a query with no sentences, ngrams, or punchlines
         query_vecs = BitVectors(
-            full_vector=np.array([0.5, 0.5, 0.5], dtype=np.float32),
+            full_vector=sample_vec[0],
             sentence_vectors=[], 
             ngram_vectors=[], 
             punchline_vectors=[]
@@ -247,14 +248,21 @@ class TestBitVectorDB(unittest.TestCase):
                 ngram_vectors=[],
                 punchline_vectors=[]
             )
-            bit_entity = BitEntity(
-                bit_id=bit_id,
-                title=f"Test Bit {bit_id}",
-                text="Test bit text",
-                show_info={},
-                joke_types=[],
-                themes=[]
-            )
+            bit_entity = BitEntity("dummy_path")
+            bit_entity.bit_data = {
+                "bit_id": bit_id,
+                "show_info": {},
+                "bit_info": {
+                    "title": f"Test Bit {bit_id}",
+                    "joke_types": [],
+                    "themes": []
+                },
+                
+                "transcript": {
+                    "text": "Test bit text",
+                },
+                "audience_reactions": []
+            }
             self.db.add_to_database(bit_entity, vectors)
         
         # Query with something close to vec_a
