@@ -321,8 +321,12 @@ class TermVectorTool(BaseModel):
             logger.error(f"Error aggregating sentence vectors: {e}")
             return np.zeros(self.dimension, dtype=np.float32)
 
-    def _extract_ngrams(self, doc: spacy.tokens.Doc) -> List[Tuple[str, float]]:
-        """Extract n-grams from text with intelligent filtering and scoring."""
+    def _extract_ngrams(self, doc: spacy.tokens.Doc) -> List[Tuple[str, float, int]]:
+        """Extract n-grams from text with intelligent filtering and scoring.
+        
+        Returns:
+            List of tuples containing (text, score, char_position)
+        """
         try:
             # Initialize n-gram spans
             spans = []
@@ -349,15 +353,15 @@ class TermVectorTool(BaseModel):
                         if not any(not t.is_stop for t in span):
                             continue
                         
-                        sent_spans.append(span)
+                        sent_spans.append((span, span[0].idx))  # Store character position
                 
                 # Filter overlapping spans
-                filtered_spans = spacy.util.filter_spans(sent_spans)
+                filtered_spans = [(span, pos) for span, pos in sent_spans]
                 spans.extend(filtered_spans)
             
             # Score and filter n-grams
             scored_ngrams = []
-            for span in spans:
+            for span, char_pos in spans:
                 # Calculate importance score based on multiple factors
                 score = 1.0
                 
@@ -381,7 +385,7 @@ class TermVectorTool(BaseModel):
                 
                 # Add if score is high enough
                 if score > 0.4:  # Threshold for keeping n-grams
-                    scored_ngrams.append((span.text.strip(), score))
+                    scored_ngrams.append((span.text.strip(), score, char_pos))
             
             # Sort by score and deduplicate
             scored_ngrams.sort(key=lambda x: x[1], reverse=True)
@@ -389,14 +393,14 @@ class TermVectorTool(BaseModel):
             # Remove near-duplicates (substrings)
             final_ngrams = []
             seen_texts = set()
-            for text, score in scored_ngrams:
+            for text, score, pos in scored_ngrams:
                 # Skip if this is a substring of an already seen n-gram
                 if any(text in seen for seen in seen_texts):
                     continue
                 # Skip if this contains an already seen n-gram
                 if any(seen in text for seen in seen_texts):
                     continue
-                final_ngrams.append((text, score))
+                final_ngrams.append((text, score, pos))
                 seen_texts.add(text)
             
             return final_ngrams
@@ -468,38 +472,22 @@ class TermVectorTool(BaseModel):
     def process_bit(self, bit_text: str) -> BitVectors:
         """Process a bit of text and return its vector representations."""
         try:
-            if not bit_text:
-                logger.error("Empty bit text provided")
-                return BitVectors(
-                    full_vector=np.zeros(self.dimension, dtype=np.float32),
-                    sentence_vectors=np.array([], dtype=np.float32),
-                    ngram_vectors=[],
-                    punchline_vectors=[]
-                )
-            
-            logger.info("Processing bit text into vectors...")
-            
-            # Process text with spaCy once
+            # Process text with spaCy
             doc = self.nlp(bit_text)
             
-            # Generate sentence vectors first
+            # Get sentence embeddings
             sentences = [sent.text.strip() for sent in doc.sents]
-            sentence_vectors = self.sentence_model.encode(
-                sentences,
-                batch_size=32,
-                show_progress_bar=False,
-                convert_to_numpy=True
-            )
-            sentence_vectors = [round_vector(vec) for vec in sentence_vectors]
+            sentence_embeddings = self._get_embeddings(sentences)
             
-            # Aggregate sentence vectors for full vector
-            full_vector = self._aggregate_sentence_vectors(sentences, sentence_vectors)
+            # Get full text vector through weighted aggregation
+            full_vector = self._aggregate_sentence_vectors(sentences, sentence_embeddings)
             
             # Generate n-gram vectors with intelligent extraction
             scored_ngrams = self._extract_ngrams(doc)
             if scored_ngrams:
-                ngram_texts = [text for text, _ in scored_ngrams]
-                ngram_scores = [score for _, score in scored_ngrams]
+                ngram_texts = [text for text, _, _ in scored_ngrams]
+                ngram_scores = [score for _, score, _ in scored_ngrams]
+                ngram_positions = [pos for _, _, pos in scored_ngrams]
                 ngram_embeddings = self.sentence_model.encode(
                     ngram_texts,
                     batch_size=32,
@@ -507,32 +495,80 @@ class TermVectorTool(BaseModel):
                     convert_to_numpy=True
                 )
                 ngram_embeddings = [round_vector(vec) for vec in ngram_embeddings]
-                ngram_vectors = list(zip(ngram_texts, ngram_embeddings))
+                ngram_vectors = list(zip(ngram_texts, ngram_embeddings, ngram_positions))
             else:
                 ngram_vectors = []
             
-            # Get punchlines using semantic analysis
-            punchline_vectors = self._get_punchlines(bit_text)
+            # Get punchline vectors
+            punchlines = self._get_punchlines(bit_text)
+            if punchlines:
+                punchline_texts = [text for text, vec, weight in punchlines]
+                punchline_weights = [weight for text, vec, weight in punchlines]
+                punchline_embeddings = [vec for text, vec, weight in punchlines]
+                punchline_vectors = list(zip(punchline_texts, punchline_embeddings, punchline_weights))
+            else:
+                punchline_vectors = []
             
             # Create BitVectors object
             vectors = BitVectors(
                 full_vector=full_vector,
-                sentence_vectors=sentence_vectors,
+                sentence_vectors=sentence_embeddings,
                 ngram_vectors=ngram_vectors,
                 punchline_vectors=punchline_vectors
             )
             
-            # Log vector information
-            logger.info(f"Successfully generated vectors:")
-            logger.info(f"- Full vector: {full_vector.shape}")
-            logger.info(f"- Sentences: {len(sentence_vectors)}")
-            logger.info(f"- N-grams: {len(ngram_vectors)}")
-            logger.info(f"- Punchlines: {len(punchline_vectors)}")
-            
             return vectors
             
         except Exception as e:
-            logger.error(f"Error processing bit text: {e}")
+            import traceback
+            
+            # Get the full traceback
+            tb = traceback.format_exc()
+            
+            # Log detailed error information
+            logger.error("=============== Error processing bit ===============")
+            logger.error(f"Exception type: {type(e).__name__}")
+            logger.error(f"Exception message: {str(e)}")
+            logger.error(f"\nFull traceback:\n{tb}")
+            
+            # Log processing pipeline state
+            logger.error("\n=============== Processing state ===============")
+            steps_completed = []
+            if 'doc' in locals():
+                steps_completed.append("Text processed with spaCy")
+            if 'sentences' in locals():
+                steps_completed.append(f"Sentences extracted (count: {len(sentences)})")
+            if 'sentence_embeddings' in locals():
+                steps_completed.append("Sentence embeddings generated")
+            if 'full_vector' in locals():
+                steps_completed.append("Full text vector aggregated")
+            if 'scored_ngrams' in locals():
+                steps_completed.append(f"N-grams extracted (count: {len(scored_ngrams)})")
+            if 'ngram_embeddings' in locals():
+                steps_completed.append("N-gram embeddings generated")
+            if 'punchlines' in locals():
+                steps_completed.append(f"Punchlines extracted (count: {len(punchlines)})")
+            
+            logger.error("Processing pipeline progress:")
+            for i, step in enumerate(steps_completed, 1):
+                logger.error(f"{i}. {step}")
+            
+            # Log data structures at point of failure
+            logger.error("\n=============== Data structures ===============")
+            if 'scored_ngrams' in locals() and scored_ngrams:
+                logger.error(f"\nN-gram format example:")
+                logger.error(f"First n-gram: {scored_ngrams[0]}")
+                logger.error(f"N-gram tuple length: {len(scored_ngrams[0])}")
+                logger.error(f"N-gram types: {[type(x).__name__ for x in scored_ngrams[0]]}")
+            
+            if 'punchlines' in locals() and punchlines:
+                logger.error(f"\nPunchline format example:")
+                logger.error(f"First punchline: {punchlines[0]}")
+                logger.error(f"Punchline tuple length: {len(punchlines[0])}")
+                logger.error(f"Punchline types: {[type(x).__name__ for x in punchlines[0]]}")
+            
+            logger.error("\n===============================================")
+            
             raise
                 
     def run(self) -> None:

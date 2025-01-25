@@ -141,8 +141,12 @@ class BitComparisonTool(BaseModel):
                     dimension=384,
                     similarity_threshold=similarity_threshold
                 )
-            except (faiss.FaissException, RuntimeError) as e:
-                logger.error(f"Error initializing bit database: {e}")
+            except RuntimeError as e:
+                import traceback
+                logger.error("Error initializing bit database:")
+                logger.error(f"Exception type: {type(e).__name__}")
+                logger.error(f"Exception message: {str(e)}")
+                logger.error(f"Full traceback:\n{traceback.format_exc()}")
                 raise
             
             # Create instance with validated components
@@ -218,25 +222,51 @@ class BitComparisonTool(BaseModel):
                 matches = self.bit_database.find_matching_bits(vectors)
                 if matches:
                     best_match = matches[0]
+                    # Include n-gram position information in match data
                     match_data = {
                         'original': bit_title,
                         'matched': best_match.title,
-                        'score': best_match.overall_score
+                        'score': best_match.overall_score,
+                        'ngram_matches': best_match.ngram_matches  # Now includes positions as (query_ng, match_ng, score, pos)
                     }
                     
                     if best_match.overall_score > HARD_MATCH_THRESHOLD:
                         logger.info(f"\nFound exact match for: '{bit_title}' ({bit_id}):")
                         logger.info(f"- Matched with: '{best_match.title}' ({best_match.bit_id})")
                         logger.info(f"- Score: {best_match.overall_score:.3f}")
+                        # Log n-gram matches with positions
+                        if best_match.ngram_matches:
+                            logger.info("\nMatching n-grams:")
+                            try:
+                                for q_ng, m_ng, score, pos in best_match.ngram_matches:
+                                    logger.info(f"- At position {pos}: '{q_ng}' matches '{m_ng}' (score: {score:.3f})")
+                            except ValueError as e:
+                                logger.error(f"Error unpacking n-gram match. Expected format: (query_ng, match_ng, score, pos)")
+                                logger.error(f"Actual value: {best_match.ngram_matches}")
+                                logger.error(f"First problematic item: {best_match.ngram_matches[0] if best_match.ngram_matches else 'No items'}")
+                                raise
                         self.exact_matches.append(match_data)
                     else:
                         # Track all other matches as soft matches
                         logger.info(f"\nFound potential match for '{bit_title}' ({bit_id}):")
                         logger.info(f"- Matched with: '{best_match.title}' ({best_match.bit_id})")
                         logger.info(f"- Score: {best_match.overall_score:.3f}")
+                        # Log n-gram matches with positions for potential matches too
+                        if best_match.ngram_matches:
+                            logger.info("\nMatching n-grams:")
+                            try:
+                                for q_ng, m_ng, score, pos in best_match.ngram_matches:
+                                    logger.info(f"- At position {pos}: '{q_ng}' matches '{m_ng}' (score: {score:.3f})")
+                            except ValueError as e:
+                                logger.error(f"Error unpacking n-gram match. Expected format: (query_ng, match_ng, score, pos)")
+                                logger.error(f"Actual value: {best_match.ngram_matches}")
+                                logger.error(f"First problematic item: {best_match.ngram_matches[0] if best_match.ngram_matches else 'No items'}")
+                                raise
                         self.soft_matches.append(match_data)
             except Exception as e:
-                logger.error(f"Error finding matching bits for {bit_id}: {e}")
+                logger.error(f"Error finding matching bits for {bit_id}: {str(e)}")
+                logger.error(f"Error occurred at: {e.__traceback__.tb_frame.f_code.co_name}, line {e.__traceback__.tb_lineno}")
+                raise
             
             # Add bit to database if no strong match found
             try:

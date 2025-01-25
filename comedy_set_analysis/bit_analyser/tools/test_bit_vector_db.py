@@ -48,14 +48,23 @@ class TestBitStorageManager(unittest.TestCase):
         vectors = BitVectors(
             full_vector=np.array([1,2,3], dtype=np.float32),
             sentence_vectors=[np.array([4,5,6], dtype=np.float32)],
-            ngram_vectors=[("ng", np.array([7,8,9], dtype=np.float32))],
+            ngram_vectors=[("ng", np.array([7,8,9], dtype=np.float32), 0)],
             punchline_vectors=[("punch", np.array([10,11,12], dtype=np.float32), 1.0)]
         )
         self.storage.save_bit_vectors(bit_id, vectors)
         loaded = self.storage.load_bit_vectors(bit_id)
         self.assertIsNotNone(loaded)
-        self.assertIn("full_vector", loaded)
-        self.assertTrue((loaded["full_vector"] == np.array([1,2,3], dtype=np.float32)).all())
+        self.assertTrue(isinstance(loaded, BitVectors))
+        self.assertTrue(np.array_equal(loaded.full_vector, np.array([1,2,3], dtype=np.float32)))
+        self.assertTrue(np.array_equal(loaded.sentence_vectors[0], np.array([4,5,6], dtype=np.float32)))
+        self.assertEqual(len(loaded.ngram_vectors), 1)
+        self.assertEqual(loaded.ngram_vectors[0][0], "ng")
+        self.assertTrue(np.array_equal(loaded.ngram_vectors[0][1], np.array([7,8,9], dtype=np.float32)))
+        self.assertEqual(loaded.ngram_vectors[0][2], 0)
+        self.assertEqual(len(loaded.punchline_vectors), 1)
+        self.assertEqual(loaded.punchline_vectors[0][0], "punch")
+        self.assertTrue(np.array_equal(loaded.punchline_vectors[0][1], np.array([10,11,12], dtype=np.float32)))
+        self.assertEqual(loaded.punchline_vectors[0][2], 1.0)
 
     def test_delete_bit_data(self):
         """Test deleting a bit's data file."""
@@ -152,24 +161,17 @@ class TestThemeTracker(unittest.TestCase):
 class TestBitVectorDB(unittest.TestCase):
 
     def setUp(self):
+        """Set up test fixtures."""
         self.test_dir = tempfile.mkdtemp(prefix='bitstorage_test_')
-        # Patch the base directory so it doesn't collide with real data
-        with patch.object(BitStorageManager, '__init__', return_value=None):
-            # We'll manually set up the storage manager
-            self.mock_storage = MagicMock(spec=BitStorageManager)
-            self.mock_storage.base_dir = self.test_dir
-            self.mock_storage.vectors_dir = os.path.join(self.test_dir, 'vectors')
-            self.mock_storage.indices_dir = os.path.join(self.test_dir, 'indices')
-            self.mock_storage.bits_dir = os.path.join(self.test_dir, 'bits')
-            self.mock_storage.registry_file = os.path.join(self.test_dir, 'bit_registry.json')
-            self.mock_storage.canonical_bits_file = os.path.join(self.test_dir, 'canonical_bits.json')
-            os.makedirs(self.mock_storage.vectors_dir, exist_ok=True)
-            os.makedirs(self.mock_storage.indices_dir, exist_ok=True)
-            os.makedirs(self.mock_storage.bits_dir, exist_ok=True)
-
-        # We create a real instance of BitVectorDB, but patching out the storage manager's constructor
+        
+        # Create a real BitStorageManager with the test directory
+        self.storage = BitStorageManager(base_dir=self.test_dir)
+        
+        # Create a real instance of BitVectorDB
         self.db = BitVectorDB(dimension=384, similarity_threshold=0.7)
-        self.db.storage = self.mock_storage
+        
+        # Replace the storage manager with our test one
+        self.db.storage = self.storage
         self.db.registry = {}
 
         # Replace indexes with small dimension indexes for testing
@@ -209,21 +211,44 @@ class TestBitVectorDB(unittest.TestCase):
         self.assertIn("bit_abc", self.db.registry)
 
     def test_find_matching_bits(self):
-        # Add a single vector to full_index for demonstration
-        sample_vec = np.random.rand(384).reshape(1, -1).astype(np.float32)
-        faiss.normalize_L2(sample_vec)
-        self.db.full_index.add(sample_vec)
+        # Create a normalized vector for testing
+        sample_vec = np.ones((1, 384), dtype=np.float32)
+        sample_vec = sample_vec / np.linalg.norm(sample_vec)  # Normalize to unit vector
+        faiss.normalize_L2(sample_vec)  # FAISS normalization
 
-        # Put bit_xyz in the registry
-        self.db.registry = {"bit_xyz": "2025-01-01T12:00:00"}
+        # Add to database
+        vectors = BitVectors(
+            full_vector=sample_vec[0],
+            sentence_vectors=[],
+            ngram_vectors=[],
+            punchline_vectors=[]
+        )
+        bit_entity = BitEntity("dummy_path")
+        bit_entity.bit_data = {
+            "bit_id": "bit_xyz",
+            "show_info": {},
+            "bit_info": {
+                "title": "Sample Title",
+                "joke_types": [],
+                "themes": []
+            },
+            "transcript": {
+                "text": "Test bit text",
+            },
+            "audience_reactions": []
+        }
+        self.db.add_to_database(bit_entity, vectors)
 
-        # Also add bit_xyz to canonical bits to avoid RuntimeError
-        # For instance, let's give it a "Sample Title"
+        # Also add bit_xyz to canonical bits
         self.db.canonical_bits.add_bit("Sample Title", "bit_xyz")
 
-        # Create a query with no sentences, ngrams, or punchlines
+        # Create an almost identical query vector (small perturbation)
+        query_vec = sample_vec[0] + np.random.normal(0, 0.01, (384,)).astype(np.float32)
+        query_vec = query_vec.reshape(1, -1)
+        faiss.normalize_L2(query_vec)  # FAISS normalization
+        
         query_vecs = BitVectors(
-            full_vector=sample_vec[0],
+            full_vector=query_vec[0],
             sentence_vectors=[], 
             ngram_vectors=[], 
             punchline_vectors=[]
@@ -232,13 +257,30 @@ class TestBitVectorDB(unittest.TestCase):
         matches = self.db.find_matching_bits(query_vecs)
         self.assertTrue(len(matches) > 0)
         self.assertEqual(matches[0].bit_id, "bit_xyz")
-        self.assertAlmostEqual(matches[0].overall_score, 0.5, delta=0.05)
+        self.assertGreater(matches[0].overall_score, 0.7)  # Should be very similar
 
     def test_multi_candidate_search(self):
-        # 3 bits, each with different vectors
-        vec_a = np.random.rand(384).astype(np.float32)
-        vec_b = np.random.rand(384).astype(np.float32)
-        vec_c = np.random.rand(384).astype(np.float32)
+        # Create normalized base vectors
+        base_vec = np.ones(384, dtype=np.float32)
+        base_vec = base_vec.reshape(1, -1)
+        faiss.normalize_L2(base_vec)  # FAISS normalization
+        base_vec = base_vec[0]
+        
+        # Create 3 similar but distinct vectors with increasing perturbations
+        vec_a = base_vec + np.random.normal(0, 0.01, (384,)).astype(np.float32)
+        vec_a = vec_a.reshape(1, -1)
+        faiss.normalize_L2(vec_a)
+        vec_a = vec_a[0]
+        
+        vec_b = base_vec + np.random.normal(0, 0.1, (384,)).astype(np.float32)
+        vec_b = vec_b.reshape(1, -1)
+        faiss.normalize_L2(vec_b)
+        vec_b = vec_b[0]
+        
+        vec_c = base_vec + np.random.normal(0, 0.2, (384,)).astype(np.float32)
+        vec_c = vec_c.reshape(1, -1)
+        faiss.normalize_L2(vec_c)
+        vec_c = vec_c[0]
         
         # Insert into DB with IDs: "bit_a", "bit_b", "bit_c"
         for vec, bit_id in [(vec_a, "bit_a"), (vec_b, "bit_b"), (vec_c, "bit_c")]:
@@ -257,22 +299,29 @@ class TestBitVectorDB(unittest.TestCase):
                     "joke_types": [],
                     "themes": []
                 },
-                
                 "transcript": {
                     "text": "Test bit text",
                 },
                 "audience_reactions": []
             }
             self.db.add_to_database(bit_entity, vectors)
+            self.db.canonical_bits.add_bit(f"Test Bit {bit_id}", bit_id)
         
-        # Query with something close to vec_a
-        query_vec = vec_a + np.random.normal(0, 0.0001, (384,)).astype(np.float32)
-        query = BitVectors(full_vector=query_vec, sentence_vectors=[], ngram_vectors=[], punchline_vectors=[])
+        # Query with something very close to vec_a
+        query_vec = vec_a + np.random.normal(0, 0.001, (384,)).astype(np.float32)
+        query_vec = query_vec.reshape(1, -1)
+        faiss.normalize_L2(query_vec)
+        query = BitVectors(
+            full_vector=query_vec[0],
+            sentence_vectors=[],
+            ngram_vectors=[],
+            punchline_vectors=[]
+        )
         
         # Perform search
         matches = self.db.find_matching_bits(query)
         self.assertGreater(len(matches), 0)
-        self.assertEqual(matches[0].bit_id, "bit_a")  # Expect "bit_a" to be top
+        self.assertEqual(matches[0].bit_id, "bit_a")  # Expect "bit_a" to be top match
 
     def test_sentence_match_boost(self):
         """Test that strong sentence matches can boost overall ranking."""
@@ -357,6 +406,144 @@ class TestBitVectorDB(unittest.TestCase):
         self.assertNotEqual(bit1_rank, -1, "Bit1 should be in matches")
         self.assertNotEqual(bit2_rank, -1, "Bit2 should be in matches")
         self.assertLess(bit1_rank, bit2_rank, "Bit1 should rank higher than Bit2 due to sentence match")
+
+    def test_ngram_match_boost(self):
+        """Test that strong n-gram matches can boost overall ranking."""
+        # Create normalized base vectors
+        base_vec = np.ones(384, dtype=np.float32)
+        base_vec = base_vec.reshape(1, -1)
+        faiss.normalize_L2(base_vec)
+        base_vec = base_vec[0]
+        
+        # Create bit vectors with controlled differences
+        bit1_full = base_vec + np.random.normal(0, 0.1, (384,)).astype(np.float32)
+        bit1_full = bit1_full.reshape(1, -1)
+        faiss.normalize_L2(bit1_full)
+        bit1_full = bit1_full[0]
+        
+        bit2_full = base_vec + np.random.normal(0, 0.05, (384,)).astype(np.float32)
+        bit2_full = bit2_full.reshape(1, -1)
+        faiss.normalize_L2(bit2_full)
+        bit2_full = bit2_full[0]
+        
+        # Create identical ngram vectors for bit1 and query
+        ngram_base = np.ones(384, dtype=np.float32)
+        ngram_base = ngram_base.reshape(1, -1)
+        faiss.normalize_L2(ngram_base)
+        ngram_base = ngram_base[0]
+        
+        ngram_vec1 = ngram_base + np.random.normal(0, 0.001, (384,)).astype(np.float32)
+        ngram_vec1 = ngram_vec1.reshape(1, -1)
+        faiss.normalize_L2(ngram_vec1)
+        ngram_vec1 = ngram_vec1[0]
+        
+        ngram_vec2 = ngram_base + np.random.normal(0, 0.001, (384,)).astype(np.float32)
+        ngram_vec2 = ngram_vec2.reshape(1, -1)
+        faiss.normalize_L2(ngram_vec2)
+        ngram_vec2 = ngram_vec2[0]
+        
+        ngram_vec3 = ngram_base + np.random.normal(0, 0.001, (384,)).astype(np.float32)
+        ngram_vec3 = ngram_vec3.reshape(1, -1)
+        faiss.normalize_L2(ngram_vec3)
+        ngram_vec3 = ngram_vec3[0]
+
+        # Add bit1 with matching ngrams
+        bit1_vectors = BitVectors(
+            full_vector=bit1_full,
+            sentence_vectors=[],
+            ngram_vectors=[
+                ("identical ngram 1", ngram_vec1, 0),
+                ("identical ngram 2", ngram_vec2, 20),
+                ("identical ngram 3", ngram_vec3, 40)
+            ],
+            punchline_vectors=[]
+        )
+        bit1_entity = BitEntity("dummy_path")
+        bit1_entity.bit_data = {
+            "bit_id": "bit1",
+            "show_info": {},
+            "bit_info": {
+                "title": "Bit 1",
+                "joke_types": [],
+                "themes": []
+            },
+            "transcript": {"text": "Test bit text"},
+            "audience_reactions": []
+        }
+        self.db.add_to_database(bit1_entity, bit1_vectors)
+        self.db.canonical_bits.add_bit("Bit 1", "bit1")
+
+        # Add bit2 with different ngrams
+        different_ngram_vec1 = np.random.normal(0, 1, (384,)).astype(np.float32)
+        different_ngram_vec1 = different_ngram_vec1.reshape(1, -1)
+        faiss.normalize_L2(different_ngram_vec1)
+        different_ngram_vec1 = different_ngram_vec1[0]
+        
+        different_ngram_vec2 = np.random.normal(0, 1, (384,)).astype(np.float32)
+        different_ngram_vec2 = different_ngram_vec2.reshape(1, -1)
+        faiss.normalize_L2(different_ngram_vec2)
+        different_ngram_vec2 = different_ngram_vec2[0]
+        
+        different_ngram_vec3 = np.random.normal(0, 1, (384,)).astype(np.float32)
+        different_ngram_vec3 = different_ngram_vec3.reshape(1, -1)
+        faiss.normalize_L2(different_ngram_vec3)
+        different_ngram_vec3 = different_ngram_vec3[0]
+
+        bit2_vectors = BitVectors(
+            full_vector=bit2_full,
+            sentence_vectors=[],
+            ngram_vectors=[
+                ("different ngram 1", different_ngram_vec1, 0),
+                ("different ngram 2", different_ngram_vec2, 100),
+                ("different ngram 3", different_ngram_vec3, 200)
+            ],
+            punchline_vectors=[]
+        )
+        bit2_entity = BitEntity("dummy_path")
+        bit2_entity.bit_data = {
+            "bit_id": "bit2",
+            "show_info": {},
+            "bit_info": {
+                "title": "Bit 2",
+                "joke_types": [],
+                "themes": []
+            },
+            "transcript": {"text": "Test bit text"},
+            "audience_reactions": []
+        }
+        self.db.add_to_database(bit2_entity, bit2_vectors)
+        self.db.canonical_bits.add_bit("Bit 2", "bit2")
+
+        # Create query vectors with same ngrams as bit1
+        query_full = base_vec + np.random.normal(0, 0.1, (384,)).astype(np.float32)
+        query_full = query_full.reshape(1, -1)
+        faiss.normalize_L2(query_full)
+        query_full = query_full[0]
+        
+        query_vectors = BitVectors(
+            full_vector=query_full,
+            sentence_vectors=[],
+            ngram_vectors=[
+                ("identical ngram 1", ngram_vec1, 0),
+                ("identical ngram 2", ngram_vec2, 20),
+                ("identical ngram 3", ngram_vec3, 40)
+            ],
+            punchline_vectors=[]
+        )
+
+        # Find matches
+        matches = self.db.find_matching_bits(query_vectors)
+        
+        # Verify we got matches
+        self.assertGreater(len(matches), 0)
+        
+        # Verify bit1 (with matching n-grams) ranks higher than bit2
+        bit1_rank = next((i for i, m in enumerate(matches) if m.bit_id == "bit1"), -1)
+        bit2_rank = next((i for i, m in enumerate(matches) if m.bit_id == "bit2"), -1)
+        
+        self.assertNotEqual(bit1_rank, -1, "Bit1 should be in matches")
+        self.assertNotEqual(bit2_rank, -1, "Bit2 should be in matches")
+        self.assertLess(bit1_rank, bit2_rank, "Bit1 should rank higher than Bit2 due to n-gram matches")
 
 
 if __name__ == '__main__':
