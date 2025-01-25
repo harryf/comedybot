@@ -1,0 +1,8 @@
+- Update Themes assistant;
+-- ... to avoid duplicate / similar sounding themes and themes
+-- ... that are not easily distinguishable from each other
+-- ... avoid "comedy" and "humor" and "joke" and "funny"
+-- ... build a list of themes we've already seen for re-use
+
+- Investigate matching against multiple bits already seen
+
