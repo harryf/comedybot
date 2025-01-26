@@ -10,6 +10,12 @@
         "Crowd Work",
         "Observational",
         "Awkward"
+      ],
+      "themes": [
+        "Comedy",
+        "Podcasting",
+        "Stand-up Comedy",
+        "International Audience"
       ]
     },
     {
@@ -24,6 +30,11 @@
         "Understatement",
         "Surreal",
         "Sarcasm"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Friendship",
+        "Pets"
       ]
     },
     {
@@ -35,6 +46,10 @@
         "Surreal",
         "Observational",
         "Shock Humor"
+      ],
+      "themes": [
+        "Dating",
+        "Inappropriate Humor"
       ]
     },
     {
@@ -45,6 +60,10 @@
         "Observational",
         "Relatable Struggle",
         "Confessional"
+      ],
+      "themes": [
+        "Memory",
+        "Everyday Life"
       ]
     },
     {
@@ -59,6 +78,12 @@
         "Literal Interpretation",
         "Awkward",
         "Playing Dumb"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Family Life",
+        "Childhood",
+        "Crime"
       ]
     },
     {
@@ -71,6 +96,12 @@
         "Observational",
         "Exaggeration",
         "Relatable Struggle"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Childhood",
+        "Family Life",
+        "Nudity"
       ]
     },
     {
@@ -85,6 +116,12 @@
         "Relatable Struggle",
         "Self-Deprecation",
         "Unexpected Emotion"
+      ],
+      "themes": [
+        "Work",
+        "Cultural Differences",
+        "Gender Identity",
+        "Sexuality"
       ]
     },
     {
@@ -97,6 +134,11 @@
         "Surreal",
         "Misdirect",
         "Relatable Struggle"
+      ],
+      "themes": [
+        "Loneliness",
+        "Cultural Differences",
+        "Sex Industry"
       ]
     },
     {
@@ -107,6 +149,11 @@
         "Comparison",
         "Observational",
         "Relatable Struggle"
+      ],
+      "themes": [
+        "Addiction",
+        "Motivation",
+        "Self-Improvement"
       ]
     },
     {
@@ -120,6 +167,13 @@
         "Dark Humor",
         "Awkward",
         "Self-Deprecation"
+      ],
+      "themes": [
+        "Marriage",
+        "Relationships",
+        "Infidelity",
+        "Family",
+        "Humor"
       ]
     },
     {
@@ -136,6 +190,13 @@
         "Observational Absurdity",
         "Comparison",
         "Wordplay"
+      ],
+      "themes": [
+        "Family",
+        "Grief",
+        "Pornography",
+        "Work",
+        "Cultural Differences"
       ]
     },
     {
@@ -151,6 +212,13 @@
         "Literal Interpretation",
         "Self-Deprecation",
         "Surreal"
+      ],
+      "themes": [
+        "Pornography",
+        "Relationships",
+        "Miscommunication",
+        "Social Commentary",
+        "Death and Grief"
       ]
     }
   ]
