@@ -1,0 +1,456 @@
+{
+  "bit_id": "20250126_Adult_Content_17th_Dec_2024_Part_2_introduction_and_yoshis_background",
+  "show_info": {
+    "show_identifier": "20250126_Adult_Content_17th_Dec_2024_Part_2",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content 2 - 1st Half",
+    "date_of_show": "17 Dec 2025, 20:00",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/tQSpMuzHq84sr7Wa6",
+    "length_of_set": 2141.26,
+    "lpm": 6,
+    "notes": "Yoshi\u2019s 2nd run of the show at ROBINs with Christian and Harry"
+  },
+  "bit_info": {
+    "title": "Introduction and Yoshi's Background",
+    "start": 0.0,
+    "end": 63.4,
+    "joke_types": [
+      "Observational",
+      "Playing Dumb",
+      "Deadpan"
+    ],
+    "themes": [
+      "Work",
+      "Cultural Differences"
+    ],
+    "lpm": 8
+  },
+  "transcript": {
+    "text": "Thank you all for being here by the way. This is super awesome. So Yoshi has an interesting story. We probably don't even need a mic at this point. No we don't need a mic. Yoshi, it's a symbol of white authority. You need to use the mic. Something that you're not used to. Yes, I... Yeah, so this is how this is going to go down. We're going to have a moment where you guys can ask any question that you want to ask that you feel like, hey, I've never asked this question to anyone that actually worked in the industry. This is the moment. And there is no wrong questions either. We've done this before. This is super fun. We might not have an answer for it either. That's exactly right. In most cases it's just dumb questions or interesting questions and we might not have an answer. That's absolutely true. But this is how this is going to go down. Did I explain that right? Yes. Anything to add? Harry? No. No?",
+    "lines": [
+      {
+        "start": 0.0,
+        "end": 2.7600000000000002,
+        "text": "Thank you all for being here by the way. This is super awesome."
+      },
+      {
+        "start": 2.7600000000000002,
+        "end": 7.0,
+        "text": "So Yoshi has an interesting story."
+      },
+      {
+        "start": 7.0,
+        "end": 9.68,
+        "text": "We probably don't even need a mic at this point."
+      },
+      {
+        "start": 9.68,
+        "end": 11.4,
+        "text": "No we don't need a mic."
+      },
+      {
+        "start": 11.4,
+        "end": 15.32,
+        "text": "Yoshi, it's a symbol of white authority."
+      },
+      {
+        "start": 15.32,
+        "end": 18.28,
+        "text": "You need to use the mic."
+      },
+      {
+        "start": 18.28,
+        "end": 20.080000000000002,
+        "text": "Something that you're not used to."
+      },
+      {
+        "start": 20.080000000000002,
+        "end": 22.52,
+        "text": "Yes, I..."
+      },
+      {
+        "start": 22.52,
+        "end": 26.72,
+        "text": "Yeah, so this is how this is going to go down."
+      },
+      {
+        "start": 26.72,
+        "end": 32.32,
+        "text": "We're going to have a moment where you guys can ask any question that you want to ask"
+      },
+      {
+        "start": 32.32,
+        "end": 37.08,
+        "text": "that you feel like, hey, I've never asked this question to anyone that actually worked"
+      },
+      {
+        "start": 37.08,
+        "end": 38.08,
+        "text": "in the industry."
+      },
+      {
+        "start": 38.08,
+        "end": 39.08,
+        "text": "This is the moment."
+      },
+      {
+        "start": 39.08,
+        "end": 40.64,
+        "text": "And there is no wrong questions either."
+      },
+      {
+        "start": 40.64,
+        "end": 41.64,
+        "text": "We've done this before."
+      },
+      {
+        "start": 41.64,
+        "end": 42.64,
+        "text": "This is super fun."
+      },
+      {
+        "start": 42.64,
+        "end": 46.84,
+        "text": "We might not have an answer for it either."
+      },
+      {
+        "start": 46.84,
+        "end": 47.84,
+        "text": "That's exactly right."
+      },
+      {
+        "start": 47.84,
+        "end": 52.44,
+        "text": "In most cases it's just dumb questions or interesting questions and we might not have"
+      },
+      {
+        "start": 52.44,
+        "end": 53.44,
+        "text": "an answer."
+      },
+      {
+        "start": 53.44,
+        "end": 54.44,
+        "text": "That's absolutely true."
+      },
+      {
+        "start": 54.44,
+        "end": 56.44,
+        "text": "But this is how this is going to go down."
+      },
+      {
+        "start": 56.44,
+        "end": 57.44,
+        "text": "Did I explain that right?"
+      },
+      {
+        "start": 57.44,
+        "end": 58.44,
+        "text": "Yes."
+      },
+      {
+        "start": 58.44,
+        "end": 59.44,
+        "text": "Anything to add?"
+      },
+      {
+        "start": 59.44,
+        "end": 60.44,
+        "text": "Harry?"
+      },
+      {
+        "start": 60.44,
+        "end": 61.44,
+        "text": "No."
+      },
+      {
+        "start": 61.44,
+        "end": 62.44,
+        "text": "No?"
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      0.0,
+      1.2,
+      0
+    ],
+    [
+      1.2,
+      2.4,
+      0
+    ],
+    [
+      2.4,
+      3.6,
+      0
+    ],
+    [
+      3.6,
+      4.8,
+      0
+    ],
+    [
+      4.8,
+      6.0,
+      0
+    ],
+    [
+      6.0,
+      7.2,
+      0
+    ],
+    [
+      7.2,
+      8.4,
+      0
+    ],
+    [
+      8.4,
+      9.6,
+      0
+    ],
+    [
+      9.6,
+      10.8,
+      1
+    ],
+    [
+      10.8,
+      12.0,
+      0
+    ],
+    [
+      12.0,
+      13.2,
+      1
+    ],
+    [
+      13.2,
+      14.4,
+      0
+    ],
+    [
+      14.4,
+      15.6,
+      0
+    ],
+    [
+      15.6,
+      16.8,
+      0
+    ],
+    [
+      16.8,
+      18.0,
+      0
+    ],
+    [
+      18.0,
+      19.2,
+      0
+    ],
+    [
+      19.2,
+      20.4,
+      0
+    ],
+    [
+      20.4,
+      21.6,
+      2
+    ],
+    [
+      21.6,
+      22.8,
+      2
+    ],
+    [
+      22.8,
+      24.0,
+      1
+    ],
+    [
+      24.0,
+      25.2,
+      1
+    ],
+    [
+      25.2,
+      26.4,
+      0
+    ],
+    [
+      26.4,
+      27.6,
+      0
+    ],
+    [
+      27.6,
+      28.8,
+      0
+    ],
+    [
+      28.8,
+      30.0,
+      0
+    ],
+    [
+      30.0,
+      31.2,
+      0
+    ],
+    [
+      31.2,
+      32.4,
+      0
+    ],
+    [
+      32.4,
+      33.6,
+      0
+    ],
+    [
+      33.6,
+      34.8,
+      0
+    ],
+    [
+      34.8,
+      36.0,
+      0
+    ],
+    [
+      36.0,
+      37.2,
+      0
+    ],
+    [
+      37.2,
+      38.4,
+      0
+    ],
+    [
+      38.4,
+      39.6,
+      0
+    ],
+    [
+      39.6,
+      40.8,
+      0
+    ],
+    [
+      40.8,
+      42.0,
+      0
+    ],
+    [
+      42.0,
+      43.2,
+      0
+    ],
+    [
+      43.2,
+      44.4,
+      0
+    ],
+    [
+      44.4,
+      45.6,
+      0
+    ],
+    [
+      45.6,
+      46.8,
+      0
+    ],
+    [
+      46.8,
+      48.0,
+      0
+    ],
+    [
+      48.0,
+      49.2,
+      0
+    ],
+    [
+      49.2,
+      50.4,
+      0
+    ],
+    [
+      50.4,
+      51.6,
+      0
+    ],
+    [
+      51.6,
+      52.8,
+      0
+    ],
+    [
+      52.8,
+      54.0,
+      0
+    ],
+    [
+      54.0,
+      55.2,
+      0
+    ],
+    [
+      55.2,
+      56.4,
+      0
+    ],
+    [
+      56.4,
+      57.6,
+      0
+    ],
+    [
+      57.6,
+      58.8,
+      0
+    ],
+    [
+      58.8,
+      60.0,
+      0
+    ],
+    [
+      60.0,
+      61.2,
+      0
+    ],
+    [
+      61.2,
+      62.4,
+      0
+    ],
+    [
+      62.4,
+      63.6,
+      0
+    ],
+    [
+      63.6,
+      64.8,
+      0
+    ],
+    [
+      64.8,
+      66.0,
+      0
+    ],
+    [
+      66.0,
+      67.2,
+      0
+    ]
+  ]
+}
