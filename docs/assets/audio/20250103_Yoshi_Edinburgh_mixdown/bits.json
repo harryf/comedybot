@@ -16,7 +16,8 @@
         "Podcasting",
         "Stand-up Comedy",
         "International Audience"
-      ]
+      ],
+      "lpm": 1
     },
     {
       "title": "Losing the Roommate's Cat",
@@ -35,7 +36,8 @@
         "Cultural Differences",
         "Friendship",
         "Pets"
-      ]
+      ],
+      "lpm": 1
     },
     {
       "title": "The Dick Pic Holiday Tradition",
@@ -50,7 +52,8 @@
       "themes": [
         "Dating",
         "Inappropriate Humor"
-      ]
+      ],
+      "lpm": 0
     },
     {
       "title": "The Power of Fantasy",
@@ -64,7 +67,8 @@
       "themes": [
         "Memory",
         "Everyday Life"
-      ]
+      ],
+      "lpm": 3
     },
     {
       "title": "Childhood Mischief and Cultural Observations",
@@ -84,7 +88,8 @@
         "Family Life",
         "Childhood",
         "Crime"
-      ]
+      ],
+      "lpm": 2
     },
     {
       "title": "The Discovery of Parents' Adult Books",
@@ -102,7 +107,8 @@
         "Childhood",
         "Family Life",
         "Nudity"
-      ]
+      ],
+      "lpm": 0
     },
     {
       "title": "Working at the Porn Shop",
@@ -122,7 +128,8 @@
         "Cultural Differences",
         "Gender Identity",
         "Sexuality"
-      ]
+      ],
+      "lpm": 1
     },
     {
       "title": "Customer Interactions at the Porn Shop",
@@ -139,7 +146,8 @@
         "Loneliness",
         "Cultural Differences",
         "Sex Industry"
-      ]
+      ],
+      "lpm": 1
     },
     {
       "title": "The Intriguing Crackhead Customers",
@@ -154,7 +162,8 @@
         "Addiction",
         "Motivation",
         "Self-Improvement"
-      ]
+      ],
+      "lpm": 1
     },
     {
       "title": "Discoveries and Challenges in the Porn Business",
@@ -174,7 +183,8 @@
         "Infidelity",
         "Family",
         "Humor"
-      ]
+      ],
+      "lpm": 1
     },
     {
       "title": "The Porn Convention and Celebrity Anecdotes",
@@ -197,7 +207,8 @@
         "Pornography",
         "Work",
         "Cultural Differences"
-      ]
+      ],
+      "lpm": 1
     },
     {
       "title": "The Story of Ghislaine Maxwell and Social Commentary",
@@ -219,7 +230,8 @@
         "Miscommunication",
         "Social Commentary",
         "Death and Grief"
-      ]
+      ],
+      "lpm": 1
     }
   ]
 }
