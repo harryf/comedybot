@@ -54,10 +54,6 @@ nbclient
 nbconvert
 nbformat
 networkx
-#numba>=0.60,<0.62
-#numpy>=1.21,<2.2
-#openai>=1.50,<2.0
-#triton==2.0.0
 openai-whisper
 ordered-set
 packaging
@@ -102,3 +98,8 @@ wcwidth
 webencodings
 #whisper-at
 yarg
+openai
+faiss-cpu
+colorama
+space
+sentence_transformers
