@@ -1,0 +1,116 @@
+{
+  "bit_id": "20250126_Adult_Content_17th_Dec_2024_Part_2_the_power_of_porn_to_overcome_prejudice",
+  "show_info": {
+    "show_identifier": "20250126_Adult_Content_17th_Dec_2024_Part_2",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content 2",
+    "date_of_show": "17 Dec 2024, 21:15",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/tQSpMuzHq84sr7Wa6",
+    "length_of_set": 2138.78,
+    "lpm": 7,
+    "notes": "Adult Content 2nd Run - 2nd Half Q&A"
+  },
+  "bit_info": {
+    "title": "The Power of Porn to Overcome Prejudice",
+    "start": 392.7,
+    "end": 402.4,
+    "joke_types": [
+      "Misdirect",
+      "Dark Humor",
+      "Observational Absurdity"
+    ],
+    "themes": [
+      "Community",
+      "Violence"
+    ],
+    "lpm": 25
+  },
+  "transcript": {
+    "text": "So you're saying the world is... A big community. Yeah. Yeah. Somebody killed us. It had to be done.",
+    "lines": [
+      {
+        "start": 392.71999999999997,
+        "end": 395.5,
+        "text": "So you're saying the world is..."
+      },
+      {
+        "start": 395.58,
+        "end": 396.68,
+        "text": "A big community."
+      },
+      {
+        "start": 396.97999999999996,
+        "end": 397.14,
+        "text": "Yeah."
+      },
+      {
+        "start": 397.56,
+        "end": 397.71999999999997,
+        "text": "Yeah."
+      },
+      {
+        "start": 398.71999999999997,
+        "end": 400.03999999999996,
+        "text": "Somebody killed us."
+      },
+      {
+        "start": 400.74,
+        "end": 402.21999999999997,
+        "text": "It had to be done."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      393.6,
+      394.8,
+      0
+    ],
+    [
+      394.8,
+      396.0,
+      0
+    ],
+    [
+      396.0,
+      397.2,
+      0
+    ],
+    [
+      397.2,
+      398.4,
+      1
+    ],
+    [
+      398.4,
+      399.6,
+      0
+    ],
+    [
+      399.6,
+      400.8,
+      0
+    ],
+    [
+      400.8,
+      402.0,
+      0
+    ],
+    [
+      402.0,
+      403.2,
+      2
+    ],
+    [
+      403.2,
+      404.4,
+      1
+    ],
+    [
+      404.4,
+      405.6,
+      0
+    ]
+  ]
+}

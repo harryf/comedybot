@@ -1,0 +1,126 @@
+{
+  "bit_id": "20250126_Adult_Content_17th_Dec_2024_Part_2_the_burden_of_sexual_urges_throughout_life",
+  "show_info": {
+    "show_identifier": "20250126_Adult_Content_17th_Dec_2024_Part_2",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content 2",
+    "date_of_show": "17 Dec 2024, 21:15",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/tQSpMuzHq84sr7Wa6",
+    "length_of_set": 2138.78,
+    "lpm": 7,
+    "notes": "Adult Content 2nd Run - 2nd Half Q&A"
+  },
+  "bit_info": {
+    "title": "The Burden of Sexual Urges Throughout Life",
+    "start": 656.6,
+    "end": 668.2,
+    "joke_types": [
+      "Observational",
+      "Dark Humor",
+      "Awkward"
+    ],
+    "themes": [
+      "Aging",
+      "Health"
+    ],
+    "lpm": 16
+  },
+  "transcript": {
+    "text": "You know what I mean? Like, I don't want to be 88 and can't get my dick hard and, like, thinking about, you know what I mean? Like, I'm sick of it. Like, you're going to Kiev. You're not going to make it to 88. So it's...",
+    "lines": [
+      {
+        "start": 656.6,
+        "end": 657.1,
+        "text": "You know what I mean?"
+      },
+      {
+        "start": 657.72,
+        "end": 662.6,
+        "text": "Like, I don't want to be 88 and can't get my dick hard and, like, thinking about, you know what I mean?"
+      },
+      {
+        "start": 662.64,
+        "end": 663.68,
+        "text": "Like, I'm sick of it."
+      },
+      {
+        "start": 663.68,
+        "end": 664.9399999999999,
+        "text": "Like, you're going to Kiev."
+      },
+      {
+        "start": 665.04,
+        "end": 666.1999999999999,
+        "text": "You're not going to make it to 88."
+      },
+      {
+        "start": 666.68,
+        "end": 667.68,
+        "text": "So it's..."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      657.6,
+      658.8,
+      0
+    ],
+    [
+      658.8,
+      660.0,
+      0
+    ],
+    [
+      660.0,
+      661.2,
+      0
+    ],
+    [
+      661.2,
+      662.4,
+      0
+    ],
+    [
+      662.4,
+      663.6,
+      0
+    ],
+    [
+      663.6,
+      664.8,
+      0
+    ],
+    [
+      664.8,
+      666.0,
+      0
+    ],
+    [
+      666.0,
+      667.2,
+      2
+    ],
+    [
+      667.2,
+      668.4,
+      1
+    ],
+    [
+      668.4,
+      669.6,
+      0
+    ],
+    [
+      669.6,
+      670.8,
+      0
+    ],
+    [
+      670.8,
+      672.0,
+      0
+    ]
+  ]
+}

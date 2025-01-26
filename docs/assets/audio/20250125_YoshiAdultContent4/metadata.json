@@ -1,10 +1,10 @@
 {
     "audio_file": "YoshiAdultContent4.wav",
     "comedian": "Yoshi Obayashi",
-    "name_of_show": "Adult Content 3",
+    "name_of_show": "Adult Content 3 - Set",
     "date_of_show": "21 Jan 2025, 20:00",
     "name_of_venue": "ROBIN's",
-    "link_to_venue_on_google_maps": null,
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/tQSpMuzHq84sr7Wa6",
     "notes": "Yoshi\u2019s final show from the Swiss trip",
     "payment": {
         "amount": 0.0,

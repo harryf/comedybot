@@ -1,0 +1,271 @@
+{
+  "type": "object",
+  "properties": {},
+  "items": [
+    {
+      "title": "Introduction and Audience Q&A Setup",
+      "start": 0.0,
+      "end": 63.4,
+      "joke_types": [
+        "Awkward",
+        "Playing Dumb",
+        "Observational",
+        "Self-Deprecation"
+      ],
+      "themes": [
+        "Public Speaking",
+        "Humor about Authority",
+        "Audience Interaction"
+      ],
+      "lpm": 8
+    },
+    {
+      "title": "Yoshi's Diverse Experience in the Adult Industry",
+      "start": 63.4,
+      "end": 213.1,
+      "joke_types": [
+        "Misdirect",
+        "Observational"
+      ],
+      "themes": [
+        "Adult Industry",
+        "Crime",
+        "Cultural Differences",
+        "Race and Ethnicity"
+      ],
+      "lpm": 8
+    },
+    {
+      "title": "Travel Anecdotes and Porn's Universal Appeal",
+      "start": 213.1,
+      "end": 352.3,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Relatable Struggle",
+        "Exaggeration",
+        "Awkward",
+        "Breaking Expectations"
+      ],
+      "themes": [
+        "Travel",
+        "Cultural Differences",
+        "Race",
+        "Work"
+      ],
+      "lpm": 6
+    },
+    {
+      "title": "Porn as an International Passport and Diplomacy",
+      "start": 352.3,
+      "end": 392.7,
+      "joke_types": [
+        "Observational",
+        "Breaking Expectations",
+        "Relatable Struggle",
+        "Observational Absurdity"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Racial Harmony",
+        "Adult Entertainment"
+      ],
+      "lpm": 6
+    },
+    {
+      "title": "The Power of Porn to Overcome Prejudice",
+      "start": 392.7,
+      "end": 402.4,
+      "joke_types": [
+        "Misdirect",
+        "Dark Humor",
+        "Observational Absurdity"
+      ],
+      "themes": [
+        "Community",
+        "Violence"
+      ],
+      "lpm": 25
+    },
+    {
+      "title": "The Therapeutic Aspect of Porn",
+      "start": 402.4,
+      "end": 514.8,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Understatement"
+      ],
+      "themes": [
+        "Generational Differences",
+        "Sexuality",
+        "Communication",
+        "Family Life"
+      ],
+      "lpm": 4
+    },
+    {
+      "title": "The Value of Sex Education and Open Discussion",
+      "start": 514.8,
+      "end": 656.6,
+      "joke_types": [
+        "Dark Humor",
+        "Exaggeration",
+        "Unexpected Emotion",
+        "Observational Absurdity",
+        "Self-Deprecation"
+      ],
+      "themes": [
+        "Sex",
+        "Illness",
+        "Aging"
+      ],
+      "lpm": 9
+    },
+    {
+      "title": "The Burden of Sexual Urges Throughout Life",
+      "start": 656.6,
+      "end": 668.2,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Awkward"
+      ],
+      "themes": [
+        "Aging",
+        "Health"
+      ],
+      "lpm": 16
+    },
+    {
+      "title": "Controversial Opinions on Fulfilling Dying Wishes",
+      "start": 668.2,
+      "end": 753.0,
+      "joke_types": [
+        "Dark Humor",
+        "Misdirect",
+        "Awkward"
+      ],
+      "themes": [
+        "Health",
+        "Sexuality",
+        "Taboo Subjects",
+        "Mortality"
+      ],
+      "lpm": 13
+    },
+    {
+      "title": "Cultural Observations and Porn Preferences",
+      "start": 753.0,
+      "end": 970.7,
+      "joke_types": [
+        "Dark Humor",
+        "Observational",
+        "Relatable Struggle",
+        "Awkward"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Sexuality",
+        "Parenting",
+        "Health"
+      ],
+      "lpm": 7
+    },
+    {
+      "title": "The Complexity of Choices Women Make in Porn",
+      "start": 970.7,
+      "end": 1118.7,
+      "joke_types": [
+        "Observational",
+        "Comparison",
+        "Confessional",
+        "Relatable Struggle",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Porn Industry",
+        "Economic Opportunities",
+        "Cultural Differences",
+        "Career Challenges"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Yoshi's Exceptional Attention to Adult Content",
+      "start": 1118.7,
+      "end": 1251.7,
+      "joke_types": [
+        "Observational",
+        "Relatable Struggle",
+        "Exaggeration",
+        "Self-Deprecation",
+        "Misdirect"
+      ],
+      "themes": [
+        "Gender",
+        "Sexuality"
+      ],
+      "lpm": 8
+    },
+    {
+      "title": "The Transition from Porn to Pixar",
+      "start": 1251.7,
+      "end": 1700.7,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Relatable Struggle",
+        "Dark Humor",
+        "Misdirect",
+        "Comparison",
+        "Self-Deprecation"
+      ],
+      "themes": [
+        "Pornography",
+        "Cultural Differences",
+        "Fantasy",
+        "Work"
+      ],
+      "lpm": 8
+    },
+    {
+      "title": "Unexpectedly Touching Moments and Reflection on Life",
+      "start": 1700.7,
+      "end": 2096.2,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Confessional",
+        "Self-Deprecation",
+        "Parody",
+        "Literal Interpretation",
+        "Comparison"
+      ],
+      "themes": [
+        "Family Life",
+        "Trauma",
+        "Cultural Differences",
+        "Death",
+        "Comedy"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "The Challenge of Sharing Personal Stories in Comedy",
+      "start": 2096.2,
+      "end": 2138.8,
+      "joke_types": [
+        "Self-Deprecation",
+        "Observational",
+        "Sarcasm"
+      ],
+      "themes": [
+        "Public Speaking",
+        "Sexuality",
+        "Self-Improvement"
+      ],
+      "lpm": 6
+    }
+  ]
+}
