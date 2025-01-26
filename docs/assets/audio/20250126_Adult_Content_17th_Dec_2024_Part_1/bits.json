@@ -1,0 +1,301 @@
+{
+  "type": "object",
+  "properties": {},
+  "items": [
+    {
+      "title": "Introduction and Host Praise",
+      "start": 0.0,
+      "end": 13.0,
+      "joke_types": [
+        "Observational",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Friendship",
+        "Travel"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Misleading Introductions",
+      "start": 30.0,
+      "end": 62.0,
+      "joke_types": [
+        "Misdirect",
+        "Self-Deprecation",
+        "Observational",
+        "Dark Humor"
+      ],
+      "themes": [
+        "Work",
+        "Aging"
+      ],
+      "lpm": 8
+    },
+    {
+      "title": "Misconceptions about Expertise",
+      "start": 65.0,
+      "end": 72.0,
+      "joke_types": [
+        "Understatement",
+        "Self-Deprecation"
+      ],
+      "themes": [
+        "Work",
+        "Identity"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Audience's Perception and Complicated Relationship with Women",
+      "start": 73.0,
+      "end": 232.0,
+      "joke_types": [
+        "Confessional",
+        "Observational",
+        "Relatable Struggle",
+        "Dark Humor",
+        "Self-Deprecation"
+      ],
+      "themes": [
+        "Family Life",
+        "Cultural Differences",
+        "Gender"
+      ],
+      "lpm": 2
+    },
+    {
+      "title": "Roommate's Cat and National Holiday Pranks",
+      "start": 234.0,
+      "end": 446.1,
+      "joke_types": [
+        "Observational",
+        "Misdirect",
+        "Rant",
+        "Dark Humor",
+        "Self-Deprecation",
+        "Repetition",
+        "Literal Interpretation",
+        "Wordplay"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Friendship",
+        "Pets",
+        "Pranks"
+      ],
+      "lpm": 7
+    },
+    {
+      "title": "Childhood Nudity and Public Baths",
+      "start": 455.3,
+      "end": 559.2,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Comparison",
+        "Exaggeration"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Nudity",
+        "Socioeconomic Issues"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Exposure to Adult Content and Sex Trade",
+      "start": 559.2,
+      "end": 857.5,
+      "joke_types": [
+        "Observational",
+        "Misdirect",
+        "Self-Deprecation",
+        "Literal Interpretation",
+        "Fish Out of Water",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Family Life",
+        "Cultural Differences",
+        "Childhood Experiences",
+        "Taboo Subjects",
+        "Immigration"
+      ],
+      "lpm": 2
+    },
+    {
+      "title": "Working in a Porn Shop and Odd Customer Interactions",
+      "start": 857.5,
+      "end": 1058.5,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Dark Humor",
+        "Comparison",
+        "Observational Absurdity",
+        "Awkward"
+      ],
+      "themes": [
+        "Sexuality",
+        "Business",
+        "Cultural Differences"
+      ],
+      "lpm": 4
+    },
+    {
+      "title": "Pervert Customer Consultations",
+      "start": 1058.5,
+      "end": 1172.7,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Exaggeration",
+        "Misdirect",
+        "Awkward",
+        "Surreal"
+      ],
+      "themes": [
+        "Relationships",
+        "Gender",
+        "Health"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "Empathy for Young and Vulnerable Customers",
+      "start": 1172.7,
+      "end": 1388.9,
+      "joke_types": [
+        "Observational",
+        "Misdirect",
+        "Fish Out of Water",
+        "Confessional",
+        "Relatable Struggle",
+        "Comparison"
+      ],
+      "themes": [
+        "LGBTQ+",
+        "Identity",
+        "Cultural Differences"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "Dangerous Encounters and Life Lessons from Porn Business",
+      "start": 1388.9,
+      "end": 1819.6,
+      "joke_types": [
+        "Act Out",
+        "Observational",
+        "Sarcasm",
+        "Dark Humor",
+        "Self-Deprecation",
+        "Understatement",
+        "Storytelling",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Generosity",
+        "Grief",
+        "Work",
+        "Crime"
+      ],
+      "lpm": 3
+    },
+    {
+      "title": "Meeting Famous Personalities and Celebrities",
+      "start": 1819.6,
+      "end": 2686.1,
+      "joke_types": [
+        "Observational",
+        "Misdirect",
+        "Sarcasm",
+        "Self-Deprecation",
+        "Awkward",
+        "Wordplay",
+        "Confessional",
+        "Breaking Expectations"
+      ],
+      "themes": [
+        "Work",
+        "Pornography Industry",
+        "Hollywood",
+        "Legal and Censorship Issues"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "Legal Oddities and DVD Production in Porn",
+      "start": 2686.1,
+      "end": 2770.6,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Surreal",
+        "Misdirect",
+        "Breaking Expectations"
+      ],
+      "themes": [
+        "Politics",
+        "Entertainment Industry",
+        "Humor"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Porn Predicting Presidential Elections",
+      "start": 2770.6,
+      "end": 2809.6,
+      "joke_types": [
+        "Dark Humor",
+        "Observational Absurdity",
+        "Misdirect",
+        "Parody"
+      ],
+      "themes": [
+        "Politics",
+        "Family Life",
+        "Aging"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Attending High-Profile Court Cases and Davos Insights",
+      "start": 2809.6,
+      "end": 2998.1,
+      "joke_types": [
+        "Misdirect",
+        "Observational",
+        "Dark Humor",
+        "Parody",
+        "Awkward"
+      ],
+      "themes": [
+        "Travel",
+        "Crime",
+        "Work",
+        "Sex Industry",
+        "Power and Wealth"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Reflections on Sex, Power, and Making a Difference",
+      "start": 2998.1,
+      "end": 3088.1,
+      "joke_types": [
+        "Dark Humor",
+        "Observational Absurdity",
+        "Repetition",
+        "Double Entendre"
+      ],
+      "themes": [
+        "Socioeconomic Inequality",
+        "Power Dynamics",
+        "Sexuality"
+      ],
+      "lpm": 2
+    }
+  ]
+}
