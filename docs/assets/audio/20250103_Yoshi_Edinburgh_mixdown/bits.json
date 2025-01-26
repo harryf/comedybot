@@ -1,0 +1,237 @@
+{
+  "type": "object",
+  "properties": {},
+  "items": [
+    {
+      "title": "Discovering the Comedy Show",
+      "start": 0.0,
+      "end": 120.0,
+      "joke_types": [
+        "Crowd Work",
+        "Observational",
+        "Awkward"
+      ],
+      "themes": [
+        "Comedy",
+        "Podcasting",
+        "Stand-up Comedy",
+        "International Audience"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Losing the Roommate's Cat",
+      "start": 146.7,
+      "end": 374.2,
+      "joke_types": [
+        "Observational",
+        "Reversal",
+        "Exaggeration",
+        "Self-Deprecation",
+        "Understatement",
+        "Surreal",
+        "Sarcasm"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Friendship",
+        "Pets"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "The Dick Pic Holiday Tradition",
+      "start": 374.3,
+      "end": 395.5,
+      "joke_types": [
+        "Repetition",
+        "Surreal",
+        "Observational",
+        "Shock Humor"
+      ],
+      "themes": [
+        "Dating",
+        "Inappropriate Humor"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "The Power of Fantasy",
+      "start": 395.7,
+      "end": 452.1,
+      "joke_types": [
+        "Observational",
+        "Relatable Struggle",
+        "Confessional"
+      ],
+      "themes": [
+        "Memory",
+        "Everyday Life"
+      ],
+      "lpm": 3
+    },
+    {
+      "title": "Childhood Mischief and Cultural Observations",
+      "start": 452.6,
+      "end": 673.4,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Fish Out of Water",
+        "Dark Humor",
+        "Literal Interpretation",
+        "Awkward",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Family Life",
+        "Childhood",
+        "Crime"
+      ],
+      "lpm": 2
+    },
+    {
+      "title": "The Discovery of Parents' Adult Books",
+      "start": 673.4,
+      "end": 775.7,
+      "joke_types": [
+        "Comparison",
+        "Playing Dumb",
+        "Observational",
+        "Exaggeration",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Childhood",
+        "Family Life",
+        "Nudity"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Working at the Porn Shop",
+      "start": 852.0,
+      "end": 1171.2,
+      "joke_types": [
+        "Observational",
+        "Storytelling",
+        "Incongruity",
+        "Exaggeration",
+        "Relatable Struggle",
+        "Self-Deprecation",
+        "Unexpected Emotion"
+      ],
+      "themes": [
+        "Work",
+        "Cultural Differences",
+        "Gender Identity",
+        "Sexuality"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Customer Interactions at the Porn Shop",
+      "start": 1171.2,
+      "end": 1257.7,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Surreal",
+        "Misdirect",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Loneliness",
+        "Cultural Differences",
+        "Sex Industry"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "The Intriguing Crackhead Customers",
+      "start": 1257.7,
+      "end": 1298.8,
+      "joke_types": [
+        "Comparison",
+        "Observational",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Addiction",
+        "Motivation",
+        "Self-Improvement"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Discoveries and Challenges in the Porn Business",
+      "start": 1298.8,
+      "end": 1503.1,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Misdirect",
+        "Dark Humor",
+        "Awkward",
+        "Self-Deprecation"
+      ],
+      "themes": [
+        "Marriage",
+        "Relationships",
+        "Infidelity",
+        "Family",
+        "Humor"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "The Porn Convention and Celebrity Anecdotes",
+      "start": 1503.1,
+      "end": 1756.5,
+      "joke_types": [
+        "Dark Humor",
+        "Exaggeration",
+        "Observational",
+        "Bait-and-Switch",
+        "Surreal",
+        "Misdirect",
+        "Observational Absurdity",
+        "Comparison",
+        "Wordplay"
+      ],
+      "themes": [
+        "Family",
+        "Grief",
+        "Pornography",
+        "Work",
+        "Cultural Differences"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "The Story of Ghislaine Maxwell and Social Commentary",
+      "start": 1756.5,
+      "end": 3717.7,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Exaggeration",
+        "Anti-Joke",
+        "Breaking Expectations",
+        "Literal Interpretation",
+        "Self-Deprecation",
+        "Surreal"
+      ],
+      "themes": [
+        "Pornography",
+        "Relationships",
+        "Miscommunication",
+        "Social Commentary",
+        "Death and Grief"
+      ],
+      "lpm": 1
+    }
+  ]
+}

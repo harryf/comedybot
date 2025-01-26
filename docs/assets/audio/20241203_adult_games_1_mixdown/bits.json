@@ -1,0 +1,380 @@
+{
+  "type": "object",
+  "properties": {},
+  "items": [
+    {
+      "title": "Opening Remarks",
+      "start": 0.0,
+      "end": 50.0,
+      "joke_types": [
+        "Awkward",
+        "Self-Deprecation",
+        "Observational",
+        "Literal Interpretation",
+        "Clueless Expert"
+      ],
+      "themes": [
+        "Self-Deprecation",
+        "Identity"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Roommate's Trip to Japan and Lost Cat",
+      "start": 52.0,
+      "end": 244.0,
+      "joke_types": [
+        "Misdirect",
+        "Exaggeration",
+        "Wordplay",
+        "Observational Absurdity",
+        "Relatable Struggle",
+        "Awkward",
+        "Fish Out of Water"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Pets",
+        "Friendship",
+        "Miscommunication"
+      ],
+      "lpm": 7
+    },
+    {
+      "title": "Giving Out Phone Number on Podcast",
+      "start": 244.0,
+      "end": 266.0,
+      "joke_types": [
+        "Observational",
+        "Misdirect",
+        "Incongruity",
+        "Dark Humor"
+      ],
+      "themes": [
+        "Dating",
+        "Cultural References"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "Dick Pics on Holidays",
+      "start": 266.0,
+      "end": 278.0,
+      "joke_types": [
+        "Confessional",
+        "Observational Absurdity"
+      ],
+      "themes": [
+        "Gender",
+        "Sexuality"
+      ],
+      "lpm": 20
+    },
+    {
+      "title": "Public Bath Experiences in Japan",
+      "start": 280.0,
+      "end": 350.0,
+      "joke_types": [
+        "Observational",
+        "Awkward",
+        "Exaggeration",
+        "Incongruity"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Family Life",
+        "Gender"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Discovering Pornography as a Child",
+      "start": 352.0,
+      "end": 578.0,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Literal Misunderstanding",
+        "Self-Deprecation",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Family Life",
+        "Cultural Differences",
+        "Sexuality"
+      ],
+      "lpm": 4
+    },
+    {
+      "title": "Starting Work in Porn Shop",
+      "start": 578.0,
+      "end": 640.0,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Incongruity"
+      ],
+      "themes": [
+        "Work",
+        "Family Life",
+        "Pop Culture"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Customer Experiences at Porn Shop",
+      "start": 640.0,
+      "end": 710.0,
+      "joke_types": [
+        "Observational",
+        "Misdirect",
+        "Incongruity",
+        "Act Out",
+        "Self-Deprecation",
+        "Awkward"
+      ],
+      "themes": [
+        "Technology",
+        "Work",
+        "Social Interaction"
+      ],
+      "lpm": 9
+    },
+    {
+      "title": "Helping a Customer Explore Sexuality",
+      "start": 710.0,
+      "end": 820.0,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Deadpan",
+        "Misdirect",
+        "Relatable Struggle",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Sexual Identity",
+        "Societal Expectations",
+        "Family Life"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Moving from Porn Shop to DVD Production",
+      "start": 828.0,
+      "end": 910.0,
+      "joke_types": [
+        "Confessional",
+        "Observational",
+        "Shock Humor",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Work",
+        "Adult Entertainment"
+      ],
+      "lpm": 12
+    },
+    {
+      "title": "Ambiguity in Porn Scenes and Legal Considerations",
+      "start": 910.0,
+      "end": 962.0,
+      "joke_types": [
+        "Comparison",
+        "Observational Absurdity",
+        "Relatable Struggle",
+        "Exaggeration"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Adult Content",
+        "Travel"
+      ],
+      "lpm": 20
+    },
+    {
+      "title": "Shit Section in Video Store",
+      "start": 962.0,
+      "end": 1042.0,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Dark Humor",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Work",
+        "Adult Entertainment",
+        "Cultural Differences"
+      ],
+      "lpm": 10
+    },
+    {
+      "title": "Duties as a DVD Producer",
+      "start": 1042.0,
+      "end": 1132.0,
+      "joke_types": [
+        "Observational",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Work",
+        "Decision Making",
+        "Technology"
+      ],
+      "lpm": 6
+    },
+    {
+      "title": "FBI Raid and Legal Troubles",
+      "start": 1132.0,
+      "end": 1202.0,
+      "joke_types": [
+        "Misdirect",
+        "Observational Absurdity",
+        "Exaggeration",
+        "Self-Deprecation",
+        "Dark Humor"
+      ],
+      "themes": [
+        "Legal Issues",
+        "Work"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Financial Crisis and New Porn Genres",
+      "start": 1202.0,
+      "end": 1302.0,
+      "joke_types": [
+        "Observational",
+        "Incongruity",
+        "Misdirect",
+        "Awkward",
+        "Playing Dumb",
+        "Literal Interpretation",
+        "Relatable Struggle",
+        "Breaking Expectations"
+      ],
+      "themes": [
+        "Pornography",
+        "Technology",
+        "Law"
+      ],
+      "lpm": 10
+    },
+    {
+      "title": "Child Porn Titles Joke Notebook",
+      "start": 1302.0,
+      "end": 1402.0,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Wordplay",
+        "Confessional",
+        "Awkward"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Legal Issues",
+        "Adult Entertainment Industry"
+      ],
+      "lpm": 27
+    },
+    {
+      "title": "Learning from Porn Industry",
+      "start": 1402.0,
+      "end": 1416.0,
+      "joke_types": [
+        "Awkward",
+        "Self-Deprecation",
+        "Observational Absurdity"
+      ],
+      "themes": [
+        "Work",
+        "Sexuality",
+        "Humor"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Child Custody During Porn Shoot",
+      "start": 1416.0,
+      "end": 1873.0,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Shock Humor",
+        "Surreal",
+        "Literal Interpretation",
+        "Reversal",
+        "Dark Humor",
+        "Awkward"
+      ],
+      "themes": [
+        "Sex",
+        "Social Norms",
+        "Taboo Topics",
+        "Work",
+        "Ethics"
+      ],
+      "lpm": 6
+    },
+    {
+      "title": "Porn Predicting Presidential Elections",
+      "start": 1873.0,
+      "end": 2275.0,
+      "joke_types": [
+        "Misdirect",
+        "Observational",
+        "Deflation",
+        "Exaggeration",
+        "Sarcasm",
+        "Dark Humor",
+        "Surreal",
+        "Shock Humor"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Sexuality",
+        "Taboo Topics",
+        "Travel"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "Fantasy About Osama bin Laden Watching Porn",
+      "start": 2275.0,
+      "end": 2489.0,
+      "joke_types": [
+        "Dark Humor",
+        "Exaggeration",
+        "Observational",
+        "Reversal"
+      ],
+      "themes": [
+        "Pornography",
+        "Fantasy",
+        "Work"
+      ],
+      "lpm": 2
+    },
+    {
+      "title": "Watching Porn for Work",
+      "start": 2489.0,
+      "end": 2654.2,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Breaking Expectations",
+        "Bait-and-Switch"
+      ],
+      "themes": [
+        "Show Business",
+        "Politics",
+        "Pornography",
+        "Elections"
+      ],
+      "lpm": 4
+    }
+  ]
+}

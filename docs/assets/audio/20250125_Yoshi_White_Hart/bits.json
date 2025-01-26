@@ -1,0 +1,243 @@
+{
+  "type": "object",
+  "properties": {},
+  "items": [
+    {
+      "title": "Intro and Optimism in England",
+      "start": 0.0,
+      "end": 56.2,
+      "joke_types": [
+        "Self-Deprecation",
+        "Observational",
+        "Bait-and-Switch"
+      ],
+      "themes": [
+        "Future",
+        "Family Life",
+        "Culture"
+      ],
+      "lpm": 11
+    },
+    {
+      "title": "Japan and England Similarities",
+      "start": 56.2,
+      "end": 99.4,
+      "joke_types": [
+        "Observational",
+        "Comparison",
+        "Reversal",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "National Identity",
+        "Politeness"
+      ],
+      "lpm": 17
+    },
+    {
+      "title": "Politeness and Cultural Differences",
+      "start": 99.4,
+      "end": 160.2,
+      "joke_types": [
+        "Observational",
+        "Comparison",
+        "Cultural Humor"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Race"
+      ],
+      "lpm": 7
+    },
+    {
+      "title": "Roommate's Cat Disaster",
+      "start": 160.2,
+      "end": 427.1,
+      "joke_types": [
+        "Misdirect",
+        "Observational",
+        "Dark Humor",
+        "Exaggeration",
+        "Confessional",
+        "Relatable Struggle",
+        "Wordplay",
+        "Awkward",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Pets",
+        "Miscommunication",
+        "Comedy of Errors"
+      ],
+      "lpm": 14
+    },
+    {
+      "title": "Reverse Culture Shock and Misunderstandings",
+      "start": 427.1,
+      "end": 827.9,
+      "joke_types": [
+        "Reversal",
+        "Observational",
+        "Exaggeration",
+        "Misdirect",
+        "Comparison",
+        "Wordplay",
+        "Dark Humor",
+        "Awkward",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Body Image",
+        "Uncomfortable Situations"
+      ],
+      "lpm": 14
+    },
+    {
+      "title": "Americans and Health",
+      "start": 827.9,
+      "end": 839.9,
+      "joke_types": [
+        "Self-Deprecation"
+      ],
+      "themes": [
+        "Self-Deprecation"
+      ],
+      "lpm": 65
+    },
+    {
+      "title": "Traveling to Kiev",
+      "start": 839.9,
+      "end": 892.9,
+      "joke_types": [
+        "Self-Deprecation",
+        "Observational",
+        "Breaking Expectations",
+        "Playing Dumb",
+        "Exaggeration"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Geography",
+        "Sense of Humor"
+      ],
+      "lpm": 35
+    },
+    {
+      "title": "LA's Appearance and Homelessness",
+      "start": 892.9,
+      "end": 992.4,
+      "joke_types": [
+        "Exaggeration",
+        "Relatable Struggle",
+        "Observational",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "City Life",
+        "Homelessness"
+      ],
+      "lpm": 29
+    },
+    {
+      "title": "Escaping to Arizona",
+      "start": 992.4,
+      "end": 1064.0,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Surreal",
+        "Literal Interpretation",
+        "Awkward"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Technology",
+        "Dark Humor"
+      ],
+      "lpm": 20
+    },
+    {
+      "title": "Jokes Like Fisting and Work in Porn",
+      "start": 1064.0,
+      "end": 1428.5,
+      "joke_types": [
+        "Misdirect",
+        "Self-Deprecation",
+        "Observational",
+        "Exaggeration",
+        "Wordplay",
+        "Sarcasm"
+      ],
+      "themes": [
+        "Adult Entertainment Industry",
+        "Cultural Differences",
+        "Legal Restrictions",
+        "Work"
+      ],
+      "lpm": 15
+    },
+    {
+      "title": "Pervert Bar and Dealing with Unusual Requests",
+      "start": 1428.5,
+      "end": 1935.9,
+      "joke_types": [
+        "Self-Deprecation",
+        "Observational",
+        "Understatement",
+        "Anti-Joke",
+        "Dark Humor",
+        "Surreal",
+        "Misdirect",
+        "Observational Absurdity"
+      ],
+      "themes": [
+        "Work",
+        "Sexuality",
+        "Death",
+        "Cultural Differences"
+      ],
+      "lpm": 7
+    },
+    {
+      "title": "Make Wish Foundation and Controversial Solutions",
+      "start": 1935.9,
+      "end": 2088.3,
+      "joke_types": [
+        "Dark Humor",
+        "Breaking Expectations",
+        "Observational",
+        "Surreal"
+      ],
+      "themes": [
+        "Death",
+        "Charity",
+        "Dark Humor",
+        "Cultural Differences"
+      ],
+      "lpm": 19
+    },
+    {
+      "title": "Attending High-Profile Trials",
+      "start": 2088.3,
+      "end": 2371.7,
+      "joke_types": [
+        "Dark Humor",
+        "Shock Humor",
+        "Observational Absurdity",
+        "Confessional",
+        "Breaking Expectations"
+      ],
+      "themes": [
+        "Family Life",
+        "Sexuality",
+        "Crime",
+        "Violence"
+      ],
+      "lpm": 14
+    }
+  ]
+}

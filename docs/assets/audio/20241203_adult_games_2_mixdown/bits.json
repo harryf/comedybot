@@ -1,0 +1,266 @@
+{
+  "type": "object",
+  "properties": {},
+  "items": [
+    {
+      "title": "Recognizing Nationalities and Swiss Identity",
+      "start": 0.0,
+      "end": 96.0,
+      "joke_types": [
+        "Observational",
+        "Crowd Work",
+        "Misdirect",
+        "Self-Deprecation",
+        "Awkward"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Identity"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "Adjusting to Comedy in Switzerland",
+      "start": 96.0,
+      "end": 120.0,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Communication"
+      ],
+      "lpm": 2
+    },
+    {
+      "title": "Cultural Differences in Comedy",
+      "start": 120.0,
+      "end": 160.0,
+      "joke_types": [
+        "Repetition",
+        "Observational",
+        "Awkward",
+        "Breaking Expectations",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Race and Ethnicity"
+      ],
+      "lpm": 10
+    },
+    {
+      "title": "Politeness in Swiss Audience vs. American Bluntness",
+      "start": 160.0,
+      "end": 175.0,
+      "joke_types": [
+        "Awkward",
+        "Literal Interpretation",
+        "Reversal"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Politics"
+      ],
+      "lpm": 16
+    },
+    {
+      "title": "Setting Up an Intimate Conversation with Yoshi",
+      "start": 175.0,
+      "end": 202.0,
+      "joke_types": [
+        "Crowd Work",
+        "Awkward",
+        "Observational"
+      ],
+      "themes": [
+        "Audience Interaction",
+        "Education"
+      ],
+      "lpm": 7
+    },
+    {
+      "title": "Question Time: The Nature of Work and Love",
+      "start": 202.0,
+      "end": 288.0,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Misdirect",
+        "Wordplay"
+      ],
+      "themes": [
+        "Comedy Performance",
+        "Cultural Differences",
+        "Social Interaction"
+      ],
+      "lpm": 7
+    },
+    {
+      "title": "Pornography and Cultural Shifts in the '90s",
+      "start": 288.0,
+      "end": 606.0,
+      "joke_types": [
+        "Observational",
+        "Comparison",
+        "Sarcasm",
+        "Dark Humor",
+        "Deflation",
+        "Reversal"
+      ],
+      "themes": [
+        "1990s Culture",
+        "Pornography Industry",
+        "Legal and Censorship",
+        "Cultural Differences"
+      ],
+      "lpm": 4
+    },
+    {
+      "title": "Rise of Gonzo Porn and Extreme Porn Trends",
+      "start": 606.0,
+      "end": 725.0,
+      "joke_types": [
+        "Dark Humor",
+        "Observational",
+        "Awkward",
+        "Surreal",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Pornography",
+        "Internet",
+        "Aging",
+        "Social Issues"
+      ],
+      "lpm": 4
+    },
+    {
+      "title": "Ethical Dilemmas and Personal Anecdotes in Porn",
+      "start": 725.0,
+      "end": 902.0,
+      "joke_types": [
+        "Self-Deprecation",
+        "Dark Humor",
+        "Confessional",
+        "Observational",
+        "Understatement"
+      ],
+      "themes": [
+        "Adult Industry",
+        "Intimacy",
+        "Friendship",
+        "Depression"
+      ],
+      "lpm": 2
+    },
+    {
+      "title": "Intimacy and Family in the Porn Industry",
+      "start": 902.0,
+      "end": 1156.0,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Misdirect",
+        "Sarcasm",
+        "Wordplay",
+        "Deflation",
+        "Confessional"
+      ],
+      "themes": [
+        "Family Life",
+        "Adult Industry",
+        "Culture",
+        "Gender Differences"
+      ],
+      "lpm": 5
+    },
+    {
+      "title": "The Evolution of Porn Obscenity Laws",
+      "start": 1156.0,
+      "end": 1405.0,
+      "joke_types": [
+        "Observational",
+        "Reversal",
+        "Awkward",
+        "Dark Humor",
+        "Self-Deprecation",
+        "Relatable Struggle",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Sexuality",
+        "Generational Differences",
+        "Human Rights",
+        "Cultural Taboos"
+      ],
+      "lpm": 1
+    },
+    {
+      "title": "Historical Perspective on Pornography and Society",
+      "start": 1405.0,
+      "end": 1660.0,
+      "joke_types": [
+        "Playing Dumb",
+        "Observational",
+        "Dark Humor"
+      ],
+      "themes": [
+        "Adult Entertainment Industry",
+        "Gender",
+        "Cultural Differences",
+        "Financial Motivations"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Audience Q&A on Porn Editing and Intimacy",
+      "start": 1660.0,
+      "end": 2401.0,
+      "joke_types": [
+        "Dark Humor",
+        "Observational",
+        "Unexpected Emotion",
+        "Playing Dumb",
+        "Self-Deprecation",
+        "Observational Absurdity"
+      ],
+      "themes": [
+        "Crime",
+        "Media Industry",
+        "Health",
+        "Consent",
+        "Cultural Attitudes"
+      ],
+      "lpm": 0
+    },
+    {
+      "title": "Personal Reflections and Work with Sex Offenders",
+      "start": 2401.0,
+      "end": 3477.3,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Surreal",
+        "Confessional",
+        "Awkward",
+        "Self-Deprecation",
+        "Misdirect",
+        "Literal Interpretation",
+        "Reversal",
+        "Relatable Struggle",
+        "Rant"
+      ],
+      "themes": [
+        "Human Connection",
+        "Family",
+        "Sex Work",
+        "Cultural Differences",
+        "Violence"
+      ],
+      "lpm": 2
+    }
+  ]
+}
