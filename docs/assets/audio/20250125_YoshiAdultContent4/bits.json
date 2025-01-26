@@ -1,64 +1,250 @@
 {
+  "type": "object",
+  "properties": {},
   "items": [
     {
       "title": "Introduction and Audience Interaction",
       "start": 0.0,
-      "end": 54.0
+      "end": 54.0,
+      "joke_types": [
+        "Playing Dumb",
+        "Observational",
+        "Repetition"
+      ],
+      "themes": [
+        "Politeness",
+        "Cultural Differences"
+      ],
+      "lpm": 0
     },
     {
       "title": "Politeness in Different Cultures",
       "start": 54.0,
-      "end": 154.0
+      "end": 154.0,
+      "joke_types": [
+        "Observational",
+        "Exaggeration",
+        "Comparison",
+        "Sarcasm",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Politeness",
+        "Racial Issues"
+      ],
+      "lpm": 0
     },
     {
       "title": "Sex, Money, and Fame",
       "start": 154.0,
-      "end": 298.0
+      "end": 298.0,
+      "joke_types": [
+        "Confessional",
+        "Observational",
+        "Awkward",
+        "Self-Deprecation",
+        "Reversal",
+        "Playing Dumb",
+        "Relatable Struggle"
+      ],
+      "themes": [
+        "Sex",
+        "Family Life",
+        "Cultural Differences",
+        "Health"
+      ],
+      "lpm": 0
     },
     {
       "title": "Childhood Stories",
       "start": 298.0,
-      "end": 501.0
+      "end": 501.0,
+      "joke_types": [
+        "Misdirect",
+        "Exaggeration",
+        "Observational",
+        "Self-Deprecation",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Cultural Differences",
+        "Pets",
+        "Miscommunication"
+      ],
+      "lpm": 0
     },
     {
       "title": "Roommate's Cat and Podcast Mishaps",
       "start": 501.0,
-      "end": 518.8
+      "end": 518.8,
+      "joke_types": [
+        "Awkward",
+        "Relatable Struggle",
+        "Observational Absurdity"
+      ],
+      "themes": [
+        "Dating",
+        "Technology"
+      ],
+      "lpm": 0
     },
     {
       "title": "Encounters with Law Enforcement",
       "start": 518.8,
-      "end": 810.7
+      "end": 810.7,
+      "joke_types": [
+        "Rule of Three",
+        "Self-Deprecation",
+        "Observational",
+        "Exaggeration",
+        "Misdirect",
+        "Incongruity",
+        "Relatable Struggle",
+        "Dark Humor",
+        "Awkward",
+        "Fish Out of Water",
+        "Playing Dumb"
+      ],
+      "themes": [
+        "Sexuality",
+        "Cultural Differences",
+        "Crime and Punishment",
+        "Race"
+      ],
+      "lpm": 0
     },
     {
       "title": "Porn Industry Insights",
       "start": 810.7,
-      "end": 1201.2
+      "end": 1201.2,
+      "joke_types": [
+        "Rule of Three",
+        "Observational",
+        "Dark Humor",
+        "Self-Deprecation",
+        "Playing Dumb",
+        "Exaggeration",
+        "Literal Interpretation",
+        "Fish Out of Water",
+        "Parody"
+      ],
+      "themes": [
+        "Pornography",
+        "Family",
+        "Cultural Differences"
+      ],
+      "lpm": 0
     },
     {
       "title": "Helping a Friend and Observations from a Porn Shop",
       "start": 1201.2,
-      "end": 1751.0
+      "end": 1751.0,
+      "joke_types": [
+        "Incongruity",
+        "Exaggeration",
+        "Dark Humor",
+        "Self-Deprecation",
+        "Observational",
+        "Deflation",
+        "Literal Interpretation",
+        "Reversal"
+      ],
+      "themes": [
+        "Sexuality",
+        "Miscommunication",
+        "Cultural Differences",
+        "Prejudice",
+        "Gender"
+      ],
+      "lpm": 0
     },
     {
       "title": "Unique Customer Interactions",
       "start": 1751.0,
-      "end": 2353.0
+      "end": 2353.0,
+      "joke_types": [
+        "Observational",
+        "Dark Humor",
+        "Incongruity",
+        "Exaggeration",
+        "Act Out",
+        "Self-Deprecation",
+        "Wordplay",
+        "Tag"
+      ],
+      "themes": [
+        "Work",
+        "Porn Industry",
+        "Death",
+        "Family"
+      ],
+      "lpm": 0
     },
     {
       "title": "Transition to Porn Production Work",
       "start": 2353.0,
-      "end": 2687.0
+      "end": 2687.0,
+      "joke_types": [
+        "Observational",
+        "Comparison",
+        "Relatable Struggle",
+        "Playing Dumb",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Work",
+        "Legal System",
+        "Technology",
+        "Economy"
+      ],
+      "lpm": 0
     },
     {
       "title": "Ethics and Law in Porn Production",
       "start": 2687.0,
-      "end": 3107.0
+      "end": 3107.0,
+      "joke_types": [
+        "Rule of Three",
+        "Exaggeration",
+        "Observational",
+        "Misdirect",
+        "Comparison",
+        "Self-Deprecation",
+        "Sarcasm",
+        "Literal Interpretation"
+      ],
+      "themes": [
+        "Work",
+        "Sex Industry",
+        "Cultural Differences"
+      ],
+      "lpm": 0
     },
     {
       "title": "Sex Work and World Economic Forum",
       "start": 3107.0,
-      "end": 4353.0
+      "end": 4353.0,
+      "joke_types": [
+        "Observational",
+        "Self-Deprecation",
+        "Dark Humor",
+        "Social Commentary",
+        "Surreal",
+        "Confessional",
+        "Anti-Joke"
+      ],
+      "themes": [
+        "Sex Work",
+        "Comedy",
+        "Travel",
+        "Wealth Inequality",
+        "Power Dynamics",
+        "Sexual Misconduct",
+        "Crime",
+        "Dark Humor"
+      ],
+      "lpm": 0
     }
   ]
 }
