@@ -13,6 +13,7 @@ import time
 import re
 logger = logging.getLogger(__name__)
 import jsonschema
+from typing import Any
 
 BITS_SCHEMA = {
     "type": "object",
@@ -90,6 +91,84 @@ def check_bit_boundaries(bits_data, transcript_data):
         return False, "Found bits with boundaries that don't match transcript data:\n" + "\n".join(error_details)
     return True, None
 
+def estimate_tokens(text: str) -> int:
+    """
+    Estimate the number of tokens in a text using a simple heuristic.
+    This is a rough estimate - OpenAI uses tiktoken for exact counts.
+    """
+    # Rough estimate: 1 token ≈ 4 characters
+    return len(text) // 4
+
+def split_transcript_into_chunks(transcript_data: list, max_tokens: int = 25000) -> list:
+    """
+    Split transcript data into chunks that don't exceed the token limit.
+    Ensures splits occur at transcript item boundaries to preserve timing information.
+    
+    Args:
+        transcript_data: List of transcript items
+        max_tokens: Maximum tokens per chunk (default 25000 to leave room for prompt)
+        
+    Returns:
+        List of transcript chunks, where each chunk is a list of transcript items
+    """
+    chunks = []
+    current_chunk = []
+    current_tokens = 0
+    
+    for item in transcript_data:
+        # Estimate tokens in this item
+        item_tokens = estimate_tokens(item["text"])
+        
+        # If adding this item would exceed the limit, start a new chunk
+        if current_tokens + item_tokens > max_tokens and current_chunk:
+            chunks.append(current_chunk)
+            current_chunk = []
+            current_tokens = 0
+        
+        current_chunk.append(item)
+        current_tokens += item_tokens
+    
+    # Add the last chunk if it's not empty
+    if current_chunk:
+        chunks.append(current_chunk)
+    
+    return chunks
+
+def merge_bits_results(chunks_results: list) -> dict:
+    """
+    Merge bits results from multiple chunks into a single result.
+    Ensures bits at chunk boundaries are properly handled.
+    
+    Args:
+        chunks_results: List of bits results from each chunk
+        
+    Returns:
+        Merged bits results
+    """
+    all_bits = []
+    
+    # Collect all bits from all chunks
+    for chunk_result in chunks_results:
+        if "items" in chunk_result:
+            all_bits.extend(chunk_result["items"])
+    
+    # Sort bits by start time
+    all_bits.sort(key=lambda x: x["start"])
+    
+    # Merge bits that are very close together (likely split across chunks)
+    MERGE_THRESHOLD = 5  # seconds
+    merged_bits = []
+    
+    for bit in all_bits:
+        if not merged_bits or (bit["start"] - merged_bits[-1]["end"]) > MERGE_THRESHOLD:
+            merged_bits.append(bit)
+        else:
+            # Merge with previous bit if they're close together
+            merged_bits[-1]["end"] = bit["end"]
+            merged_bits[-1]["title"] = f"{merged_bits[-1]['title']} (continued)"
+    
+    return {"items": merged_bits}
+
 def extract_wait_time(error_message):
     """Extract wait time from OpenAI rate limit error message"""
     match = re.search(r'Please try again in (\d+\.?\d*)s', str(error_message))
@@ -107,145 +186,195 @@ class BitDeliminatorTool(SimpleBaseTool):
     """
     transcript_file_path: str = Field(..., description="Path to the transcription JSON file.")
     bits_file_path: str = Field(default=None, description="Path to output the bits JSON file to.")
+    model: str = Field(default="gpt-4-1106-preview", description="OpenAI model to use")
+    temperature: float = Field(default=0.7, description="Temperature for OpenAI completion")
+    max_retries: int = Field(default=3, description="Maximum number of retries for OpenAI API calls")
+    client: Any = Field(default=None, description="OpenAI client instance")
+    system_prompt: str = Field(default="""You are a comedy expert analyzing a transcript of a stand-up comedy performance.
+Your task is to identify distinct comedy bits within the performance.
+
+A comedy bit is a self-contained segment of the performance focused on a specific topic, story, or theme.
+Bits typically last between 1-5 minutes, though they can be shorter or longer.
+
+For each bit you identify, provide:
+1. A brief, descriptive title that captures the main topic or theme
+2. The start time (in seconds)
+3. The end time (in seconds)
+
+Format your response as a JSON object with an 'items' array containing the bits in chronological order.
+Each bit should have 'title', 'start', and 'end' fields.
+
+Example response format:
+{
+    "items": [
+        {
+            "title": "Dating Apps",
+            "start": 0.0,
+            "end": 120.5
+        },
+        {
+            "title": "Living with Roommates",
+            "start": 120.5,
+            "end": 300.0
+        }
+    ]
+}
+
+Important guidelines:
+1. Ensure bit boundaries align with natural transitions in the performance
+2. Avoid gaps between bits unless there's a clear break or transition
+3. Make titles concise but descriptive enough to understand the bit's content
+4. Use the exact timestamps from the transcript""")
 
     def __init__(self, **data):
         super().__init__(**data)
         if self.bits_file_path is None:
             self.bits_file_path = generate_default_bits_path(self.transcript_file_path)
+        self.client = OpenAI()
 
-    def run(self):
-        MAX_RETRIES = 6
-        BASE_RETRY_DELAY = 5  # Base delay between retries in seconds
-        openai_api_key = os.getenv("OPENAI_API_KEY")
-        assistant_id = os.getenv("BIT_FINDER_ASSISTANT_ID")
-        client = OpenAI(api_key=openai_api_key)
-
-        with open(self.transcript_file_path, "r") as f:
-            transcript_data = json.load(f)
+    def _get_openai_response(self, messages: list, retry_count: int = 0) -> str:
+        """
+        Get response from OpenAI API with retry logic for rate limits.
+        
+        Args:
+            messages: List of message dictionaries for the conversation
+            retry_count: Current retry attempt number
             
-        # Remove 'type' and 'seek' properties from each element
-        cleaned_transcript = [
-            {k: v for k, v in item.items() if k not in ['type', 'seek']}
-            for item in transcript_data
+        Returns:
+            Response content from OpenAI
+        """
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=self.temperature,
+                response_format={ "type": "json_object" }  # Force JSON response
+            )
+            content = response.choices[0].message.content
+            logger.debug(f"OpenAI response: {content}")
+            
+            # Validate it's proper JSON before returning
+            try:
+                json.loads(content)
+                return content
+            except json.JSONDecodeError as e:
+                logger.error(f"OpenAI returned invalid JSON: {content}")
+                raise ValueError(f"OpenAI returned invalid JSON: {str(e)}")
+            
+        except Exception as e:
+            if "rate limit" in str(e).lower() and retry_count < self.max_retries:
+                wait_time = extract_wait_time(str(e))
+                logger.warning(f"Rate limited. Waiting {wait_time}s before retry {retry_count + 1}/{self.max_retries}")
+                time.sleep(wait_time)
+                return self._get_openai_response(messages, retry_count + 1)
+            raise
+
+    def process_transcript_chunk(self, chunk: list, chunk_number: int = None, total_chunks: int = None) -> dict:
+        """
+        Process a single transcript chunk with OpenAI.
+        
+        Args:
+            chunk: List of transcript items to process
+            chunk_number: Optional chunk number for logging
+            total_chunks: Optional total number of chunks for logging
+            
+        Returns:
+            Processed bits result for this chunk
+        """
+        # Prepare the chunk text
+        chunk_text = "\n".join(f"{item['start']:.1f}-{item['end']:.1f}: {item['text']}" for item in chunk)
+        
+        # Log progress if processing multiple chunks
+        if chunk_number is not None:
+            logger.info(f"Processing chunk {chunk_number}/{total_chunks}")
+        
+        # Get the time range for this chunk
+        chunk_start = chunk[0]["start"]
+        chunk_end = chunk[-1]["end"]
+        
+        # Create the prompt for this chunk
+        messages = [
+            {"role": "system", "content": self.system_prompt},
+            {"role": "user", "content": f"Here's a transcript segment from {chunk_start:.1f}s to {chunk_end:.1f}s. Each line shows the timestamp range and text:\n\n{chunk_text}"}
         ]
         
-        transcript = json.dumps(cleaned_transcript, indent=2)
-
-        thread = client.beta.threads.create()
-        time.sleep(1)
+        # Get OpenAI response for this chunk
+        response = self._get_openai_response(messages)
+        chunk_result = json.loads(response)
         
-        for attempt in range(MAX_RETRIES):
-            try:
-                if attempt == 0:
-                    # First attempt - send original transcript
-                    message = client.beta.threads.messages.create(
-                        thread_id=thread.id,
-                        content=transcript,
-                        role="user"
-                    )
-                    time.sleep(1)
-                else:
-                    # Retry attempt - send error message
-                    message = client.beta.threads.messages.create(
-                        thread_id=thread.id,
-                        content=f"Please try again. The previous response had the following issue: {error_message}",
-                        role="user"
-                    )
-                    time.sleep(1)
+        # Validate chunk result
+        is_valid, error = validate_bits_schema(chunk_result)
+        if not is_valid:
+            raise ValueError(f"Chunk validation failed: {error}")
+        
+        return chunk_result
 
-                run = client.beta.threads.runs.create(
-                    thread_id=thread.id,
-                    assistant_id=assistant_id,
-                )
-                time.sleep(1)
+    def run(self) -> dict:
+        """
+        Run the bit deliminator tool on the transcript file.
+        Handles large transcripts by splitting them into chunks only if necessary.
+        """
+        # Read transcript data
+        with open(self.transcript_file_path, 'r') as f:
+            transcript_data = json.load(f)
+        
+        # Calculate total duration for validation
+        total_duration = max(item["end"] for item in transcript_data)
+        
+        # Check if we need to split the transcript
+        full_text = "\n".join(item["text"] for item in transcript_data)
+        estimated_tokens = estimate_tokens(full_text)
+        
+        try:
+            if estimated_tokens <= 25000:  # Process as a single chunk if small enough
+                result = self.process_transcript_chunk(transcript_data)
+            else:
+                # Split and process in chunks
+                transcript_chunks = split_transcript_into_chunks(transcript_data)
+                logger.info(f"Transcript size ({estimated_tokens} estimated tokens) exceeds limit. Processing in {len(transcript_chunks)} chunks.")
                 
-                while True:
-                    run = client.beta.threads.runs.retrieve(
-                        thread_id=thread.id,
-                        run_id=run.id
-                    )
-                    if run.status == "completed":
-                        break
-                    elif run.status == "failed":
-                        logger.error(f"Run failure reason: {run.last_error}")
-                        raise Exception(f"Failed to generate text due to: {run.last_error}")
-                    logger.info(f"Run status: {run.status}")
-                    time.sleep(2)
+                chunks_results = []
+                for i, chunk in enumerate(transcript_chunks, 1):
+                    try:
+                        chunk_result = self.process_transcript_chunk(chunk, i, len(transcript_chunks))
+                        chunks_results.append(chunk_result)
+                    except Exception as e:
+                        logger.error(f"Error processing chunk {i}: {e}")
+                        continue
                 
-                messages = client.beta.threads.messages.list(
-                    thread_id=thread.id,
-                    order="desc",
-                    limit=1,
-                )
+                if not chunks_results:
+                    raise ValueError("All chunks failed to process")
                 
-                assistant_res = next(
-                    (
-                        content.text.value
-                        for content in messages.data[0].content
-                        if content.type == "text"
-                    ),
-                    None,
-                )
-                
-                logger.info(f"Assistant response received, validating...")
-                
-                # Parse the response as JSON
-                bits_data = json.loads(assistant_res)
-                
-                # Run all validations
-                total_duration = transcript_data[-1]["end"] - transcript_data[0]["start"]
-                
-                validations = [
-                    validate_bits_schema(bits_data),
-                    check_minimum_bits(bits_data, total_duration),
-                    check_time_gaps(bits_data),
-                    check_bit_boundaries(bits_data, transcript_data)
-                ]
-                
-                # Check all validations and collect errors
-                validation_errors = []
-                for is_valid, error in validations:
-                    if not is_valid:
-                        validation_errors.append(error)
-                
-                if validation_errors:
-                    error_message = "\n".join([
-                        f"- {error}" for error in validation_errors
-                    ])
-                    logger.warning(f"Validation failed (attempt {attempt + 1}/{MAX_RETRIES}). All errors:\n{error_message}")
-                    time.sleep(2)
-                    raise ValueError(error_message)
-                
-                # If we get here, all validations passed
-                logger.info("All validations passed, writing output file")
-                with open(self.bits_file_path, 'w') as f:
-                    json.dump(bits_data, f, indent=2)
-                
-                logger.info(f"Successfully wrote bits to {self.bits_file_path}")
-                return  # Success!
-                
-            except (ValueError, json.JSONDecodeError) as e:
-                error_message = str(e)
-                if attempt == MAX_RETRIES - 1:
-                    logger.error(f"Failed after {MAX_RETRIES} attempts. Last error: {error_message}")
-                    raise Exception(f"Failed to generate valid bits after {MAX_RETRIES} attempts. Last error: {error_message}")
-                logger.warning(f"Attempt {attempt + 1}/{MAX_RETRIES} failed. Retrying...")
-                continue
-
-            except Exception as e:
-                error_message = str(e)
-                if "rate_limit_exceeded" in error_message.lower():
-                    wait_time = extract_wait_time(error_message)
-                    logger.warning(f"Rate limit exceeded. Waiting {wait_time} seconds before retrying...")
-                    time.sleep(wait_time + BASE_RETRY_DELAY)
-                    attempt -= 1 # Retry the same attempt
-                    continue
-                raise
+                # Merge results from all chunks
+                result = merge_bits_results(chunks_results)
             
-            # Add delay between retries to avoid rate limits
-            if attempt < MAX_RETRIES - 1:
-                logger.info(f"Waiting {BASE_RETRY_DELAY} seconds before next attempt...")
-                time.sleep(BASE_RETRY_DELAY)
+            # Validate the final results
+            is_valid, error = validate_bits_schema(result)
+            if not is_valid:
+                raise ValueError(f"Results validation failed: {error}")
+            
+            # Additional validations
+            is_valid, error = check_minimum_bits(result, total_duration)
+            if not is_valid:
+                logger.warning(f"Validation warning: {error}")
+            
+            is_valid, error = check_time_gaps(result)
+            if not is_valid:
+                logger.warning(f"Validation warning: {error}")
+            
+            is_valid, error = check_bit_boundaries(result, transcript_data)
+            if not is_valid:
+                logger.warning(f"Validation warning: {error}")
+            
+            # Write the results
+            with open(self.bits_file_path, 'w') as f:
+                json.dump(result, f, indent=2)
+            
+            return result
+            
+        except Exception as e:
+            logger.error(f"Error processing transcript: {e}")
+            raise
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process comedy transcript files and identify bits.')
