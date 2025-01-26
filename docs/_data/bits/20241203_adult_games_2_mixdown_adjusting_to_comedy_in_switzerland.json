@@ -1,0 +1,196 @@
+{
+  "bit_id": "20241203_adult_games_2_mixdown_adjusting_to_comedy_in_switzerland",
+  "show_info": {
+    "show_identifier": "20241203_adult_games_2_mixdown",
+    "comedian": " Yoshi Obayashi",
+    "name_of_show": "Adult Content - 2nd Half",
+    "date_of_show": "26 Nov 2024, 21:15",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/QR6UNfJXCmxU4tB66",
+    "length_of_set": 3515.28,
+    "lpm": 2,
+    "notes": "Part two of Yoshi\u2019s Adult Content, doing a live podcast."
+  },
+  "bit_info": {
+    "title": "Adjusting to Comedy in Switzerland",
+    "start": 96.0,
+    "end": 120.0,
+    "joke_types": [
+      "Observational",
+      "Self-Deprecation",
+      "Relatable Struggle"
+    ],
+    "themes": [
+      "Cultural Differences",
+      "Communication"
+    ],
+    "lpm": 2
+  },
+  "transcript": {
+    "text": "If there was something I said that wasn't clear, ask me. I apologize if I was talking too fast. That's good. I wasn't really stressed, but I was a little bit concerned because I'm comfortable doing a show in the States. I've done it so many times, but I have a hard time meeting people here. I'm not sure if I'm going to be able to do it in the States. I've done plenty of black ones and there's a kid to fuck up the state. That's easy for me to understand.",
+    "lines": [
+      {
+        "start": 96.0,
+        "end": 99.0,
+        "text": "If there was something I said that wasn't clear, ask me."
+      },
+      {
+        "start": 99.0,
+        "end": 101.0,
+        "text": "I apologize if I was talking too fast."
+      },
+      {
+        "start": 101.0,
+        "end": 102.0,
+        "text": "That's good."
+      },
+      {
+        "start": 102.0,
+        "end": 107.0,
+        "text": "I wasn't really stressed, but I was a little bit concerned because I'm comfortable doing"
+      },
+      {
+        "start": 107.0,
+        "end": 108.0,
+        "text": "a show in the States."
+      },
+      {
+        "start": 108.0,
+        "end": 113.0,
+        "text": "I've done it so many times, but I have a hard time meeting people here."
+      },
+      {
+        "start": 113.0,
+        "end": 118.0,
+        "text": "I'm not sure if I'm going to be able to do it in the States."
+      },
+      {
+        "start": 118.0,
+        "end": 119.0,
+        "text": "I've done plenty of black ones and there's a kid to fuck up the state."
+      },
+      {
+        "start": 119.0,
+        "end": 120.0,
+        "text": "That's easy for me to understand."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      96.0,
+      97.2,
+      0
+    ],
+    [
+      97.2,
+      98.4,
+      0
+    ],
+    [
+      98.4,
+      99.6,
+      0
+    ],
+    [
+      99.6,
+      100.8,
+      0
+    ],
+    [
+      100.8,
+      102.0,
+      0
+    ],
+    [
+      102.0,
+      103.2,
+      0
+    ],
+    [
+      103.2,
+      104.4,
+      0
+    ],
+    [
+      104.4,
+      105.6,
+      0
+    ],
+    [
+      105.6,
+      106.8,
+      0
+    ],
+    [
+      106.8,
+      108.0,
+      0
+    ],
+    [
+      108.0,
+      109.2,
+      0
+    ],
+    [
+      109.2,
+      110.4,
+      0
+    ],
+    [
+      110.4,
+      111.6,
+      0
+    ],
+    [
+      111.6,
+      112.8,
+      0
+    ],
+    [
+      112.8,
+      114.0,
+      0
+    ],
+    [
+      114.0,
+      115.2,
+      0
+    ],
+    [
+      115.2,
+      116.4,
+      0
+    ],
+    [
+      116.4,
+      117.6,
+      0
+    ],
+    [
+      117.6,
+      118.8,
+      1
+    ],
+    [
+      118.8,
+      120.0,
+      0
+    ],
+    [
+      120.0,
+      121.2,
+      0
+    ],
+    [
+      121.2,
+      122.4,
+      0
+    ],
+    [
+      122.4,
+      123.6,
+      0
+    ]
+  ]
+}

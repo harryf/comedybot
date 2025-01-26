@@ -1,92 +1,536 @@
 {
+  "Comedy": [
+    "20250103_Yoshi_Edinburgh_mixdown_discovering_the_comedy_show",
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum"
+  ],
+  "Podcasting": [
+    "20250103_Yoshi_Edinburgh_mixdown_discovering_the_comedy_show"
+  ],
+  "Stand-up Comedy": [
+    "20250103_Yoshi_Edinburgh_mixdown_discovering_the_comedy_show"
+  ],
+  "International Audience": [
+    "20250103_Yoshi_Edinburgh_mixdown_discovering_the_comedy_show"
+  ],
   "Cultural Differences": [
-    "20241102_The_Comedy_Clubhouse_mispronounced_name",
-    "20241231_Skyline_Conedy_harry_fucks",
-    "20241231_Skyline_Conedy_national_stereotypes"
+    "20250103_Yoshi_Edinburgh_mixdown_losing_the_roommates_cat",
+    "20250103_Yoshi_Edinburgh_mixdown_childhood_mischief_and_cultural_observations",
+    "20250103_Yoshi_Edinburgh_mixdown_the_discovery_of_parents_adult_books",
+    "20250103_Yoshi_Edinburgh_mixdown_working_at_the_porn_shop",
+    "20250103_Yoshi_Edinburgh_mixdown_customer_interactions_at_the_porn_shop",
+    "20250103_Yoshi_Edinburgh_mixdown_the_porn_convention_and_celebrity_anecdotes",
+    "20241203_adult_games_1_mixdown_roommates_trip_to_japan_and_lost_cat",
+    "20241203_adult_games_1_mixdown_public_bath_experiences_in_japan",
+    "20241203_adult_games_1_mixdown_discovering_pornography_as_a_child",
+    "20241203_adult_games_1_mixdown_ambiguity_in_porn_scenes_and_legal_considerations",
+    "20241203_adult_games_1_mixdown_shit_section_in_video_store",
+    "20241203_adult_games_1_mixdown_child_porn_titles_joke_notebook",
+    "20241203_adult_games_1_mixdown_porn_predicting_presidential_elections",
+    "20241203_adult_games_2_mixdown_recognizing_nationalities_and_swiss_identity",
+    "20241203_adult_games_2_mixdown_adjusting_to_comedy_in_switzerland",
+    "20241203_adult_games_2_mixdown_cultural_differences_in_comedy",
+    "20241203_adult_games_2_mixdown_politeness_in_swiss_audience_vs_american_bluntness",
+    "20241203_adult_games_2_mixdown_question_time_the_nature_of_work_and_love",
+    "20241203_adult_games_2_mixdown_pornography_and_cultural_shifts_in_the_90s",
+    "20241203_adult_games_2_mixdown_historical_perspective_on_pornography_and_society",
+    "20241203_adult_games_2_mixdown_personal_reflections_and_work_with_sex_offenders",
+    "20250125_YoshiAdultContent4_introduction_and_audience_interaction",
+    "20250125_YoshiAdultContent4_politeness_in_different_cultures",
+    "20250125_YoshiAdultContent4_sex_money_and_fame",
+    "20250125_YoshiAdultContent4_childhood_stories",
+    "20250125_YoshiAdultContent4_encounters_with_law_enforcement",
+    "20250125_YoshiAdultContent4_porn_industry_insights",
+    "20250125_YoshiAdultContent4_helping_a_friend_and_observations_from_a_porn_shop",
+    "20250125_YoshiAdultContent4_ethics_and_law_in_porn_production",
+    "20250125_Yoshi_White_Hart_japan_and_england_similarities",
+    "20250125_Yoshi_White_Hart_politeness_and_cultural_differences",
+    "20250125_Yoshi_White_Hart_roommates_cat_disaster",
+    "20250125_Yoshi_White_Hart_reverse_culture_shock_and_misunderstandings",
+    "20250125_Yoshi_White_Hart_traveling_to_kiev",
+    "20250125_Yoshi_White_Hart_las_appearance_and_homelessness",
+    "20250125_Yoshi_White_Hart_escaping_to_arizona",
+    "20250125_Yoshi_White_Hart_jokes_like_fisting_and_work_in_porn",
+    "20250125_Yoshi_White_Hart_pervert_bar_and_dealing_with_unusual_requests",
+    "20250125_Yoshi_White_Hart_make_wish_foundation_and_controversial_solutions",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_audiences_perception_and_complicated_relationship_with_women",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_roommates_cat_and_national_holiday_pranks",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_childhood_nudity_and_public_baths",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_exposure_to_adult_content_and_sex_trade",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_working_in_a_porn_shop_and_odd_customer_interactions",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_empathy_for_young_and_vulnerable_customers"
+  ],
+  "Friendship": [
+    "20250103_Yoshi_Edinburgh_mixdown_losing_the_roommates_cat",
+    "20241203_adult_games_1_mixdown_roommates_trip_to_japan_and_lost_cat",
+    "20241203_adult_games_2_mixdown_ethical_dilemmas_and_personal_anecdotes_in_porn",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_introduction_and_host_praise",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_roommates_cat_and_national_holiday_pranks"
+  ],
+  "Pets": [
+    "20250103_Yoshi_Edinburgh_mixdown_losing_the_roommates_cat",
+    "20241203_adult_games_1_mixdown_roommates_trip_to_japan_and_lost_cat",
+    "20250125_YoshiAdultContent4_childhood_stories",
+    "20250125_Yoshi_White_Hart_roommates_cat_disaster",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_roommates_cat_and_national_holiday_pranks"
+  ],
+  "Dating": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_dick_pic_holiday_tradition",
+    "20241203_adult_games_1_mixdown_giving_out_phone_number_on_podcast",
+    "20250125_YoshiAdultContent4_roommates_cat_and_podcast_mishaps"
+  ],
+  "Inappropriate Humor": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_dick_pic_holiday_tradition"
+  ],
+  "Memory": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_power_of_fantasy"
+  ],
+  "Everyday Life": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_power_of_fantasy"
   ],
   "Family Life": [
-    "20241102_The_Comedy_Clubhouse_mispronounced_name",
-    "20241231_Skyline_Conedy_harry_fucks"
+    "20250103_Yoshi_Edinburgh_mixdown_childhood_mischief_and_cultural_observations",
+    "20250103_Yoshi_Edinburgh_mixdown_the_discovery_of_parents_adult_books",
+    "20241203_adult_games_1_mixdown_public_bath_experiences_in_japan",
+    "20241203_adult_games_1_mixdown_discovering_pornography_as_a_child",
+    "20241203_adult_games_1_mixdown_starting_work_in_porn_shop",
+    "20241203_adult_games_1_mixdown_helping_a_customer_explore_sexuality",
+    "20241203_adult_games_2_mixdown_intimacy_and_family_in_the_porn_industry",
+    "20250125_YoshiAdultContent4_sex_money_and_fame",
+    "20250125_Yoshi_White_Hart_intro_and_optimism_in_england",
+    "20250125_Yoshi_White_Hart_attending_highprofile_trials",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_audiences_perception_and_complicated_relationship_with_women",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_exposure_to_adult_content_and_sex_trade",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_porn_predicting_presidential_elections"
   ],
-  "Names and Identity": [
-    "20241102_The_Comedy_Clubhouse_mispronounced_name"
+  "Childhood": [
+    "20250103_Yoshi_Edinburgh_mixdown_childhood_mischief_and_cultural_observations",
+    "20250103_Yoshi_Edinburgh_mixdown_the_discovery_of_parents_adult_books"
+  ],
+  "Crime": [
+    "20250103_Yoshi_Edinburgh_mixdown_childhood_mischief_and_cultural_observations",
+    "20241203_adult_games_2_mixdown_audience_qa_on_porn_editing_and_intimacy",
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum",
+    "20250125_Yoshi_White_Hart_attending_highprofile_trials",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_dangerous_encounters_and_life_lessons_from_porn_business",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_attending_highprofile_court_cases_and_davos_insights"
+  ],
+  "Nudity": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_discovery_of_parents_adult_books",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_childhood_nudity_and_public_baths"
   ],
   "Work": [
-    "20241102_The_Comedy_Clubhouse_company_retreat_casualties",
-    "20241102_The_Comedy_Clubhouse_hr_quarterlies",
-    "20241231_Skyline_Conedy_company_values",
-    "20241231_Skyline_Conedy_national_stereotypes"
+    "20250103_Yoshi_Edinburgh_mixdown_working_at_the_porn_shop",
+    "20250103_Yoshi_Edinburgh_mixdown_the_porn_convention_and_celebrity_anecdotes",
+    "20241203_adult_games_1_mixdown_starting_work_in_porn_shop",
+    "20241203_adult_games_1_mixdown_customer_experiences_at_porn_shop",
+    "20241203_adult_games_1_mixdown_moving_from_porn_shop_to_dvd_production",
+    "20241203_adult_games_1_mixdown_shit_section_in_video_store",
+    "20241203_adult_games_1_mixdown_duties_as_a_dvd_producer",
+    "20241203_adult_games_1_mixdown_fbi_raid_and_legal_troubles",
+    "20241203_adult_games_1_mixdown_learning_from_porn_industry",
+    "20241203_adult_games_1_mixdown_child_custody_during_porn_shoot",
+    "20241203_adult_games_1_mixdown_fantasy_about_osama_bin_laden_watching_porn",
+    "20250125_YoshiAdultContent4_unique_customer_interactions",
+    "20250125_YoshiAdultContent4_transition_to_porn_production_work",
+    "20250125_YoshiAdultContent4_ethics_and_law_in_porn_production",
+    "20250125_Yoshi_White_Hart_jokes_like_fisting_and_work_in_porn",
+    "20250125_Yoshi_White_Hart_pervert_bar_and_dealing_with_unusual_requests",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_misleading_introductions",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_misconceptions_about_expertise",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_dangerous_encounters_and_life_lessons_from_porn_business",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_meeting_famous_personalities_and_celebrities",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_attending_highprofile_court_cases_and_davos_insights"
   ],
-  "Corporate Culture": [
-    "20241102_The_Comedy_Clubhouse_company_retreat_casualties",
-    "20241231_Skyline_Conedy_company_values"
+  "Gender Identity": [
+    "20250103_Yoshi_Edinburgh_mixdown_working_at_the_porn_shop"
   ],
-  "Human Resources": [
-    "20241102_The_Comedy_Clubhouse_hr_quarterlies"
+  "Sexuality": [
+    "20250103_Yoshi_Edinburgh_mixdown_working_at_the_porn_shop",
+    "20241203_adult_games_1_mixdown_dick_pics_on_holidays",
+    "20241203_adult_games_1_mixdown_discovering_pornography_as_a_child",
+    "20241203_adult_games_1_mixdown_learning_from_porn_industry",
+    "20241203_adult_games_1_mixdown_porn_predicting_presidential_elections",
+    "20241203_adult_games_2_mixdown_the_evolution_of_porn_obscenity_laws",
+    "20250125_YoshiAdultContent4_encounters_with_law_enforcement",
+    "20250125_YoshiAdultContent4_helping_a_friend_and_observations_from_a_porn_shop",
+    "20250125_Yoshi_White_Hart_pervert_bar_and_dealing_with_unusual_requests",
+    "20250125_Yoshi_White_Hart_attending_highprofile_trials",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_working_in_a_porn_shop_and_odd_customer_interactions",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_reflections_on_sex_power_and_making_a_difference"
   ],
-  "Travel": [
-    "20241102_The_Comedy_Clubhouse_floods_in_valencia",
-    "20241231_Skyline_Conedy_event_location_confusion"
+  "Loneliness": [
+    "20250103_Yoshi_Edinburgh_mixdown_customer_interactions_at_the_porn_shop"
   ],
-  "Natural Disasters": [
-    "20241102_The_Comedy_Clubhouse_floods_in_valencia"
+  "Sex Industry": [
+    "20250103_Yoshi_Edinburgh_mixdown_customer_interactions_at_the_porn_shop",
+    "20250125_YoshiAdultContent4_ethics_and_law_in_porn_production",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_attending_highprofile_court_cases_and_davos_insights"
   ],
-  "Parenting": [
-    "20241102_The_Comedy_Clubhouse_not_breeding",
-    "20241231_Skyline_Conedy_raising_children"
+  "Addiction": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_intriguing_crackhead_customers"
   ],
-  "Generational Differences": [
-    "20241102_The_Comedy_Clubhouse_not_breeding"
+  "Motivation": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_intriguing_crackhead_customers"
   ],
-  "Aging": [
-    "20241102_The_Comedy_Clubhouse_not_breeding",
-    "20241102_The_Comedy_Clubhouse_aging_and_libido",
-    "20241231_Skyline_Conedy_world_war_iii_anxiety"
+  "Self-Improvement": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_intriguing_crackhead_customers"
   ],
-  "Cultural Observations": [
-    "20241102_The_Comedy_Clubhouse_not_breeding"
+  "Marriage": [
+    "20250103_Yoshi_Edinburgh_mixdown_discoveries_and_challenges_in_the_porn_business"
   ],
-  "Halloween": [
-    "20241102_The_Comedy_Clubhouse_witches_broomsticks"
+  "Relationships": [
+    "20250103_Yoshi_Edinburgh_mixdown_discoveries_and_challenges_in_the_porn_business",
+    "20250103_Yoshi_Edinburgh_mixdown_the_story_of_ghislaine_maxwell_and_social_commentary",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_pervert_customer_consultations"
   ],
-  "Cultural Traditions": [
-    "20241102_The_Comedy_Clubhouse_witches_broomsticks"
+  "Infidelity": [
+    "20250103_Yoshi_Edinburgh_mixdown_discoveries_and_challenges_in_the_porn_business"
+  ],
+  "Family": [
+    "20250103_Yoshi_Edinburgh_mixdown_discoveries_and_challenges_in_the_porn_business",
+    "20250103_Yoshi_Edinburgh_mixdown_the_porn_convention_and_celebrity_anecdotes",
+    "20241203_adult_games_2_mixdown_personal_reflections_and_work_with_sex_offenders",
+    "20250125_YoshiAdultContent4_porn_industry_insights",
+    "20250125_YoshiAdultContent4_unique_customer_interactions"
+  ],
+  "Humor": [
+    "20250103_Yoshi_Edinburgh_mixdown_discoveries_and_challenges_in_the_porn_business",
+    "20241203_adult_games_1_mixdown_learning_from_porn_industry",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_legal_oddities_and_dvd_production_in_porn"
+  ],
+  "Grief": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_porn_convention_and_celebrity_anecdotes",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_dangerous_encounters_and_life_lessons_from_porn_business"
+  ],
+  "Pornography": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_porn_convention_and_celebrity_anecdotes",
+    "20250103_Yoshi_Edinburgh_mixdown_the_story_of_ghislaine_maxwell_and_social_commentary",
+    "20241203_adult_games_1_mixdown_financial_crisis_and_new_porn_genres",
+    "20241203_adult_games_1_mixdown_fantasy_about_osama_bin_laden_watching_porn",
+    "20241203_adult_games_1_mixdown_watching_porn_for_work",
+    "20241203_adult_games_2_mixdown_rise_of_gonzo_porn_and_extreme_porn_trends",
+    "20250125_YoshiAdultContent4_porn_industry_insights"
+  ],
+  "Miscommunication": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_story_of_ghislaine_maxwell_and_social_commentary",
+    "20241203_adult_games_1_mixdown_roommates_trip_to_japan_and_lost_cat",
+    "20250125_YoshiAdultContent4_childhood_stories",
+    "20250125_YoshiAdultContent4_helping_a_friend_and_observations_from_a_porn_shop",
+    "20250125_Yoshi_White_Hart_roommates_cat_disaster"
+  ],
+  "Social Commentary": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_story_of_ghislaine_maxwell_and_social_commentary"
+  ],
+  "Death and Grief": [
+    "20250103_Yoshi_Edinburgh_mixdown_the_story_of_ghislaine_maxwell_and_social_commentary"
+  ],
+  "Self-Deprecation": [
+    "20241203_adult_games_1_mixdown_opening_remarks",
+    "20250125_Yoshi_White_Hart_americans_and_health"
+  ],
+  "Identity": [
+    "20241203_adult_games_1_mixdown_opening_remarks",
+    "20241203_adult_games_2_mixdown_recognizing_nationalities_and_swiss_identity",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_misconceptions_about_expertise",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_empathy_for_young_and_vulnerable_customers"
+  ],
+  "Cultural References": [
+    "20241203_adult_games_1_mixdown_giving_out_phone_number_on_podcast"
   ],
   "Gender": [
-    "20241102_The_Comedy_Clubhouse_witches_broomsticks",
-    "20241231_Skyline_Conedy_national_stereotypes"
+    "20241203_adult_games_1_mixdown_dick_pics_on_holidays",
+    "20241203_adult_games_1_mixdown_public_bath_experiences_in_japan",
+    "20241203_adult_games_2_mixdown_historical_perspective_on_pornography_and_society",
+    "20250125_YoshiAdultContent4_helping_a_friend_and_observations_from_a_porn_shop",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_audiences_perception_and_complicated_relationship_with_women",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_pervert_customer_consultations"
   ],
-  "History": [
-    "20241102_The_Comedy_Clubhouse_witches_broomsticks"
+  "Pop Culture": [
+    "20241203_adult_games_1_mixdown_starting_work_in_porn_shop"
   ],
-  "Drugs": [
-    "20241102_The_Comedy_Clubhouse_witches_broomsticks"
+  "Technology": [
+    "20241203_adult_games_1_mixdown_customer_experiences_at_porn_shop",
+    "20241203_adult_games_1_mixdown_duties_as_a_dvd_producer",
+    "20241203_adult_games_1_mixdown_financial_crisis_and_new_porn_genres",
+    "20250125_YoshiAdultContent4_roommates_cat_and_podcast_mishaps",
+    "20250125_YoshiAdultContent4_transition_to_porn_production_work",
+    "20250125_Yoshi_White_Hart_escaping_to_arizona"
   ],
-  "Masculinity": [
-    "20241102_The_Comedy_Clubhouse_aging_and_libido"
+  "Social Interaction": [
+    "20241203_adult_games_1_mixdown_customer_experiences_at_porn_shop",
+    "20241203_adult_games_2_mixdown_question_time_the_nature_of_work_and_love"
   ],
-  "Event Hosting": [
-    "20241231_Skyline_Conedy_event_location_confusion"
+  "Sexual Identity": [
+    "20241203_adult_games_1_mixdown_helping_a_customer_explore_sexuality"
   ],
-  "Language": [
-    "20241231_Skyline_Conedy_harry_fucks"
+  "Societal Expectations": [
+    "20241203_adult_games_1_mixdown_helping_a_customer_explore_sexuality"
   ],
-  "Modern Society": [
-    "20241231_Skyline_Conedy_raising_children"
+  "Adult Entertainment": [
+    "20241203_adult_games_1_mixdown_moving_from_porn_shop_to_dvd_production",
+    "20241203_adult_games_1_mixdown_shit_section_in_video_store"
   ],
-  "Human History": [
-    "20241231_Skyline_Conedy_raising_children"
+  "Adult Content": [
+    "20241203_adult_games_1_mixdown_ambiguity_in_porn_scenes_and_legal_considerations"
   ],
-  "World Events": [
-    "20241231_Skyline_Conedy_world_war_iii_anxiety"
+  "Travel": [
+    "20241203_adult_games_1_mixdown_ambiguity_in_porn_scenes_and_legal_considerations",
+    "20241203_adult_games_1_mixdown_porn_predicting_presidential_elections",
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_introduction_and_host_praise",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_attending_highprofile_court_cases_and_davos_insights"
   ],
-  "Anxiety": [
-    "20241231_Skyline_Conedy_world_war_iii_anxiety"
+  "Decision Making": [
+    "20241203_adult_games_1_mixdown_duties_as_a_dvd_producer"
   ],
-  "Astrology": [
-    "20241231_Skyline_Conedy_horoscopes"
+  "Legal Issues": [
+    "20241203_adult_games_1_mixdown_fbi_raid_and_legal_troubles",
+    "20241203_adult_games_1_mixdown_child_porn_titles_joke_notebook"
   ],
-  "Belief Systems": [
-    "20241231_Skyline_Conedy_horoscopes"
+  "Law": [
+    "20241203_adult_games_1_mixdown_financial_crisis_and_new_porn_genres"
+  ],
+  "Adult Entertainment Industry": [
+    "20241203_adult_games_1_mixdown_child_porn_titles_joke_notebook",
+    "20241203_adult_games_2_mixdown_historical_perspective_on_pornography_and_society",
+    "20250125_Yoshi_White_Hart_jokes_like_fisting_and_work_in_porn"
+  ],
+  "Sex": [
+    "20241203_adult_games_1_mixdown_child_custody_during_porn_shoot",
+    "20250125_YoshiAdultContent4_sex_money_and_fame"
+  ],
+  "Social Norms": [
+    "20241203_adult_games_1_mixdown_child_custody_during_porn_shoot"
+  ],
+  "Taboo Topics": [
+    "20241203_adult_games_1_mixdown_child_custody_during_porn_shoot",
+    "20241203_adult_games_1_mixdown_porn_predicting_presidential_elections"
+  ],
+  "Ethics": [
+    "20241203_adult_games_1_mixdown_child_custody_during_porn_shoot"
+  ],
+  "Fantasy": [
+    "20241203_adult_games_1_mixdown_fantasy_about_osama_bin_laden_watching_porn"
+  ],
+  "Show Business": [
+    "20241203_adult_games_1_mixdown_watching_porn_for_work"
+  ],
+  "Politics": [
+    "20241203_adult_games_1_mixdown_watching_porn_for_work",
+    "20241203_adult_games_2_mixdown_politeness_in_swiss_audience_vs_american_bluntness",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_legal_oddities_and_dvd_production_in_porn",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_porn_predicting_presidential_elections"
+  ],
+  "Elections": [
+    "20241203_adult_games_1_mixdown_watching_porn_for_work"
+  ],
+  "Communication": [
+    "20241203_adult_games_2_mixdown_adjusting_to_comedy_in_switzerland"
+  ],
+  "Race and Ethnicity": [
+    "20241203_adult_games_2_mixdown_cultural_differences_in_comedy"
+  ],
+  "Audience Interaction": [
+    "20241203_adult_games_2_mixdown_setting_up_an_intimate_conversation_with_yoshi"
+  ],
+  "Education": [
+    "20241203_adult_games_2_mixdown_setting_up_an_intimate_conversation_with_yoshi"
+  ],
+  "Comedy Performance": [
+    "20241203_adult_games_2_mixdown_question_time_the_nature_of_work_and_love"
+  ],
+  "1990s Culture": [
+    "20241203_adult_games_2_mixdown_pornography_and_cultural_shifts_in_the_90s"
+  ],
+  "Pornography Industry": [
+    "20241203_adult_games_2_mixdown_pornography_and_cultural_shifts_in_the_90s",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_meeting_famous_personalities_and_celebrities"
+  ],
+  "Legal and Censorship": [
+    "20241203_adult_games_2_mixdown_pornography_and_cultural_shifts_in_the_90s"
+  ],
+  "Internet": [
+    "20241203_adult_games_2_mixdown_rise_of_gonzo_porn_and_extreme_porn_trends"
+  ],
+  "Aging": [
+    "20241203_adult_games_2_mixdown_rise_of_gonzo_porn_and_extreme_porn_trends",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_misleading_introductions",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_porn_predicting_presidential_elections"
+  ],
+  "Social Issues": [
+    "20241203_adult_games_2_mixdown_rise_of_gonzo_porn_and_extreme_porn_trends"
+  ],
+  "Adult Industry": [
+    "20241203_adult_games_2_mixdown_ethical_dilemmas_and_personal_anecdotes_in_porn",
+    "20241203_adult_games_2_mixdown_intimacy_and_family_in_the_porn_industry"
+  ],
+  "Intimacy": [
+    "20241203_adult_games_2_mixdown_ethical_dilemmas_and_personal_anecdotes_in_porn"
+  ],
+  "Depression": [
+    "20241203_adult_games_2_mixdown_ethical_dilemmas_and_personal_anecdotes_in_porn"
+  ],
+  "Culture": [
+    "20241203_adult_games_2_mixdown_intimacy_and_family_in_the_porn_industry",
+    "20250125_Yoshi_White_Hart_intro_and_optimism_in_england"
+  ],
+  "Gender Differences": [
+    "20241203_adult_games_2_mixdown_intimacy_and_family_in_the_porn_industry"
+  ],
+  "Generational Differences": [
+    "20241203_adult_games_2_mixdown_the_evolution_of_porn_obscenity_laws"
+  ],
+  "Human Rights": [
+    "20241203_adult_games_2_mixdown_the_evolution_of_porn_obscenity_laws"
+  ],
+  "Cultural Taboos": [
+    "20241203_adult_games_2_mixdown_the_evolution_of_porn_obscenity_laws"
+  ],
+  "Financial Motivations": [
+    "20241203_adult_games_2_mixdown_historical_perspective_on_pornography_and_society"
+  ],
+  "Media Industry": [
+    "20241203_adult_games_2_mixdown_audience_qa_on_porn_editing_and_intimacy"
+  ],
+  "Health": [
+    "20241203_adult_games_2_mixdown_audience_qa_on_porn_editing_and_intimacy",
+    "20250125_YoshiAdultContent4_sex_money_and_fame",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_pervert_customer_consultations"
+  ],
+  "Consent": [
+    "20241203_adult_games_2_mixdown_audience_qa_on_porn_editing_and_intimacy"
+  ],
+  "Cultural Attitudes": [
+    "20241203_adult_games_2_mixdown_audience_qa_on_porn_editing_and_intimacy"
+  ],
+  "Human Connection": [
+    "20241203_adult_games_2_mixdown_personal_reflections_and_work_with_sex_offenders"
+  ],
+  "Sex Work": [
+    "20241203_adult_games_2_mixdown_personal_reflections_and_work_with_sex_offenders",
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum"
+  ],
+  "Violence": [
+    "20241203_adult_games_2_mixdown_personal_reflections_and_work_with_sex_offenders",
+    "20250125_Yoshi_White_Hart_attending_highprofile_trials"
+  ],
+  "Politeness": [
+    "20250125_YoshiAdultContent4_introduction_and_audience_interaction",
+    "20250125_YoshiAdultContent4_politeness_in_different_cultures",
+    "20250125_Yoshi_White_Hart_japan_and_england_similarities"
+  ],
+  "Racial Issues": [
+    "20250125_YoshiAdultContent4_politeness_in_different_cultures"
+  ],
+  "Crime and Punishment": [
+    "20250125_YoshiAdultContent4_encounters_with_law_enforcement"
+  ],
+  "Race": [
+    "20250125_YoshiAdultContent4_encounters_with_law_enforcement",
+    "20250125_Yoshi_White_Hart_politeness_and_cultural_differences"
+  ],
+  "Prejudice": [
+    "20250125_YoshiAdultContent4_helping_a_friend_and_observations_from_a_porn_shop"
+  ],
+  "Porn Industry": [
+    "20250125_YoshiAdultContent4_unique_customer_interactions"
+  ],
+  "Death": [
+    "20250125_YoshiAdultContent4_unique_customer_interactions",
+    "20250125_Yoshi_White_Hart_pervert_bar_and_dealing_with_unusual_requests",
+    "20250125_Yoshi_White_Hart_make_wish_foundation_and_controversial_solutions"
+  ],
+  "Legal System": [
+    "20250125_YoshiAdultContent4_transition_to_porn_production_work"
+  ],
+  "Economy": [
+    "20250125_YoshiAdultContent4_transition_to_porn_production_work"
+  ],
+  "Wealth Inequality": [
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum"
+  ],
+  "Power Dynamics": [
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum",
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_reflections_on_sex_power_and_making_a_difference"
+  ],
+  "Sexual Misconduct": [
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum"
+  ],
+  "Dark Humor": [
+    "20250125_YoshiAdultContent4_sex_work_and_world_economic_forum",
+    "20250125_Yoshi_White_Hart_escaping_to_arizona",
+    "20250125_Yoshi_White_Hart_make_wish_foundation_and_controversial_solutions"
+  ],
+  "Future": [
+    "20250125_Yoshi_White_Hart_intro_and_optimism_in_england"
+  ],
+  "National Identity": [
+    "20250125_Yoshi_White_Hart_japan_and_england_similarities"
+  ],
+  "Comedy of Errors": [
+    "20250125_Yoshi_White_Hart_roommates_cat_disaster"
+  ],
+  "Body Image": [
+    "20250125_Yoshi_White_Hart_reverse_culture_shock_and_misunderstandings"
+  ],
+  "Uncomfortable Situations": [
+    "20250125_Yoshi_White_Hart_reverse_culture_shock_and_misunderstandings"
+  ],
+  "Geography": [
+    "20250125_Yoshi_White_Hart_traveling_to_kiev"
+  ],
+  "Sense of Humor": [
+    "20250125_Yoshi_White_Hart_traveling_to_kiev"
+  ],
+  "City Life": [
+    "20250125_Yoshi_White_Hart_las_appearance_and_homelessness"
+  ],
+  "Homelessness": [
+    "20250125_Yoshi_White_Hart_las_appearance_and_homelessness"
+  ],
+  "Legal Restrictions": [
+    "20250125_Yoshi_White_Hart_jokes_like_fisting_and_work_in_porn"
+  ],
+  "Charity": [
+    "20250125_Yoshi_White_Hart_make_wish_foundation_and_controversial_solutions"
+  ],
+  "Pranks": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_roommates_cat_and_national_holiday_pranks"
+  ],
+  "Socioeconomic Issues": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_childhood_nudity_and_public_baths"
+  ],
+  "Childhood Experiences": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_exposure_to_adult_content_and_sex_trade"
+  ],
+  "Taboo Subjects": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_exposure_to_adult_content_and_sex_trade"
+  ],
+  "Immigration": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_exposure_to_adult_content_and_sex_trade"
+  ],
+  "Business": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_working_in_a_porn_shop_and_odd_customer_interactions"
+  ],
+  "LGBTQ+": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_empathy_for_young_and_vulnerable_customers"
+  ],
+  "Generosity": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_dangerous_encounters_and_life_lessons_from_porn_business"
+  ],
+  "Hollywood": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_meeting_famous_personalities_and_celebrities"
+  ],
+  "Legal and Censorship Issues": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_meeting_famous_personalities_and_celebrities"
+  ],
+  "Entertainment Industry": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_legal_oddities_and_dvd_production_in_porn"
+  ],
+  "Power and Wealth": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_attending_highprofile_court_cases_and_davos_insights"
+  ],
+  "Socioeconomic Inequality": [
+    "20250126_Adult_Content_17th_Dec_2024_Part_1_reflections_on_sex_power_and_making_a_difference"
   ]
 }

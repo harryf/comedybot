@@ -1,0 +1,140 @@
+{
+  "bit_id": "20250125_YoshiAdultContent4_introduction_and_audience_interaction",
+  "show_info": {
+    "show_identifier": "20250125_YoshiAdultContent4",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content ",
+    "date_of_show": "21 Jan 2025, 20:00",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": null,
+    "length_of_set": 0,
+    "lpm": 0,
+    "notes": "Yoshi\u2019s final show from the Swiss trip"
+  },
+  "bit_info": {
+    "title": "Introduction and Audience Interaction",
+    "start": 0.0,
+    "end": 54.0,
+    "joke_types": [
+      "Playing Dumb",
+      "Observational",
+      "Repetition"
+    ],
+    "themes": [
+      "Politeness",
+      "Cultural Differences"
+    ],
+    "lpm": 0
+  },
+  "transcript": {
+    "text": "And a big round of applause to Yoshio Iwase! Thank you very much. Do you have any favorite? Give it up for Harry and Sonya, please. Give it up for them. Oh, sorry. That's okay. You know why I hate... He always does this. If you have to tell somebody you're famous, you're not famous. You know what I mean? I don't like that. And Harry's half English, you know. Is there any English people from UK here? Okay. Technically. Well, you know, am I wrong about this? English people tend to be very polite, isn't it? Yeah. Well, okay. Okay, well...",
+    "lines": [
+      {
+        "start": 0.0,
+        "end": 4.0,
+        "text": "And a big round of applause to Yoshio Iwase!"
+      },
+      {
+        "start": 8.0,
+        "end": 9.0,
+        "text": "Thank you very much."
+      },
+      {
+        "start": 9.0,
+        "end": 10.0,
+        "text": "Do you have any favorite?"
+      },
+      {
+        "start": 10.0,
+        "end": 12.0,
+        "text": "Give it up for Harry and Sonya, please."
+      },
+      {
+        "start": 12.0,
+        "end": 13.0,
+        "text": "Give it up for them."
+      },
+      {
+        "start": 19.0,
+        "end": 20.0,
+        "text": "Oh, sorry."
+      },
+      {
+        "start": 21.0,
+        "end": 22.0,
+        "text": "That's okay."
+      },
+      {
+        "start": 22.0,
+        "end": 23.0,
+        "text": "You know why I hate..."
+      },
+      {
+        "start": 23.0,
+        "end": 25.0,
+        "text": "He always does this."
+      },
+      {
+        "start": 25.0,
+        "end": 28.0,
+        "text": "If you have to tell somebody you're famous, you're not famous."
+      },
+      {
+        "start": 28.0,
+        "end": 30.0,
+        "text": "You know what I mean?"
+      },
+      {
+        "start": 30.0,
+        "end": 31.0,
+        "text": "I don't like that."
+      },
+      {
+        "start": 31.0,
+        "end": 34.0,
+        "text": "And Harry's half English, you know."
+      },
+      {
+        "start": 34.0,
+        "end": 37.0,
+        "text": "Is there any English people from UK here?"
+      },
+      {
+        "start": 38.0,
+        "end": 39.0,
+        "text": "Okay."
+      },
+      {
+        "start": 39.0,
+        "end": 40.0,
+        "text": "Technically."
+      },
+      {
+        "start": 41.0,
+        "end": 44.0,
+        "text": "Well, you know, am I wrong about this?"
+      },
+      {
+        "start": 45.0,
+        "end": 48.0,
+        "text": "English people tend to be very polite, isn't it?"
+      },
+      {
+        "start": 48.0,
+        "end": 49.0,
+        "text": "Yeah."
+      },
+      {
+        "start": 49.0,
+        "end": 50.0,
+        "text": "Well, okay."
+      },
+      {
+        "start": 51.0,
+        "end": 52.0,
+        "text": "Okay, well..."
+      }
+    ]
+  },
+  "audience_reactions": []
+}

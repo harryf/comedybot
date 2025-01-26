@@ -1,0 +1,211 @@
+{
+  "bit_id": "20241203_adult_games_2_mixdown_setting_up_an_intimate_conversation_with_yoshi",
+  "show_info": {
+    "show_identifier": "20241203_adult_games_2_mixdown",
+    "comedian": " Yoshi Obayashi",
+    "name_of_show": "Adult Content - 2nd Half",
+    "date_of_show": "26 Nov 2024, 21:15",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/QR6UNfJXCmxU4tB66",
+    "length_of_set": 3515.28,
+    "lpm": 2,
+    "notes": "Part two of Yoshi\u2019s Adult Content, doing a live podcast."
+  },
+  "bit_info": {
+    "title": "Setting Up an Intimate Conversation with Yoshi",
+    "start": 175.0,
+    "end": 202.0,
+    "joke_types": [
+      "Crowd Work",
+      "Awkward",
+      "Observational"
+    ],
+    "themes": [
+      "Audience Interaction",
+      "Education"
+    ],
+    "lpm": 7
+  },
+  "transcript": {
+    "text": "Give yourselves a round of applause again. This is great. This is how it's going to go down. This is going to be an intimate conversation with Yoshi who gave you a whole bunch of things to work with already. Thank you. So if there is a question at any moment, raise your hand like in school. I will swing by with a microphone. Questions already starting over there?",
+    "lines": [
+      {
+        "start": 175.0,
+        "end": 177.0,
+        "text": "Give yourselves a round of applause again."
+      },
+      {
+        "start": 177.0,
+        "end": 179.0,
+        "text": "This is great."
+      },
+      {
+        "start": 179.0,
+        "end": 182.0,
+        "text": "This is how it's going to go down."
+      },
+      {
+        "start": 182.0,
+        "end": 185.0,
+        "text": "This is going to be an intimate conversation with Yoshi"
+      },
+      {
+        "start": 185.0,
+        "end": 189.0,
+        "text": "who gave you a whole bunch of things to work with already."
+      },
+      {
+        "start": 189.0,
+        "end": 190.0,
+        "text": "Thank you."
+      },
+      {
+        "start": 190.0,
+        "end": 195.0,
+        "text": "So if there is a question at any moment,"
+      },
+      {
+        "start": 195.0,
+        "end": 198.0,
+        "text": "raise your hand like in school."
+      },
+      {
+        "start": 198.0,
+        "end": 200.0,
+        "text": "I will swing by with a microphone."
+      },
+      {
+        "start": 200.0,
+        "end": 202.0,
+        "text": "Questions already starting over there?"
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      175.2,
+      176.4,
+      0
+    ],
+    [
+      176.4,
+      177.6,
+      0
+    ],
+    [
+      177.6,
+      178.8,
+      0
+    ],
+    [
+      178.8,
+      180.0,
+      0
+    ],
+    [
+      180.0,
+      181.2,
+      0
+    ],
+    [
+      181.2,
+      182.4,
+      0
+    ],
+    [
+      182.4,
+      183.6,
+      0
+    ],
+    [
+      183.6,
+      184.8,
+      0
+    ],
+    [
+      184.8,
+      186.0,
+      0
+    ],
+    [
+      186.0,
+      187.2,
+      0
+    ],
+    [
+      187.2,
+      188.4,
+      0
+    ],
+    [
+      188.4,
+      189.6,
+      1
+    ],
+    [
+      189.6,
+      190.8,
+      0
+    ],
+    [
+      190.8,
+      192.0,
+      0
+    ],
+    [
+      192.0,
+      193.2,
+      0
+    ],
+    [
+      193.2,
+      194.4,
+      0
+    ],
+    [
+      194.4,
+      195.6,
+      0
+    ],
+    [
+      195.6,
+      196.8,
+      0
+    ],
+    [
+      196.8,
+      198.0,
+      0
+    ],
+    [
+      198.0,
+      199.2,
+      0
+    ],
+    [
+      199.2,
+      200.4,
+      0
+    ],
+    [
+      200.4,
+      201.6,
+      0
+    ],
+    [
+      201.6,
+      202.8,
+      0
+    ],
+    [
+      202.8,
+      204.0,
+      2
+    ],
+    [
+      204.0,
+      205.2,
+      0
+    ]
+  ]
+}

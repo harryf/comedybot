@@ -1,0 +1,322 @@
+{
+  "bit_id": "20250103_Yoshi_Edinburgh_mixdown_the_intriguing_crackhead_customers",
+  "show_info": {
+    "show_identifier": "20250103_Yoshi_Edinburgh_mixdown",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content - Edinburgh Fringe",
+    "date_of_show": "30 Aug 2023, 20:00",
+    "name_of_venue": "Edinburgh",
+    "link_to_venue_on_google_maps": null,
+    "length_of_set": 3717.7,
+    "lpm": 1,
+    "notes": null
+  },
+  "bit_info": {
+    "title": "The Intriguing Crackhead Customers",
+    "start": 1257.7,
+    "end": 1298.8,
+    "joke_types": [
+      "Comparison",
+      "Observational",
+      "Relatable Struggle"
+    ],
+    "themes": [
+      "Addiction",
+      "Motivation",
+      "Self-Improvement"
+    ],
+    "lpm": 1
+  },
+  "transcript": {
+    "text": "Here's the thing about crackheads, they're really interesting. No, I learn from every customer. You know what's amazing about crackheads? They don't care about their country. They don't care about themselves. They don't care about their family. They don't care about their kids. 100% effort every day trying to get that drug, every single moment of their life, right? Now think about that for a minute. Imagine you spent 10%, 5%, or 1% effort trying to make yourself happy, putting that kind of effort. I know what you're gonna say, like, you all have dreams, right? But you're gonna say, what are you gonna say? Oh, I don't have the time. No, no, no. If something's important to you, you always fucking make time, right? If it's something important to you.",
+    "lines": [
+      {
+        "start": 1257.72,
+        "end": 1259.0200000000002,
+        "text": "Here's the thing about crackheads,"
+      },
+      {
+        "start": 1259.0200000000002,
+        "end": 1260.38,
+        "text": "they're really interesting."
+      },
+      {
+        "start": 1261.64,
+        "end": 1264.1200000000001,
+        "text": "No, I learn from every customer."
+      },
+      {
+        "start": 1264.1200000000001,
+        "end": 1265.94,
+        "text": "You know what's amazing about crackheads?"
+      },
+      {
+        "start": 1265.94,
+        "end": 1268.0200000000002,
+        "text": "They don't care about their country."
+      },
+      {
+        "start": 1268.14,
+        "end": 1268.98,
+        "text": "They don't care about themselves."
+      },
+      {
+        "start": 1268.98,
+        "end": 1270.1000000000001,
+        "text": "They don't care about their family."
+      },
+      {
+        "start": 1270.1000000000001,
+        "end": 1271.9,
+        "text": "They don't care about their kids."
+      },
+      {
+        "start": 1271.9,
+        "end": 1274.88,
+        "text": "100% effort every day trying to get that drug,"
+      },
+      {
+        "start": 1274.88,
+        "end": 1276.3600000000001,
+        "text": "every single moment of their life, right?"
+      },
+      {
+        "start": 1276.3600000000001,
+        "end": 1278.26,
+        "text": "Now think about that for a minute."
+      },
+      {
+        "start": 1278.26,
+        "end": 1283.14,
+        "text": "Imagine you spent 10%, 5%, or 1% effort"
+      },
+      {
+        "start": 1283.14,
+        "end": 1285.9,
+        "text": "trying to make yourself happy, putting that kind of effort."
+      },
+      {
+        "start": 1285.9,
+        "end": 1287.72,
+        "text": "I know what you're gonna say, like,"
+      },
+      {
+        "start": 1287.72,
+        "end": 1289.2,
+        "text": "you all have dreams, right?"
+      },
+      {
+        "start": 1289.2,
+        "end": 1290.7800000000002,
+        "text": "But you're gonna say, what are you gonna say?"
+      },
+      {
+        "start": 1290.7800000000002,
+        "end": 1291.6200000000001,
+        "text": "Oh, I don't have the time."
+      },
+      {
+        "start": 1291.6200000000001,
+        "end": 1292.46,
+        "text": "No, no, no."
+      },
+      {
+        "start": 1293.3400000000001,
+        "end": 1294.5800000000002,
+        "text": "If something's important to you,"
+      },
+      {
+        "start": 1294.5800000000002,
+        "end": 1297.3200000000002,
+        "text": "you always fucking make time, right?"
+      },
+      {
+        "start": 1297.32,
+        "end": 1298.8,
+        "text": "If it's something important to you."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      1258.8,
+      1260.0,
+      0
+    ],
+    [
+      1260.0,
+      1261.2,
+      0
+    ],
+    [
+      1261.2,
+      1262.4,
+      0
+    ],
+    [
+      1262.4,
+      1263.6,
+      0
+    ],
+    [
+      1263.6,
+      1264.8,
+      0
+    ],
+    [
+      1264.8,
+      1266.0,
+      1
+    ],
+    [
+      1266.0,
+      1267.2,
+      0
+    ],
+    [
+      1267.2,
+      1268.4,
+      0
+    ],
+    [
+      1268.4,
+      1269.6,
+      0
+    ],
+    [
+      1269.6,
+      1270.8,
+      0
+    ],
+    [
+      1270.8,
+      1272.0,
+      0
+    ],
+    [
+      1272.0,
+      1273.2,
+      0
+    ],
+    [
+      1273.2,
+      1274.4,
+      0
+    ],
+    [
+      1274.4,
+      1275.6,
+      0
+    ],
+    [
+      1275.6,
+      1276.8,
+      0
+    ],
+    [
+      1276.8,
+      1278.0,
+      0
+    ],
+    [
+      1278.0,
+      1279.2,
+      0
+    ],
+    [
+      1279.2,
+      1280.4,
+      0
+    ],
+    [
+      1280.4,
+      1281.6,
+      0
+    ],
+    [
+      1281.6,
+      1282.8,
+      0
+    ],
+    [
+      1282.8,
+      1284.0,
+      0
+    ],
+    [
+      1284.0,
+      1285.2,
+      0
+    ],
+    [
+      1285.2,
+      1286.4,
+      0
+    ],
+    [
+      1286.4,
+      1287.6,
+      0
+    ],
+    [
+      1287.6,
+      1288.8,
+      0
+    ],
+    [
+      1288.8,
+      1290.0,
+      0
+    ],
+    [
+      1290.0,
+      1291.2,
+      0
+    ],
+    [
+      1291.2,
+      1292.4,
+      0
+    ],
+    [
+      1292.4,
+      1293.6,
+      0
+    ],
+    [
+      1293.6,
+      1294.8,
+      0
+    ],
+    [
+      1294.8,
+      1296.0,
+      0
+    ],
+    [
+      1296.0,
+      1297.2,
+      0
+    ],
+    [
+      1297.2,
+      1298.4,
+      0
+    ],
+    [
+      1298.4,
+      1299.6,
+      0
+    ],
+    [
+      1299.6,
+      1300.8,
+      0
+    ],
+    [
+      1300.8,
+      1302.0,
+      0
+    ]
+  ]
+}

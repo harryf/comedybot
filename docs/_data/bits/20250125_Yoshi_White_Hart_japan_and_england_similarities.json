@@ -1,0 +1,308 @@
+{
+  "bit_id": "20250125_Yoshi_White_Hart_japan_and_england_similarities",
+  "show_info": {
+    "show_identifier": "20250125_Yoshi_White_Hart",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "International Comedy Night",
+    "date_of_show": "15 Jan 2025, 21:17",
+    "name_of_venue": "White Hart London",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/yqf5Axm9HStDsFkB7",
+    "length_of_set": 2371.66,
+    "lpm": 14,
+    "notes": "Show with Yoshi, Harry and Christian."
+  },
+  "bit_info": {
+    "title": "Japan and England Similarities",
+    "start": 56.2,
+    "end": 99.4,
+    "joke_types": [
+      "Observational",
+      "Comparison",
+      "Reversal",
+      "Literal Interpretation"
+    ],
+    "themes": [
+      "Cultural Differences",
+      "National Identity",
+      "Politeness"
+    ],
+    "lpm": 17
+  },
+  "transcript": {
+    "text": "Interesting. Yeah, same thing. Second question is, I'm from Japan, and I notice I have a better affinity with England because I feel like Japan's kinda, I kinda feel like England of Asia. We're both an island country, and we have monarchy, but also I notice that we're very polite countries. I think that's a fair thing to say. Am I wrong to say this? I sometimes think polite people are more dangerous. Think it's weird to say that? No, it's fine. In the United States, because we have a bit of a racial kind of thing, I noticed that...",
+    "lines": [
+      {
+        "start": 56.2,
+        "end": 57.04,
+        "text": "Interesting."
+      },
+      {
+        "start": 58.120000000000005,
+        "end": 59.04,
+        "text": "Yeah, same thing."
+      },
+      {
+        "start": 59.36,
+        "end": 62.68,
+        "text": "Second question is, I'm from Japan,"
+      },
+      {
+        "start": 62.68,
+        "end": 65.14,
+        "text": "and I notice I have a better affinity with England"
+      },
+      {
+        "start": 65.14,
+        "end": 67.2,
+        "text": "because I feel like Japan's kinda,"
+      },
+      {
+        "start": 67.2,
+        "end": 69.22,
+        "text": "I kinda feel like England of Asia."
+      },
+      {
+        "start": 69.22,
+        "end": 72.5,
+        "text": "We're both an island country, and we have monarchy,"
+      },
+      {
+        "start": 72.5,
+        "end": 75.82,
+        "text": "but also I notice that we're very polite countries."
+      },
+      {
+        "start": 75.82,
+        "end": 78.22,
+        "text": "I think that's a fair thing to say."
+      },
+      {
+        "start": 78.22,
+        "end": 80.12,
+        "text": "Am I wrong to say this?"
+      },
+      {
+        "start": 80.12,
+        "end": 83.0,
+        "text": "I sometimes think polite people are more dangerous."
+      },
+      {
+        "start": 86.0,
+        "end": 87.46000000000001,
+        "text": "Think it's weird to say that?"
+      },
+      {
+        "start": 87.46000000000001,
+        "end": 88.3,
+        "text": "No, it's fine."
+      },
+      {
+        "start": 88.3,
+        "end": 90.96,
+        "text": "In the United States, because we have a bit"
+      },
+      {
+        "start": 90.96,
+        "end": 93.62,
+        "text": "of a racial kind of thing, I noticed that..."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      56.4,
+      57.6,
+      0
+    ],
+    [
+      57.6,
+      58.8,
+      0
+    ],
+    [
+      58.8,
+      60.0,
+      0
+    ],
+    [
+      60.0,
+      61.2,
+      0
+    ],
+    [
+      61.2,
+      62.4,
+      0
+    ],
+    [
+      62.4,
+      63.6,
+      0
+    ],
+    [
+      63.6,
+      64.8,
+      0
+    ],
+    [
+      64.8,
+      66.0,
+      0
+    ],
+    [
+      66.0,
+      67.2,
+      0
+    ],
+    [
+      67.2,
+      68.4,
+      0
+    ],
+    [
+      68.4,
+      69.6,
+      0
+    ],
+    [
+      69.6,
+      70.8,
+      0
+    ],
+    [
+      70.8,
+      72.0,
+      0
+    ],
+    [
+      72.0,
+      73.2,
+      0
+    ],
+    [
+      73.2,
+      74.4,
+      0
+    ],
+    [
+      74.4,
+      75.6,
+      0
+    ],
+    [
+      75.6,
+      76.8,
+      0
+    ],
+    [
+      76.8,
+      78.0,
+      0
+    ],
+    [
+      78.0,
+      79.2,
+      0
+    ],
+    [
+      79.2,
+      80.4,
+      0
+    ],
+    [
+      80.4,
+      81.6,
+      0
+    ],
+    [
+      81.6,
+      82.8,
+      1
+    ],
+    [
+      82.8,
+      84.0,
+      2
+    ],
+    [
+      84.0,
+      85.2,
+      3
+    ],
+    [
+      85.2,
+      86.4,
+      0
+    ],
+    [
+      86.4,
+      87.6,
+      0
+    ],
+    [
+      87.6,
+      88.8,
+      0
+    ],
+    [
+      88.8,
+      90.0,
+      0
+    ],
+    [
+      90.0,
+      91.2,
+      0
+    ],
+    [
+      91.2,
+      92.4,
+      0
+    ],
+    [
+      92.4,
+      93.6,
+      1
+    ],
+    [
+      93.6,
+      94.8,
+      1
+    ],
+    [
+      94.8,
+      96.0,
+      2
+    ],
+    [
+      96.0,
+      97.2,
+      0
+    ],
+    [
+      97.2,
+      98.4,
+      1
+    ],
+    [
+      98.4,
+      99.6,
+      1
+    ],
+    [
+      99.6,
+      100.8,
+      0
+    ],
+    [
+      100.8,
+      102.0,
+      0
+    ],
+    [
+      102.0,
+      103.2,
+      0
+    ]
+  ]
+}

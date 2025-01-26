@@ -1,0 +1,177 @@
+{
+  "bit_id": "20250103_Yoshi_Edinburgh_mixdown_the_dick_pic_holiday_tradition",
+  "show_info": {
+    "show_identifier": "20250103_Yoshi_Edinburgh_mixdown",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content - Edinburgh Fringe",
+    "date_of_show": "30 Aug 2023, 20:00",
+    "name_of_venue": "Edinburgh",
+    "link_to_venue_on_google_maps": null,
+    "length_of_set": 3717.7,
+    "lpm": 1,
+    "notes": null
+  },
+  "bit_info": {
+    "title": "The Dick Pic Holiday Tradition",
+    "start": 374.3,
+    "end": 395.5,
+    "joke_types": [
+      "Repetition",
+      "Surreal",
+      "Observational",
+      "Shock Humor"
+    ],
+    "themes": [
+      "Dating",
+      "Inappropriate Humor"
+    ],
+    "lpm": 0
+  },
+  "transcript": {
+    "text": "This motherfucker, he sent me his dick picture every holiday. So, on Halloween, he'll put pumpkin on top of his head. On Christmas, he'll put Santa Claus outfit. And on 9-11, he'll put... He'll put NYPD blue helmet on top of his helmet. So, there's something about me. I always see dicks, right?",
+    "lines": [
+      {
+        "start": 374.3,
+        "end": 377.64,
+        "text": "This motherfucker, he sent me his dick picture every holiday."
+      },
+      {
+        "start": 378.12,
+        "end": 381.82,
+        "text": "So, on Halloween, he'll put pumpkin on top of his head."
+      },
+      {
+        "start": 382.82,
+        "end": 384.86,
+        "text": "On Christmas, he'll put Santa Claus outfit."
+      },
+      {
+        "start": 384.86,
+        "end": 387.86,
+        "text": "And on 9-11, he'll put..."
+      },
+      {
+        "start": 387.94,
+        "end": 390.78,
+        "text": "He'll put NYPD blue helmet on top of his helmet."
+      },
+      {
+        "start": 390.78,
+        "end": 393.58,
+        "text": "So, there's something about me."
+      },
+      {
+        "start": 394.04,
+        "end": 395.48,
+        "text": "I always see dicks, right?"
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      374.4,
+      375.6,
+      0
+    ],
+    [
+      375.6,
+      376.8,
+      0
+    ],
+    [
+      376.8,
+      378.0,
+      0
+    ],
+    [
+      378.0,
+      379.2,
+      0
+    ],
+    [
+      379.2,
+      380.4,
+      0
+    ],
+    [
+      380.4,
+      381.6,
+      0
+    ],
+    [
+      381.6,
+      382.8,
+      0
+    ],
+    [
+      382.8,
+      384.0,
+      0
+    ],
+    [
+      384.0,
+      385.2,
+      0
+    ],
+    [
+      385.2,
+      386.4,
+      0
+    ],
+    [
+      386.4,
+      387.6,
+      0
+    ],
+    [
+      387.6,
+      388.8,
+      0
+    ],
+    [
+      388.8,
+      390.0,
+      0
+    ],
+    [
+      390.0,
+      391.2,
+      0
+    ],
+    [
+      391.2,
+      392.4,
+      0
+    ],
+    [
+      392.4,
+      393.6,
+      0
+    ],
+    [
+      393.6,
+      394.8,
+      0
+    ],
+    [
+      394.8,
+      396.0,
+      0
+    ],
+    [
+      396.0,
+      397.2,
+      0
+    ],
+    [
+      397.2,
+      398.4,
+      0
+    ],
+    [
+      398.4,
+      399.6,
+      0
+    ]
+  ]
+}

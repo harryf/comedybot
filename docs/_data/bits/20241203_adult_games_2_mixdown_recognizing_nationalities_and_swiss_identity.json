@@ -1,0 +1,648 @@
+{
+  "bit_id": "20241203_adult_games_2_mixdown_recognizing_nationalities_and_swiss_identity",
+  "show_info": {
+    "show_identifier": "20241203_adult_games_2_mixdown",
+    "comedian": " Yoshi Obayashi",
+    "name_of_show": "Adult Content - 2nd Half",
+    "date_of_show": "26 Nov 2024, 21:15",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/QR6UNfJXCmxU4tB66",
+    "length_of_set": 3515.28,
+    "lpm": 2,
+    "notes": "Part two of Yoshi\u2019s Adult Content, doing a live podcast."
+  },
+  "bit_info": {
+    "title": "Recognizing Nationalities and Swiss Identity",
+    "start": 0.0,
+    "end": 96.0,
+    "joke_types": [
+      "Observational",
+      "Crowd Work",
+      "Misdirect",
+      "Self-Deprecation",
+      "Awkward"
+    ],
+    "themes": [
+      "Cultural Differences",
+      "Identity"
+    ],
+    "lpm": 5
+  },
+  "transcript": {
+    "text": "Can you look... I'm still processing. Can you look at someone? Is this like a room full of Asians for you? Is that what you're saying? They all look the same? I mean, sorry, what is your background? You were born and raised here? Vietnam. Vietnam. Vietnam. And how long have you lived there? Almost two years. How is it for you? Is it good? Yeah. Okay. I'm going to be honest. Yeah, because I really can't tell when I look at somebody, is this person Swiss or not? I have no idea. Not that it really matters. Do we have any Swiss people here at all? He actually has a Swiss passport. Yeah, but that means you're not Swiss. My name is Marcus Meyer, so that's Swiss. Which part of Switzerland? We're just filling time until Leah comes back. What's your heimat? My dad's from Switzerland. My mom's from Switzerland. My mom is from Bolivia, so that's... What is Aargau? No, it's not heimat. Heimat is... Heimat Ort. I'm just getting you guys to... You have two seats right up front. Leah, come up to the front, otherwise it's going to be weird. No, please don't. It's not a comedy show. You mean what's the passport or how I feel? You feel Bolivian. Yes. Exactly. That's why I'm asking you. This is one of the things, we're just filling time. It's one of the things is that there's only about seven real Swiss people. The rest of them are just breeding with her. By the way, I really appreciate one other person saying I was talking too fast.",
+    "lines": [
+      {
+        "start": 0.0,
+        "end": 6.0,
+        "text": "Can you look... I'm still processing. Can you look at someone?"
+      },
+      {
+        "start": 6.0,
+        "end": 8.0,
+        "text": "Is this like a room full of Asians for you?"
+      },
+      {
+        "start": 8.0,
+        "end": 13.0,
+        "text": "Is that what you're saying? They all look the same?"
+      },
+      {
+        "start": 13.0,
+        "end": 16.0,
+        "text": "I mean, sorry, what is your background? You were born and raised here?"
+      },
+      {
+        "start": 16.0,
+        "end": 19.0,
+        "text": "Vietnam. Vietnam."
+      },
+      {
+        "start": 19.0,
+        "end": 23.0,
+        "text": "Vietnam. And how long have you lived there?"
+      },
+      {
+        "start": 23.0,
+        "end": 24.0,
+        "text": "Almost two years."
+      },
+      {
+        "start": 24.0,
+        "end": 26.0,
+        "text": "How is it for you? Is it good?"
+      },
+      {
+        "start": 26.0,
+        "end": 27.0,
+        "text": "Yeah."
+      },
+      {
+        "start": 27.0,
+        "end": 28.0,
+        "text": "Okay."
+      },
+      {
+        "start": 28.0,
+        "end": 29.0,
+        "text": "I'm going to be honest."
+      },
+      {
+        "start": 29.0,
+        "end": 34.0,
+        "text": "Yeah, because I really can't tell when I look at somebody, is this person Swiss or not?"
+      },
+      {
+        "start": 34.0,
+        "end": 37.0,
+        "text": "I have no idea. Not that it really matters."
+      },
+      {
+        "start": 37.0,
+        "end": 39.0,
+        "text": "Do we have any Swiss people here at all?"
+      },
+      {
+        "start": 39.0,
+        "end": 41.0,
+        "text": "He actually has a Swiss passport."
+      },
+      {
+        "start": 41.0,
+        "end": 44.0,
+        "text": "Yeah, but that means you're not Swiss."
+      },
+      {
+        "start": 46.0,
+        "end": 49.0,
+        "text": "My name is Marcus Meyer, so that's Swiss."
+      },
+      {
+        "start": 49.0,
+        "end": 54.0,
+        "text": "Which part of Switzerland? We're just filling time until Leah comes back."
+      },
+      {
+        "start": 54.0,
+        "end": 56.0,
+        "text": "What's your heimat?"
+      },
+      {
+        "start": 56.0,
+        "end": 58.0,
+        "text": "My dad's from Switzerland."
+      },
+      {
+        "start": 58.0,
+        "end": 59.0,
+        "text": "My mom's from Switzerland."
+      },
+      {
+        "start": 59.0,
+        "end": 61.0,
+        "text": "My mom is from Bolivia, so that's..."
+      },
+      {
+        "start": 61.0,
+        "end": 62.0,
+        "text": "What is Aargau?"
+      },
+      {
+        "start": 62.0,
+        "end": 64.0,
+        "text": "No, it's not heimat. Heimat is..."
+      },
+      {
+        "start": 64.0,
+        "end": 65.0,
+        "text": "Heimat Ort."
+      },
+      {
+        "start": 65.0,
+        "end": 67.0,
+        "text": "I'm just getting you guys to..."
+      },
+      {
+        "start": 67.0,
+        "end": 69.0,
+        "text": "You have two seats right up front."
+      },
+      {
+        "start": 69.0,
+        "end": 72.0,
+        "text": "Leah, come up to the front, otherwise it's going to be weird."
+      },
+      {
+        "start": 72.0,
+        "end": 73.0,
+        "text": "No, please don't."
+      },
+      {
+        "start": 73.0,
+        "end": 74.0,
+        "text": "It's not a comedy show."
+      },
+      {
+        "start": 74.0,
+        "end": 77.0,
+        "text": "You mean what's the passport or how I feel?"
+      },
+      {
+        "start": 77.0,
+        "end": 79.0,
+        "text": "You feel Bolivian."
+      },
+      {
+        "start": 79.0,
+        "end": 80.0,
+        "text": "Yes."
+      },
+      {
+        "start": 80.0,
+        "end": 81.0,
+        "text": "Exactly."
+      },
+      {
+        "start": 81.0,
+        "end": 84.0,
+        "text": "That's why I'm asking you."
+      },
+      {
+        "start": 84.0,
+        "end": 86.0,
+        "text": "This is one of the things, we're just filling time."
+      },
+      {
+        "start": 86.0,
+        "end": 88.0,
+        "text": "It's one of the things is that there's only about seven real Swiss people."
+      },
+      {
+        "start": 88.0,
+        "end": 91.0,
+        "text": "The rest of them are just breeding with her."
+      },
+      {
+        "start": 91.0,
+        "end": 96.0,
+        "text": "By the way, I really appreciate one other person saying I was talking too fast."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      0.0,
+      1.2,
+      1
+    ],
+    [
+      1.2,
+      2.4,
+      0
+    ],
+    [
+      2.4,
+      3.6,
+      0
+    ],
+    [
+      3.6,
+      4.8,
+      0
+    ],
+    [
+      4.8,
+      6.0,
+      0
+    ],
+    [
+      6.0,
+      7.2,
+      0
+    ],
+    [
+      7.2,
+      8.4,
+      0
+    ],
+    [
+      8.4,
+      9.6,
+      1
+    ],
+    [
+      9.6,
+      10.8,
+      1
+    ],
+    [
+      10.8,
+      12.0,
+      0
+    ],
+    [
+      12.0,
+      13.2,
+      0
+    ],
+    [
+      13.2,
+      14.4,
+      0
+    ],
+    [
+      14.4,
+      15.6,
+      0
+    ],
+    [
+      15.6,
+      16.8,
+      0
+    ],
+    [
+      16.8,
+      18.0,
+      0
+    ],
+    [
+      18.0,
+      19.2,
+      0
+    ],
+    [
+      19.2,
+      20.4,
+      0
+    ],
+    [
+      20.4,
+      21.6,
+      0
+    ],
+    [
+      21.6,
+      22.8,
+      0
+    ],
+    [
+      22.8,
+      24.0,
+      0
+    ],
+    [
+      24.0,
+      25.2,
+      0
+    ],
+    [
+      25.2,
+      26.4,
+      0
+    ],
+    [
+      26.4,
+      27.6,
+      0
+    ],
+    [
+      27.6,
+      28.8,
+      0
+    ],
+    [
+      28.8,
+      30.0,
+      0
+    ],
+    [
+      30.0,
+      31.2,
+      0
+    ],
+    [
+      31.2,
+      32.4,
+      0
+    ],
+    [
+      32.4,
+      33.6,
+      0
+    ],
+    [
+      33.6,
+      34.8,
+      0
+    ],
+    [
+      34.8,
+      36.0,
+      0
+    ],
+    [
+      36.0,
+      37.2,
+      0
+    ],
+    [
+      37.2,
+      38.4,
+      0
+    ],
+    [
+      38.4,
+      39.6,
+      0
+    ],
+    [
+      39.6,
+      40.8,
+      0
+    ],
+    [
+      40.8,
+      42.0,
+      0
+    ],
+    [
+      42.0,
+      43.2,
+      0
+    ],
+    [
+      43.2,
+      44.4,
+      1
+    ],
+    [
+      44.4,
+      45.6,
+      0
+    ],
+    [
+      45.6,
+      46.8,
+      0
+    ],
+    [
+      46.8,
+      48.0,
+      0
+    ],
+    [
+      48.0,
+      49.2,
+      0
+    ],
+    [
+      49.2,
+      50.4,
+      0
+    ],
+    [
+      50.4,
+      51.6,
+      0
+    ],
+    [
+      51.6,
+      52.8,
+      0
+    ],
+    [
+      52.8,
+      54.0,
+      0
+    ],
+    [
+      54.0,
+      55.2,
+      0
+    ],
+    [
+      55.2,
+      56.4,
+      0
+    ],
+    [
+      56.4,
+      57.6,
+      0
+    ],
+    [
+      57.6,
+      58.8,
+      0
+    ],
+    [
+      58.8,
+      60.0,
+      0
+    ],
+    [
+      60.0,
+      61.2,
+      0
+    ],
+    [
+      61.2,
+      62.4,
+      0
+    ],
+    [
+      62.4,
+      63.6,
+      0
+    ],
+    [
+      63.6,
+      64.8,
+      0
+    ],
+    [
+      64.8,
+      66.0,
+      0
+    ],
+    [
+      66.0,
+      67.2,
+      0
+    ],
+    [
+      67.2,
+      68.4,
+      0
+    ],
+    [
+      68.4,
+      69.6,
+      0
+    ],
+    [
+      69.6,
+      70.8,
+      0
+    ],
+    [
+      70.8,
+      72.0,
+      0
+    ],
+    [
+      72.0,
+      73.2,
+      0
+    ],
+    [
+      73.2,
+      74.4,
+      0
+    ],
+    [
+      74.4,
+      75.6,
+      0
+    ],
+    [
+      75.6,
+      76.8,
+      0
+    ],
+    [
+      76.8,
+      78.0,
+      0
+    ],
+    [
+      78.0,
+      79.2,
+      0
+    ],
+    [
+      79.2,
+      80.4,
+      1
+    ],
+    [
+      80.4,
+      81.6,
+      3
+    ],
+    [
+      81.6,
+      82.8,
+      0
+    ],
+    [
+      82.8,
+      84.0,
+      0
+    ],
+    [
+      84.0,
+      85.2,
+      0
+    ],
+    [
+      85.2,
+      86.4,
+      0
+    ],
+    [
+      86.4,
+      87.6,
+      0
+    ],
+    [
+      87.6,
+      88.8,
+      0
+    ],
+    [
+      88.8,
+      90.0,
+      0
+    ],
+    [
+      90.0,
+      91.2,
+      0
+    ],
+    [
+      91.2,
+      92.4,
+      0
+    ],
+    [
+      92.4,
+      93.6,
+      0
+    ],
+    [
+      93.6,
+      94.8,
+      0
+    ],
+    [
+      94.8,
+      96.0,
+      0
+    ],
+    [
+      96.0,
+      97.2,
+      0
+    ],
+    [
+      97.2,
+      98.4,
+      0
+    ],
+    [
+      98.4,
+      99.6,
+      0
+    ]
+  ]
+}

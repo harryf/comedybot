@@ -1,0 +1,95 @@
+{
+  "bit_id": "20250126_Adult_Content_17th_Dec_2024_Part_1_misconceptions_about_expertise",
+  "show_info": {
+    "show_identifier": "20250126_Adult_Content_17th_Dec_2024_Part_1",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content 2",
+    "date_of_show": "17 Dec 2024, 20:00",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/tQSpMuzHq84sr7Wa6",
+    "length_of_set": 3088.1,
+    "lpm": 4,
+    "notes": "2nd run of the show at ROBINs"
+  },
+  "bit_info": {
+    "title": "Misconceptions about Expertise",
+    "start": 65.0,
+    "end": 72.0,
+    "joke_types": [
+      "Understatement",
+      "Self-Deprecation"
+    ],
+    "themes": [
+      "Work",
+      "Identity"
+    ],
+    "lpm": 0
+  },
+  "transcript": {
+    "text": "So, I don't like when they say I'm an expert. I'm not an expert. I've worked in the business a long time. So I know a few things.",
+    "lines": [
+      {
+        "start": 65.0,
+        "end": 67.0,
+        "text": "So, I don't like when they say I'm an expert."
+      },
+      {
+        "start": 67.0,
+        "end": 68.0,
+        "text": "I'm not an expert."
+      },
+      {
+        "start": 68.0,
+        "end": 70.0,
+        "text": "I've worked in the business a long time."
+      },
+      {
+        "start": 70.0,
+        "end": 72.0,
+        "text": "So I know a few things."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      66.0,
+      67.2,
+      0
+    ],
+    [
+      67.2,
+      68.4,
+      0
+    ],
+    [
+      68.4,
+      69.6,
+      0
+    ],
+    [
+      69.6,
+      70.8,
+      0
+    ],
+    [
+      70.8,
+      72.0,
+      0
+    ],
+    [
+      72.0,
+      73.2,
+      0
+    ],
+    [
+      73.2,
+      74.4,
+      0
+    ],
+    [
+      74.4,
+      75.6,
+      0
+    ]
+  ]
+}

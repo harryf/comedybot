@@ -1,0 +1,382 @@
+{
+  "bit_id": "20250125_Yoshi_White_Hart_intro_and_optimism_in_england",
+  "show_info": {
+    "show_identifier": "20250125_Yoshi_White_Hart",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "International Comedy Night",
+    "date_of_show": "15 Jan 2025, 21:17",
+    "name_of_venue": "White Hart London",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/yqf5Axm9HStDsFkB7",
+    "length_of_set": 2371.66,
+    "lpm": 14,
+    "notes": "Show with Yoshi, Harry and Christian."
+  },
+  "bit_info": {
+    "title": "Intro and Optimism in England",
+    "start": 0.0,
+    "end": 56.2,
+    "joke_types": [
+      "Self-Deprecation",
+      "Observational",
+      "Bait-and-Switch"
+    ],
+    "themes": [
+      "Future",
+      "Family Life",
+      "Culture"
+    ],
+    "lpm": 11
+  },
+  "transcript": {
+    "text": "all the way from over there. Please give it up for Yoshi Omiyoshi! Thank you very much. Do me a favor, give it a round of applause, Julius, Christian, and Harry. My name is Yoshi Omiyoshi. I have a quick question for you, and I need to make a comment before I go on. I gotta tell you a couple things. One, this is not a comedy joke or question, but are you very optimistic about England's future? No. Okay, those of you with parents, are you optimistic about your kids' future? Do you think they'll have a better life than you did? Yes. Wow, what's going on in England? Anyone? I don't wanna make a TikTok, but...",
+    "lines": [
+      {
+        "start": 0.0,
+        "end": 3.34,
+        "text": "all the way from over there."
+      },
+      {
+        "start": 3.34,
+        "end": 5.44,
+        "text": "Please give it up for Yoshi Omiyoshi!"
+      },
+      {
+        "start": 13.88,
+        "end": 15.32,
+        "text": "Thank you very much."
+      },
+      {
+        "start": 15.32,
+        "end": 16.740000000000002,
+        "text": "Do me a favor, give it a round of applause,"
+      },
+      {
+        "start": 16.740000000000002,
+        "end": 18.36,
+        "text": "Julius, Christian, and Harry."
+      },
+      {
+        "start": 22.36,
+        "end": 23.5,
+        "text": "My name is Yoshi Omiyoshi."
+      },
+      {
+        "start": 23.5,
+        "end": 25.54,
+        "text": "I have a quick question for you,"
+      },
+      {
+        "start": 25.54,
+        "end": 28.060000000000002,
+        "text": "and I need to make a comment before I go on."
+      },
+      {
+        "start": 28.060000000000002,
+        "end": 29.36,
+        "text": "I gotta tell you a couple things."
+      },
+      {
+        "start": 29.36,
+        "end": 32.9,
+        "text": "One, this is not a comedy joke or question,"
+      },
+      {
+        "start": 32.9,
+        "end": 37.26,
+        "text": "but are you very optimistic about England's future?"
+      },
+      {
+        "start": 37.26,
+        "end": 38.1,
+        "text": "No."
+      },
+      {
+        "start": 40.22,
+        "end": 42.2,
+        "text": "Okay, those of you with parents,"
+      },
+      {
+        "start": 42.2,
+        "end": 44.3,
+        "text": "are you optimistic about your kids' future?"
+      },
+      {
+        "start": 44.3,
+        "end": 47.04,
+        "text": "Do you think they'll have a better life than you did?"
+      },
+      {
+        "start": 47.04,
+        "end": 47.96,
+        "text": "Yes."
+      },
+      {
+        "start": 47.96,
+        "end": 50.16,
+        "text": "Wow, what's going on in England?"
+      },
+      {
+        "start": 52.260000000000005,
+        "end": 53.1,
+        "text": "Anyone?"
+      },
+      {
+        "start": 53.1,
+        "end": 54.760000000000005,
+        "text": "I don't wanna make a TikTok, but..."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      0.0,
+      1.2,
+      1
+    ],
+    [
+      1.2,
+      2.4,
+      1
+    ],
+    [
+      2.4,
+      3.6,
+      1
+    ],
+    [
+      3.6,
+      4.8,
+      0
+    ],
+    [
+      4.8,
+      6.0,
+      0
+    ],
+    [
+      6.0,
+      7.2,
+      0
+    ],
+    [
+      7.2,
+      8.4,
+      0
+    ],
+    [
+      8.4,
+      9.6,
+      0
+    ],
+    [
+      9.6,
+      10.8,
+      0
+    ],
+    [
+      10.8,
+      12.0,
+      0
+    ],
+    [
+      12.0,
+      13.2,
+      0
+    ],
+    [
+      13.2,
+      14.4,
+      0
+    ],
+    [
+      14.4,
+      15.6,
+      0
+    ],
+    [
+      15.6,
+      16.8,
+      0
+    ],
+    [
+      16.8,
+      18.0,
+      0
+    ],
+    [
+      18.0,
+      19.2,
+      0
+    ],
+    [
+      19.2,
+      20.4,
+      0
+    ],
+    [
+      20.4,
+      21.6,
+      0
+    ],
+    [
+      21.6,
+      22.8,
+      0
+    ],
+    [
+      22.8,
+      24.0,
+      0
+    ],
+    [
+      24.0,
+      25.2,
+      0
+    ],
+    [
+      25.2,
+      26.4,
+      0
+    ],
+    [
+      26.4,
+      27.6,
+      0
+    ],
+    [
+      27.6,
+      28.8,
+      0
+    ],
+    [
+      28.8,
+      30.0,
+      0
+    ],
+    [
+      30.0,
+      31.2,
+      0
+    ],
+    [
+      31.2,
+      32.4,
+      0
+    ],
+    [
+      32.4,
+      33.6,
+      0
+    ],
+    [
+      33.6,
+      34.8,
+      0
+    ],
+    [
+      34.8,
+      36.0,
+      0
+    ],
+    [
+      36.0,
+      37.2,
+      0
+    ],
+    [
+      37.2,
+      38.4,
+      1
+    ],
+    [
+      38.4,
+      39.6,
+      2
+    ],
+    [
+      39.6,
+      40.8,
+      0
+    ],
+    [
+      40.8,
+      42.0,
+      0
+    ],
+    [
+      42.0,
+      43.2,
+      0
+    ],
+    [
+      43.2,
+      44.4,
+      0
+    ],
+    [
+      44.4,
+      45.6,
+      0
+    ],
+    [
+      45.6,
+      46.8,
+      0
+    ],
+    [
+      46.8,
+      48.0,
+      0
+    ],
+    [
+      48.0,
+      49.2,
+      0
+    ],
+    [
+      49.2,
+      50.4,
+      2
+    ],
+    [
+      50.4,
+      51.6,
+      0
+    ],
+    [
+      51.6,
+      52.8,
+      0
+    ],
+    [
+      52.8,
+      54.0,
+      1
+    ],
+    [
+      54.0,
+      55.2,
+      1
+    ],
+    [
+      55.2,
+      56.4,
+      0
+    ],
+    [
+      56.4,
+      57.6,
+      0
+    ],
+    [
+      57.6,
+      58.8,
+      0
+    ],
+    [
+      58.8,
+      60.0,
+      0
+    ]
+  ]
+}

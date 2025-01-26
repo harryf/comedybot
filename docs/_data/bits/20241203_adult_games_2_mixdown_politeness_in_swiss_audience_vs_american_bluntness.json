@@ -1,0 +1,136 @@
+{
+  "bit_id": "20241203_adult_games_2_mixdown_politeness_in_swiss_audience_vs_american_bluntness",
+  "show_info": {
+    "show_identifier": "20241203_adult_games_2_mixdown",
+    "comedian": " Yoshi Obayashi",
+    "name_of_show": "Adult Content - 2nd Half",
+    "date_of_show": "26 Nov 2024, 21:15",
+    "name_of_venue": "ROBIN's",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/QR6UNfJXCmxU4tB66",
+    "length_of_set": 3515.28,
+    "lpm": 2,
+    "notes": "Part two of Yoshi\u2019s Adult Content, doing a live podcast."
+  },
+  "bit_info": {
+    "title": "Politeness in Swiss Audience vs. American Bluntness",
+    "start": 160.0,
+    "end": 175.0,
+    "joke_types": [
+      "Awkward",
+      "Literal Interpretation",
+      "Reversal"
+    ],
+    "themes": [
+      "Cultural Differences",
+      "Politics"
+    ],
+    "lpm": 16
+  },
+  "transcript": {
+    "text": "So most people refer so much to Japanese people. You know when you see Vladimir Putin, I'll be your interpreter. Right now they really like you. Let's switch over to Chris. Guys, thanks for hanging around.",
+    "lines": [
+      {
+        "start": 160.0,
+        "end": 165.0,
+        "text": "So most people refer so much to Japanese people."
+      },
+      {
+        "start": 165.0,
+        "end": 168.0,
+        "text": "You know when you see Vladimir Putin, I'll be your interpreter."
+      },
+      {
+        "start": 168.0,
+        "end": 171.0,
+        "text": "Right now they really like you."
+      },
+      {
+        "start": 171.0,
+        "end": 173.0,
+        "text": "Let's switch over to Chris."
+      },
+      {
+        "start": 173.0,
+        "end": 175.0,
+        "text": "Guys, thanks for hanging around."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      160.8,
+      162.0,
+      3
+    ],
+    [
+      162.0,
+      163.2,
+      1
+    ],
+    [
+      163.2,
+      164.4,
+      0
+    ],
+    [
+      164.4,
+      165.6,
+      0
+    ],
+    [
+      165.6,
+      166.8,
+      0
+    ],
+    [
+      166.8,
+      168.0,
+      0
+    ],
+    [
+      168.0,
+      169.2,
+      0
+    ],
+    [
+      169.2,
+      170.4,
+      0
+    ],
+    [
+      170.4,
+      171.6,
+      0
+    ],
+    [
+      171.6,
+      172.8,
+      0
+    ],
+    [
+      172.8,
+      174.0,
+      0
+    ],
+    [
+      174.0,
+      175.2,
+      0
+    ],
+    [
+      175.2,
+      176.4,
+      0
+    ],
+    [
+      176.4,
+      177.6,
+      0
+    ],
+    [
+      177.6,
+      178.8,
+      0
+    ]
+  ]
+}

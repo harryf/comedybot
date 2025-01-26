@@ -1,0 +1,103 @@
+{
+  "bit_id": "20250125_Yoshi_White_Hart_americans_and_health",
+  "show_info": {
+    "show_identifier": "20250125_Yoshi_White_Hart",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "International Comedy Night",
+    "date_of_show": "15 Jan 2025, 21:17",
+    "name_of_venue": "White Hart London",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/yqf5Axm9HStDsFkB7",
+    "length_of_set": 2371.66,
+    "lpm": 14,
+    "notes": "Show with Yoshi, Harry and Christian."
+  },
+  "bit_info": {
+    "title": "Americans and Health",
+    "start": 827.9,
+    "end": 839.9,
+    "joke_types": [
+      "Self-Deprecation"
+    ],
+    "themes": [
+      "Self-Deprecation"
+    ],
+    "lpm": 65
+  },
+  "transcript": {
+    "text": "Sorry, it's really dumb.",
+    "lines": [
+      {
+        "start": 836.86,
+        "end": 837.86,
+        "text": "Sorry, it's really dumb."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      828.0,
+      829.2,
+      0
+    ],
+    [
+      829.2,
+      830.4,
+      0
+    ],
+    [
+      830.4,
+      831.6,
+      0
+    ],
+    [
+      831.6,
+      832.8,
+      0
+    ],
+    [
+      832.8,
+      834.0,
+      0
+    ],
+    [
+      834.0,
+      835.2,
+      1
+    ],
+    [
+      835.2,
+      836.4,
+      3
+    ],
+    [
+      836.4,
+      837.6,
+      2
+    ],
+    [
+      837.6,
+      838.8,
+      2
+    ],
+    [
+      838.8,
+      840.0,
+      2
+    ],
+    [
+      840.0,
+      841.2,
+      0
+    ],
+    [
+      841.2,
+      842.4,
+      2
+    ],
+    [
+      842.4,
+      843.6,
+      1
+    ]
+  ]
+}

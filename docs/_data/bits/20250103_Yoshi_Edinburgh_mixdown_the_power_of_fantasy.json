@@ -1,0 +1,386 @@
+{
+  "bit_id": "20250103_Yoshi_Edinburgh_mixdown_the_power_of_fantasy",
+  "show_info": {
+    "show_identifier": "20250103_Yoshi_Edinburgh_mixdown",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content - Edinburgh Fringe",
+    "date_of_show": "30 Aug 2023, 20:00",
+    "name_of_venue": "Edinburgh",
+    "link_to_venue_on_google_maps": null,
+    "length_of_set": 3717.7,
+    "lpm": 1,
+    "notes": null
+  },
+  "bit_info": {
+    "title": "The Power of Fantasy",
+    "start": 395.7,
+    "end": 452.1,
+    "joke_types": [
+      "Observational",
+      "Relatable Struggle",
+      "Confessional"
+    ],
+    "themes": [
+      "Memory",
+      "Everyday Life"
+    ],
+    "lpm": 3
+  },
+  "transcript": {
+    "text": "Now, I have this, not because of artistic reason. I just have a bad memory. But I love this Andy Warhol quote, because when you have an average life, a regular job, you need to have a little fantasy to give you excitement, to kind of continue, you know, day to day life. But even Andy Warhol, at the highest level artistry and all the money and fame, too much fantasy is bad for you. He never had a happy life, never had a wonderful love life. So, too little fantasy or too much, I think they're both problems, you know? And like I said, I use it because I have bad memory. Do you guys ever do this? You walk up to your car, for those of you that drive, maybe you leave a cup of coffee on top of the vehicle, a pair of shoes, maybe even a cell phone, and without thinking, you hop in your car, start your engine and drive away. You lose your items forever.",
+    "lines": [
+      {
+        "start": 395.74,
+        "end": 400.66,
+        "text": "Now, I have this, not because of artistic reason."
+      },
+      {
+        "start": 400.66,
+        "end": 401.9,
+        "text": "I just have a bad memory."
+      },
+      {
+        "start": 401.9,
+        "end": 404.98,
+        "text": "But I love this Andy Warhol quote,"
+      },
+      {
+        "start": 405.1,
+        "end": 409.42,
+        "text": "because when you have an average life, a regular job,"
+      },
+      {
+        "start": 409.84,
+        "end": 411.98,
+        "text": "you need to have a little fantasy to give you excitement,"
+      },
+      {
+        "start": 411.98,
+        "end": 414.82,
+        "text": "to kind of continue, you know, day to day life."
+      },
+      {
+        "start": 416.74,
+        "end": 417.92,
+        "text": "But even Andy Warhol,"
+      },
+      {
+        "start": 417.94,
+        "end": 420.68,
+        "text": "at the highest level artistry and all the money and fame,"
+      },
+      {
+        "start": 421.18,
+        "end": 422.98,
+        "text": "too much fantasy is bad for you."
+      },
+      {
+        "start": 423.06,
+        "end": 426.5,
+        "text": "He never had a happy life, never had a wonderful love life."
+      },
+      {
+        "start": 426.94,
+        "end": 429.58,
+        "text": "So, too little fantasy or too much,"
+      },
+      {
+        "start": 429.7,
+        "end": 430.98,
+        "text": "I think they're both problems, you know?"
+      },
+      {
+        "start": 432.28,
+        "end": 434.52,
+        "text": "And like I said, I use it because I have bad memory."
+      },
+      {
+        "start": 435.2,
+        "end": 436.04,
+        "text": "Do you guys ever do this?"
+      },
+      {
+        "start": 436.14,
+        "end": 438.26,
+        "text": "You walk up to your car, for those of you that drive,"
+      },
+      {
+        "start": 438.88,
+        "end": 440.8,
+        "text": "maybe you leave a cup of coffee on top of the vehicle,"
+      },
+      {
+        "start": 441.42,
+        "end": 443.74,
+        "text": "a pair of shoes, maybe even a cell phone,"
+      },
+      {
+        "start": 443.74,
+        "end": 445.58,
+        "text": "and without thinking, you hop in your car,"
+      },
+      {
+        "start": 445.78,
+        "end": 447.12,
+        "text": "start your engine and drive away."
+      },
+      {
+        "start": 447.94,
+        "end": 449.32,
+        "text": "You lose your items forever."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      396.0,
+      397.2,
+      0
+    ],
+    [
+      397.2,
+      398.4,
+      0
+    ],
+    [
+      398.4,
+      399.6,
+      0
+    ],
+    [
+      399.6,
+      400.8,
+      0
+    ],
+    [
+      400.8,
+      402.0,
+      0
+    ],
+    [
+      402.0,
+      403.2,
+      0
+    ],
+    [
+      403.2,
+      404.4,
+      0
+    ],
+    [
+      404.4,
+      405.6,
+      0
+    ],
+    [
+      405.6,
+      406.8,
+      0
+    ],
+    [
+      406.8,
+      408.0,
+      0
+    ],
+    [
+      408.0,
+      409.2,
+      0
+    ],
+    [
+      409.2,
+      410.4,
+      0
+    ],
+    [
+      410.4,
+      411.6,
+      0
+    ],
+    [
+      411.6,
+      412.8,
+      0
+    ],
+    [
+      412.8,
+      414.0,
+      0
+    ],
+    [
+      414.0,
+      415.2,
+      0
+    ],
+    [
+      415.2,
+      416.4,
+      0
+    ],
+    [
+      416.4,
+      417.6,
+      0
+    ],
+    [
+      417.6,
+      418.8,
+      0
+    ],
+    [
+      418.8,
+      420.0,
+      0
+    ],
+    [
+      420.0,
+      421.2,
+      0
+    ],
+    [
+      421.2,
+      422.4,
+      0
+    ],
+    [
+      422.4,
+      423.6,
+      0
+    ],
+    [
+      423.6,
+      424.8,
+      0
+    ],
+    [
+      424.8,
+      426.0,
+      0
+    ],
+    [
+      426.0,
+      427.2,
+      0
+    ],
+    [
+      427.2,
+      428.4,
+      0
+    ],
+    [
+      428.4,
+      429.6,
+      0
+    ],
+    [
+      429.6,
+      430.8,
+      0
+    ],
+    [
+      430.8,
+      432.0,
+      0
+    ],
+    [
+      432.0,
+      433.2,
+      0
+    ],
+    [
+      433.2,
+      434.4,
+      0
+    ],
+    [
+      434.4,
+      435.6,
+      0
+    ],
+    [
+      435.6,
+      436.8,
+      0
+    ],
+    [
+      436.8,
+      438.0,
+      0
+    ],
+    [
+      438.0,
+      439.2,
+      0
+    ],
+    [
+      439.2,
+      440.4,
+      0
+    ],
+    [
+      440.4,
+      441.6,
+      0
+    ],
+    [
+      441.6,
+      442.8,
+      0
+    ],
+    [
+      442.8,
+      444.0,
+      0
+    ],
+    [
+      444.0,
+      445.2,
+      0
+    ],
+    [
+      445.2,
+      446.4,
+      0
+    ],
+    [
+      446.4,
+      447.6,
+      0
+    ],
+    [
+      447.6,
+      448.8,
+      0
+    ],
+    [
+      448.8,
+      450.0,
+      0
+    ],
+    [
+      450.0,
+      451.2,
+      0
+    ],
+    [
+      451.2,
+      452.4,
+      0
+    ],
+    [
+      452.4,
+      453.6,
+      1
+    ],
+    [
+      453.6,
+      454.8,
+      1
+    ],
+    [
+      454.8,
+      456.0,
+      1
+    ]
+  ]
+}

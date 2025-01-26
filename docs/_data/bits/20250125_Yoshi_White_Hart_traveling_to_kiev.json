@@ -1,0 +1,324 @@
+{
+  "bit_id": "20250125_Yoshi_White_Hart_traveling_to_kiev",
+  "show_info": {
+    "show_identifier": "20250125_Yoshi_White_Hart",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "International Comedy Night",
+    "date_of_show": "15 Jan 2025, 21:17",
+    "name_of_venue": "White Hart London",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/yqf5Axm9HStDsFkB7",
+    "length_of_set": 2371.66,
+    "lpm": 14,
+    "notes": "Show with Yoshi, Harry and Christian."
+  },
+  "bit_info": {
+    "title": "Traveling to Kiev",
+    "start": 839.9,
+    "end": 892.9,
+    "joke_types": [
+      "Self-Deprecation",
+      "Observational",
+      "Breaking Expectations",
+      "Playing Dumb",
+      "Exaggeration"
+    ],
+    "themes": [
+      "Cultural Differences",
+      "Geography",
+      "Sense of Humor"
+    ],
+    "lpm": 35
+  },
+  "transcript": {
+    "text": "I was in...I did a show in Kiev and I knew I was in trouble because when I was doing a show in Kiev, I don't know, five, six days ago, I was in a big mess. And I was in a big mess. And then five, six days ago, they told me, you're from LA? Oh my God, it's so dangerous over there. Isn't that crazy? I cannot believe LA looked like war zone and Kiev looks really nice there. But they didn't like my sense of humor there. As soon as I went out, it's a room full of Ukrainian people and I just asked like, hey, what's with all the single ladies in Kiev? They didn't think it was funny, but... You know what they laughed in Ukraine was I have to explain to them I'm not North Korean.",
+    "lines": [
+      {
+        "start": 840.86,
+        "end": 848.86,
+        "text": "I was in...I did a show in Kiev and I knew I was in trouble because when I was doing a show in Kiev, I don't know, five, six days ago, I was in a big mess."
+      },
+      {
+        "start": 848.86,
+        "end": 852.86,
+        "text": "And I was in a big mess."
+      },
+      {
+        "start": 852.86,
+        "end": 855.86,
+        "text": "And then five, six days ago, they told me, you're from LA?"
+      },
+      {
+        "start": 855.86,
+        "end": 856.86,
+        "text": "Oh my God, it's so dangerous over there."
+      },
+      {
+        "start": 860.86,
+        "end": 861.86,
+        "text": "Isn't that crazy?"
+      },
+      {
+        "start": 861.86,
+        "end": 865.86,
+        "text": "I cannot believe LA looked like war zone and Kiev looks really nice there."
+      },
+      {
+        "start": 865.86,
+        "end": 868.86,
+        "text": "But they didn't like my sense of humor there."
+      },
+      {
+        "start": 868.86,
+        "end": 874.86,
+        "text": "As soon as I went out, it's a room full of Ukrainian people and I just asked like, hey, what's with all the single ladies in Kiev?"
+      },
+      {
+        "start": 879.86,
+        "end": 880.86,
+        "text": "They didn't think it was funny, but..."
+      },
+      {
+        "start": 882.86,
+        "end": 888.86,
+        "text": "You know what they laughed in Ukraine was I have to explain to them I'm not North Korean."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      840.0,
+      841.2,
+      0
+    ],
+    [
+      841.2,
+      842.4,
+      2
+    ],
+    [
+      842.4,
+      843.6,
+      1
+    ],
+    [
+      843.6,
+      844.8,
+      0
+    ],
+    [
+      844.8,
+      846.0,
+      0
+    ],
+    [
+      846.0,
+      847.2,
+      0
+    ],
+    [
+      847.2,
+      848.4,
+      0
+    ],
+    [
+      848.4,
+      849.6,
+      0
+    ],
+    [
+      849.6,
+      850.8,
+      0
+    ],
+    [
+      850.8,
+      852.0,
+      0
+    ],
+    [
+      852.0,
+      853.2,
+      0
+    ],
+    [
+      853.2,
+      854.4,
+      0
+    ],
+    [
+      854.4,
+      855.6,
+      0
+    ],
+    [
+      855.6,
+      856.8,
+      1
+    ],
+    [
+      856.8,
+      858.0,
+      1
+    ],
+    [
+      858.0,
+      859.2,
+      2
+    ],
+    [
+      859.2,
+      860.4,
+      2
+    ],
+    [
+      860.4,
+      861.6,
+      1
+    ],
+    [
+      861.6,
+      862.8,
+      0
+    ],
+    [
+      862.8,
+      864.0,
+      0
+    ],
+    [
+      864.0,
+      865.2,
+      0
+    ],
+    [
+      865.2,
+      866.4,
+      0
+    ],
+    [
+      866.4,
+      867.6,
+      1
+    ],
+    [
+      867.6,
+      868.8,
+      0
+    ],
+    [
+      868.8,
+      870.0,
+      0
+    ],
+    [
+      870.0,
+      871.2,
+      0
+    ],
+    [
+      871.2,
+      872.4,
+      0
+    ],
+    [
+      872.4,
+      873.6,
+      0
+    ],
+    [
+      873.6,
+      874.8,
+      0
+    ],
+    [
+      874.8,
+      876.0,
+      0
+    ],
+    [
+      876.0,
+      877.2,
+      0
+    ],
+    [
+      877.2,
+      878.4,
+      2
+    ],
+    [
+      878.4,
+      879.6,
+      2
+    ],
+    [
+      879.6,
+      880.8,
+      2
+    ],
+    [
+      880.8,
+      882.0,
+      3
+    ],
+    [
+      882.0,
+      883.2,
+      0
+    ],
+    [
+      883.2,
+      884.4,
+      0
+    ],
+    [
+      884.4,
+      885.6,
+      0
+    ],
+    [
+      885.6,
+      886.8,
+      0
+    ],
+    [
+      886.8,
+      888.0,
+      0
+    ],
+    [
+      888.0,
+      889.2,
+      2
+    ],
+    [
+      889.2,
+      890.4,
+      2
+    ],
+    [
+      890.4,
+      891.6,
+      2
+    ],
+    [
+      891.6,
+      892.8,
+      1
+    ],
+    [
+      892.8,
+      894.0,
+      0
+    ],
+    [
+      894.0,
+      895.2,
+      0
+    ],
+    [
+      895.2,
+      896.4,
+      0
+    ]
+  ]
+}

@@ -1,0 +1,938 @@
+{
+  "bit_id": "20250103_Yoshi_Edinburgh_mixdown_discovering_the_comedy_show",
+  "show_info": {
+    "show_identifier": "20250103_Yoshi_Edinburgh_mixdown",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "Adult Content - Edinburgh Fringe",
+    "date_of_show": "30 Aug 2023, 20:00",
+    "name_of_venue": "Edinburgh",
+    "link_to_venue_on_google_maps": null,
+    "length_of_set": 3717.7,
+    "lpm": 1,
+    "notes": null
+  },
+  "bit_info": {
+    "title": "Discovering the Comedy Show",
+    "start": 0.0,
+    "end": 120.0,
+    "joke_types": [
+      "Crowd Work",
+      "Observational",
+      "Awkward"
+    ],
+    "themes": [
+      "Comedy",
+      "Podcasting",
+      "Stand-up Comedy",
+      "International Audience"
+    ],
+    "lpm": 1
+  },
+  "transcript": {
+    "text": "Did you guys find out about this show through a podcast? Why me? Huh? Why me? Oh, so... It's crazy. So, you were four from Tom Segura. Oh, you just... I just... We met in the key. Oh, yeah. You mentioned you were... Put on a show with Prince. Yeah. Since it's the last show, if you want to... I don't want to bore them because if they don't listen to the pod, they don't know all the stories. I thought it was great. She really listens to the podcast. You can listen to it, but... I'm going to do it right now. No, no. His name is Tom Segura. He's a very big American stand-up comic. He's got four shows on Netflix. And they have a podcast that they've been doing for 11 years. And I'm on it because I see a lot of crazy... I mean, I do their shows. A lot of crazy stuff. So, I was on... I recorded two months ago and they just aired like two weeks ago. I don't know. Half a million views and I think almost a million downloads or something. I thought everybody sent it through the day. Oh, okay. They came in. I apologize. From that? Yeah. I almost get weirded out when ladies listen to it. Guys, they like porn talk, but you know. Christina P is not really... But thanks for coming. Are you from Scotland? No. England or... England. Wow. You've worked three nights in a row. Well, thank you. I used to work... One of your countrymen, Rocco Saffredi. I used to work for him. So, you know who he is. Yeah. Yeah. So, 90s, huh? Yeah. And Nacho Bidon and Matt Morpher. So, you guys are from Scotland or... I live in Edinburgh. I'm from London. Okay. Thank you for coming to the show. Thanks for watching. And these are my friends. Okay. So... I know him. So, welcome to my... Last show, adult content. Thanks for coming.",
+    "lines": [
+      {
+        "start": 0.0,
+        "end": 5.64,
+        "text": "Did you guys find out about this show through a podcast?"
+      },
+      {
+        "start": 5.64,
+        "end": 6.24,
+        "text": "Why me?"
+      },
+      {
+        "start": 6.5,
+        "end": 6.62,
+        "text": "Huh?"
+      },
+      {
+        "start": 6.78,
+        "end": 7.18,
+        "text": "Why me?"
+      },
+      {
+        "start": 7.8,
+        "end": 9.64,
+        "text": "Oh, so..."
+      },
+      {
+        "start": 9.64,
+        "end": 10.120000000000001,
+        "text": "It's crazy."
+      },
+      {
+        "start": 12.56,
+        "end": 16.42,
+        "text": "So, you were four from Tom Segura."
+      },
+      {
+        "start": 16.62,
+        "end": 17.64,
+        "text": "Oh, you just..."
+      },
+      {
+        "start": 17.64,
+        "end": 18.16,
+        "text": "I just..."
+      },
+      {
+        "start": 18.16,
+        "end": 18.96,
+        "text": "We met in the key."
+      },
+      {
+        "start": 19.1,
+        "end": 19.48,
+        "text": "Oh, yeah."
+      },
+      {
+        "start": 20.52,
+        "end": 22.64,
+        "text": "You mentioned you were..."
+      },
+      {
+        "start": 23.7,
+        "end": 24.68,
+        "text": "Put on a show with Prince."
+      },
+      {
+        "start": 25.560000000000002,
+        "end": 25.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 27.080000000000002,
+        "end": 28.400000000000002,
+        "text": "Since it's the last show,"
+      },
+      {
+        "start": 28.4,
+        "end": 30.259999999999998,
+        "text": "if you want to..."
+      },
+      {
+        "start": 30.259999999999998,
+        "end": 31.64,
+        "text": "I don't want to bore them because"
+      },
+      {
+        "start": 31.64,
+        "end": 33.78,
+        "text": "if they don't listen to the pod,"
+      },
+      {
+        "start": 34.1,
+        "end": 35.28,
+        "text": "they don't know all the stories."
+      },
+      {
+        "start": 35.46,
+        "end": 36.42,
+        "text": "I thought it was great."
+      },
+      {
+        "start": 36.739999999999995,
+        "end": 38.28,
+        "text": "She really listens to the podcast."
+      },
+      {
+        "start": 38.8,
+        "end": 40.4,
+        "text": "You can listen to it, but..."
+      },
+      {
+        "start": 41.2,
+        "end": 42.1,
+        "text": "I'm going to do it right now."
+      },
+      {
+        "start": 42.54,
+        "end": 42.82,
+        "text": "No, no."
+      },
+      {
+        "start": 43.68,
+        "end": 44.72,
+        "text": "His name is Tom Segura."
+      },
+      {
+        "start": 44.8,
+        "end": 46.56,
+        "text": "He's a very big American stand-up comic."
+      },
+      {
+        "start": 46.78,
+        "end": 48.14,
+        "text": "He's got four shows on Netflix."
+      },
+      {
+        "start": 48.44,
+        "end": 51.08,
+        "text": "And they have a podcast that they've been doing for 11 years."
+      },
+      {
+        "start": 51.459999999999994,
+        "end": 54.36,
+        "text": "And I'm on it because I see a lot of crazy..."
+      },
+      {
+        "start": 54.36,
+        "end": 55.379999999999995,
+        "text": "I mean, I do their shows."
+      },
+      {
+        "start": 55.44,
+        "end": 56.46,
+        "text": "A lot of crazy stuff."
+      },
+      {
+        "start": 56.8,
+        "end": 58.14,
+        "text": "So, I was on..."
+      },
+      {
+        "start": 58.14,
+        "end": 59.44,
+        "text": "I recorded two months ago"
+      },
+      {
+        "start": 59.44,
+        "end": 61.32,
+        "text": "and they just aired like two weeks ago."
+      },
+      {
+        "start": 62.04,
+        "end": 62.42,
+        "text": "I don't know."
+      },
+      {
+        "start": 62.5,
+        "end": 63.4,
+        "text": "Half a million views"
+      },
+      {
+        "start": 63.4,
+        "end": 65.66,
+        "text": "and I think almost a million downloads or something."
+      },
+      {
+        "start": 66.42,
+        "end": 67.76,
+        "text": "I thought everybody sent it through the day."
+      },
+      {
+        "start": 68.02,
+        "end": 68.5,
+        "text": "Oh, okay."
+      },
+      {
+        "start": 68.62,
+        "end": 69.04,
+        "text": "They came in."
+      },
+      {
+        "start": 69.24,
+        "end": 70.68,
+        "text": "I apologize."
+      },
+      {
+        "start": 71.38,
+        "end": 72.04,
+        "text": "From that?"
+      },
+      {
+        "start": 73.24,
+        "end": 73.48,
+        "text": "Yeah."
+      },
+      {
+        "start": 74.86,
+        "end": 76.32,
+        "text": "I almost get weirded out"
+      },
+      {
+        "start": 76.32,
+        "end": 77.8,
+        "text": "when ladies listen to it."
+      },
+      {
+        "start": 77.92,
+        "end": 79.84,
+        "text": "Guys, they like porn talk, but you know."
+      },
+      {
+        "start": 80.24000000000001,
+        "end": 82.04,
+        "text": "Christina P is not really..."
+      },
+      {
+        "start": 82.04,
+        "end": 82.62,
+        "text": "But thanks for coming."
+      },
+      {
+        "start": 82.76,
+        "end": 83.78,
+        "text": "Are you from Scotland?"
+      },
+      {
+        "start": 84.46000000000001,
+        "end": 84.68,
+        "text": "No."
+      },
+      {
+        "start": 85.34,
+        "end": 86.62,
+        "text": "England or..."
+      },
+      {
+        "start": 86.62,
+        "end": 87.12,
+        "text": "England."
+      },
+      {
+        "start": 87.64,
+        "end": 87.86,
+        "text": "Wow."
+      },
+      {
+        "start": 88.14,
+        "end": 89.36,
+        "text": "You've worked three nights in a row."
+      },
+      {
+        "start": 89.62,
+        "end": 90.14,
+        "text": "Well, thank you."
+      },
+      {
+        "start": 91.24,
+        "end": 92.38,
+        "text": "I used to work..."
+      },
+      {
+        "start": 92.38,
+        "end": 94.16,
+        "text": "One of your countrymen, Rocco Saffredi."
+      },
+      {
+        "start": 94.28,
+        "end": 95.12,
+        "text": "I used to work for him."
+      },
+      {
+        "start": 95.34,
+        "end": 96.18,
+        "text": "So, you know who he is."
+      },
+      {
+        "start": 97.32,
+        "end": 97.8,
+        "text": "Yeah."
+      },
+      {
+        "start": 99.8,
+        "end": 100.0,
+        "text": "Yeah."
+      },
+      {
+        "start": 100.14,
+        "end": 101.2,
+        "text": "So, 90s, huh?"
+      },
+      {
+        "start": 101.4,
+        "end": 101.62,
+        "text": "Yeah."
+      },
+      {
+        "start": 101.84,
+        "end": 104.14,
+        "text": "And Nacho Bidon and Matt Morpher."
+      },
+      {
+        "start": 104.28,
+        "end": 106.0,
+        "text": "So, you guys are from Scotland or..."
+      },
+      {
+        "start": 106.0,
+        "end": 106.88,
+        "text": "I live in Edinburgh."
+      },
+      {
+        "start": 107.64,
+        "end": 108.28,
+        "text": "I'm from London."
+      },
+      {
+        "start": 108.58,
+        "end": 108.86,
+        "text": "Okay."
+      },
+      {
+        "start": 109.04,
+        "end": 110.16,
+        "text": "Thank you for coming to the show."
+      },
+      {
+        "start": 110.38,
+        "end": 110.92,
+        "text": "Thanks for watching."
+      },
+      {
+        "start": 111.48,
+        "end": 112.3,
+        "text": "And these are my friends."
+      },
+      {
+        "start": 112.92,
+        "end": 113.18,
+        "text": "Okay."
+      },
+      {
+        "start": 115.58,
+        "end": 115.98,
+        "text": "So..."
+      },
+      {
+        "start": 115.98,
+        "end": 116.52,
+        "text": "I know him."
+      },
+      {
+        "start": 117.08,
+        "end": 118.04,
+        "text": "So, welcome to my..."
+      },
+      {
+        "start": 118.04,
+        "end": 119.30000000000001,
+        "text": "Last show, adult content."
+      },
+      {
+        "start": 119.42,
+        "end": 120.0,
+        "text": "Thanks for coming."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      0.0,
+      1.2,
+      0
+    ],
+    [
+      1.2,
+      2.4,
+      0
+    ],
+    [
+      2.4,
+      3.6,
+      0
+    ],
+    [
+      3.6,
+      4.8,
+      0
+    ],
+    [
+      4.8,
+      6.0,
+      0
+    ],
+    [
+      6.0,
+      7.2,
+      0
+    ],
+    [
+      7.2,
+      8.4,
+      0
+    ],
+    [
+      8.4,
+      9.6,
+      0
+    ],
+    [
+      9.6,
+      10.8,
+      0
+    ],
+    [
+      10.8,
+      12.0,
+      0
+    ],
+    [
+      12.0,
+      13.2,
+      0
+    ],
+    [
+      13.2,
+      14.4,
+      0
+    ],
+    [
+      14.4,
+      15.6,
+      0
+    ],
+    [
+      15.6,
+      16.8,
+      0
+    ],
+    [
+      16.8,
+      18.0,
+      0
+    ],
+    [
+      18.0,
+      19.2,
+      0
+    ],
+    [
+      19.2,
+      20.4,
+      0
+    ],
+    [
+      20.4,
+      21.6,
+      0
+    ],
+    [
+      21.6,
+      22.8,
+      0
+    ],
+    [
+      22.8,
+      24.0,
+      0
+    ],
+    [
+      24.0,
+      25.2,
+      0
+    ],
+    [
+      25.2,
+      26.4,
+      0
+    ],
+    [
+      26.4,
+      27.6,
+      0
+    ],
+    [
+      27.6,
+      28.8,
+      0
+    ],
+    [
+      28.8,
+      30.0,
+      0
+    ],
+    [
+      30.0,
+      31.2,
+      0
+    ],
+    [
+      31.2,
+      32.4,
+      0
+    ],
+    [
+      32.4,
+      33.6,
+      0
+    ],
+    [
+      33.6,
+      34.8,
+      0
+    ],
+    [
+      34.8,
+      36.0,
+      0
+    ],
+    [
+      36.0,
+      37.2,
+      0
+    ],
+    [
+      37.2,
+      38.4,
+      0
+    ],
+    [
+      38.4,
+      39.6,
+      0
+    ],
+    [
+      39.6,
+      40.8,
+      0
+    ],
+    [
+      40.8,
+      42.0,
+      0
+    ],
+    [
+      42.0,
+      43.2,
+      0
+    ],
+    [
+      43.2,
+      44.4,
+      0
+    ],
+    [
+      44.4,
+      45.6,
+      0
+    ],
+    [
+      45.6,
+      46.8,
+      0
+    ],
+    [
+      46.8,
+      48.0,
+      0
+    ],
+    [
+      48.0,
+      49.2,
+      0
+    ],
+    [
+      49.2,
+      50.4,
+      0
+    ],
+    [
+      50.4,
+      51.6,
+      0
+    ],
+    [
+      51.6,
+      52.8,
+      0
+    ],
+    [
+      52.8,
+      54.0,
+      0
+    ],
+    [
+      54.0,
+      55.2,
+      0
+    ],
+    [
+      55.2,
+      56.4,
+      0
+    ],
+    [
+      56.4,
+      57.6,
+      0
+    ],
+    [
+      57.6,
+      58.8,
+      0
+    ],
+    [
+      58.8,
+      60.0,
+      0
+    ],
+    [
+      60.0,
+      61.2,
+      0
+    ],
+    [
+      61.2,
+      62.4,
+      0
+    ],
+    [
+      62.4,
+      63.6,
+      0
+    ],
+    [
+      63.6,
+      64.8,
+      0
+    ],
+    [
+      64.8,
+      66.0,
+      0
+    ],
+    [
+      66.0,
+      67.2,
+      0
+    ],
+    [
+      67.2,
+      68.4,
+      0
+    ],
+    [
+      68.4,
+      69.6,
+      0
+    ],
+    [
+      69.6,
+      70.8,
+      0
+    ],
+    [
+      70.8,
+      72.0,
+      0
+    ],
+    [
+      72.0,
+      73.2,
+      0
+    ],
+    [
+      73.2,
+      74.4,
+      0
+    ],
+    [
+      74.4,
+      75.6,
+      0
+    ],
+    [
+      75.6,
+      76.8,
+      0
+    ],
+    [
+      76.8,
+      78.0,
+      0
+    ],
+    [
+      78.0,
+      79.2,
+      0
+    ],
+    [
+      79.2,
+      80.4,
+      0
+    ],
+    [
+      80.4,
+      81.6,
+      0
+    ],
+    [
+      81.6,
+      82.8,
+      0
+    ],
+    [
+      82.8,
+      84.0,
+      0
+    ],
+    [
+      84.0,
+      85.2,
+      0
+    ],
+    [
+      85.2,
+      86.4,
+      0
+    ],
+    [
+      86.4,
+      87.6,
+      0
+    ],
+    [
+      87.6,
+      88.8,
+      0
+    ],
+    [
+      88.8,
+      90.0,
+      0
+    ],
+    [
+      90.0,
+      91.2,
+      0
+    ],
+    [
+      91.2,
+      92.4,
+      0
+    ],
+    [
+      92.4,
+      93.6,
+      0
+    ],
+    [
+      93.6,
+      94.8,
+      0
+    ],
+    [
+      94.8,
+      96.0,
+      1
+    ],
+    [
+      96.0,
+      97.2,
+      1
+    ],
+    [
+      97.2,
+      98.4,
+      0
+    ],
+    [
+      98.4,
+      99.6,
+      0
+    ],
+    [
+      99.6,
+      100.8,
+      0
+    ],
+    [
+      100.8,
+      102.0,
+      0
+    ],
+    [
+      102.0,
+      103.2,
+      0
+    ],
+    [
+      103.2,
+      104.4,
+      0
+    ],
+    [
+      104.4,
+      105.6,
+      0
+    ],
+    [
+      105.6,
+      106.8,
+      0
+    ],
+    [
+      106.8,
+      108.0,
+      0
+    ],
+    [
+      108.0,
+      109.2,
+      0
+    ],
+    [
+      109.2,
+      110.4,
+      0
+    ],
+    [
+      110.4,
+      111.6,
+      0
+    ],
+    [
+      111.6,
+      112.8,
+      0
+    ],
+    [
+      112.8,
+      114.0,
+      0
+    ],
+    [
+      114.0,
+      115.2,
+      0
+    ],
+    [
+      115.2,
+      116.4,
+      0
+    ],
+    [
+      116.4,
+      117.6,
+      0
+    ],
+    [
+      117.6,
+      118.8,
+      0
+    ],
+    [
+      118.8,
+      120.0,
+      0
+    ],
+    [
+      120.0,
+      121.2,
+      0
+    ],
+    [
+      121.2,
+      122.4,
+      0
+    ],
+    [
+      122.4,
+      123.6,
+      0
+    ]
+  ]
+}

@@ -1,0 +1,618 @@
+{
+  "bit_id": "20250125_Yoshi_White_Hart_las_appearance_and_homelessness",
+  "show_info": {
+    "show_identifier": "20250125_Yoshi_White_Hart",
+    "comedian": "Yoshi Obayashi",
+    "name_of_show": "International Comedy Night",
+    "date_of_show": "15 Jan 2025, 21:17",
+    "name_of_venue": "White Hart London",
+    "link_to_venue_on_google_maps": "https://maps.app.goo.gl/yqf5Axm9HStDsFkB7",
+    "length_of_set": 2371.66,
+    "lpm": 14,
+    "notes": "Show with Yoshi, Harry and Christian."
+  },
+  "bit_info": {
+    "title": "LA's Appearance and Homelessness",
+    "start": 892.9,
+    "end": 992.4,
+    "joke_types": [
+      "Exaggeration",
+      "Relatable Struggle",
+      "Observational",
+      "Playing Dumb"
+    ],
+    "themes": [
+      "Cultural Differences",
+      "City Life",
+      "Homelessness"
+    ],
+    "lpm": 29
+  },
+  "transcript": {
+    "text": "So what's that thing that kids play? It's like a board game. It's not a board game. It's one of those amusement park thing where those animal comes out of the hole and you try to hit them in the head. Okay, thank you. Every day I'm checking fire, police over my apartment down. Yeah, I'm trying to have a sense of humor, but yeah, they were like a block away, you know, so... Of course, my grandfather said stop exaggerating because my grandpa is from, you know, Hiroshima. You know, I'm trying to laugh. I'm trying to make a joke out of it. So I live in downtown Los Angeles. There's a lot of homeless people there and I don't know how to deal with them. And this homeless guy come up to me and goes, hey man, can you spread some change? Well, I grew up in Japan. He says, sir, change come from within. Shut up. Shut up they said. Shut up. Yeah, I finally get out of here. When he left Ol\u00e1. That was a really long day. Yeah. It's really weird because, you know, before I left there was 40,000 homeless people. Now we have 140,000 homeless people, you know, that's a really tough thing to deal with. And I'm trying to get a sense of humor about it. And so during COVID, you know, I'm sure you guys are really tough policies, you know, I would imagine. I fled to Arizona and I don't know if the government thought I was a hijacker, you know, but that was a very big story. Right. So I left.",
+    "lines": [
+      {
+        "start": 905.86,
+        "end": 909.86,
+        "text": "So what's that thing that kids play?"
+      },
+      {
+        "start": 909.86,
+        "end": 910.86,
+        "text": "It's like a board game."
+      },
+      {
+        "start": 910.86,
+        "end": 911.86,
+        "text": "It's not a board game."
+      },
+      {
+        "start": 911.86,
+        "end": 917.86,
+        "text": "It's one of those amusement park thing where those animal comes out of the hole and you try to hit them in the head."
+      },
+      {
+        "start": 917.86,
+        "end": 919.86,
+        "text": "Okay, thank you."
+      },
+      {
+        "start": 919.86,
+        "end": 922.86,
+        "text": "Every day I'm checking fire, police over my apartment down."
+      },
+      {
+        "start": 925.86,
+        "end": 931.86,
+        "text": "Yeah, I'm trying to have a sense of humor, but yeah, they were like a block away, you know, so..."
+      },
+      {
+        "start": 932.86,
+        "end": 937.86,
+        "text": "Of course, my grandfather said stop exaggerating because my grandpa is from, you know, Hiroshima."
+      },
+      {
+        "start": 941.86,
+        "end": 947.86,
+        "text": "You know, I'm trying to laugh."
+      },
+      {
+        "start": 947.86,
+        "end": 949.86,
+        "text": "I'm trying to make a joke out of it."
+      },
+      {
+        "start": 949.86,
+        "end": 951.86,
+        "text": "So I live in downtown Los Angeles."
+      },
+      {
+        "start": 951.86,
+        "end": 954.86,
+        "text": "There's a lot of homeless people there and I don't know how to deal with them."
+      },
+      {
+        "start": 954.86,
+        "end": 959.86,
+        "text": "And this homeless guy come up to me and goes, hey man, can you spread some change?"
+      },
+      {
+        "start": 959.86,
+        "end": 960.86,
+        "text": "Well, I grew up in Japan."
+      },
+      {
+        "start": 960.86,
+        "end": 962.86,
+        "text": "He says, sir, change come from within."
+      },
+      {
+        "start": 962.86,
+        "end": 973.86,
+        "text": "Shut up."
+      },
+      {
+        "start": 973.86,
+        "end": 974.86,
+        "text": "Shut up they said."
+      },
+      {
+        "start": 974.86,
+        "end": 977.86,
+        "text": "Shut up."
+      },
+      {
+        "start": 977.86,
+        "end": 978.86,
+        "text": "Yeah, I finally get out of here."
+      },
+      {
+        "start": 978.86,
+        "end": 979.86,
+        "text": "When he left Ol\u00e1."
+      },
+      {
+        "start": 979.86,
+        "end": 980.86,
+        "text": "That was a really long day."
+      },
+      {
+        "start": 980.86,
+        "end": 981.86,
+        "text": "Yeah."
+      },
+      {
+        "start": 981.86,
+        "end": 982.86,
+        "text": "It's really weird because, you know, before I left there was 40,000 homeless people."
+      },
+      {
+        "start": 982.86,
+        "end": 983.86,
+        "text": "Now we have 140,000 homeless people, you know, that's a really tough thing to deal with."
+      },
+      {
+        "start": 983.86,
+        "end": 984.86,
+        "text": "And I'm trying to get a sense of humor about it."
+      },
+      {
+        "start": 984.86,
+        "end": 985.86,
+        "text": "And so during COVID, you know, I'm sure you guys are really tough policies, you know,"
+      },
+      {
+        "start": 985.86,
+        "end": 986.86,
+        "text": "I would imagine."
+      },
+      {
+        "start": 986.86,
+        "end": 989.36,
+        "text": "I fled to Arizona and I don't know if the government thought I was a hijacker, you know,"
+      },
+      {
+        "start": 989.36,
+        "end": 990.36,
+        "text": "but that was a very big story."
+      },
+      {
+        "start": 990.36,
+        "end": 991.36,
+        "text": "Right."
+      },
+      {
+        "start": 991.36,
+        "end": 992.36,
+        "text": "So I left."
+      }
+    ]
+  },
+  "audience_reactions": [
+    [
+      894.0,
+      895.2,
+      0
+    ],
+    [
+      895.2,
+      896.4,
+      0
+    ],
+    [
+      896.4,
+      897.6,
+      2
+    ],
+    [
+      897.6,
+      898.8,
+      2
+    ],
+    [
+      898.8,
+      900.0,
+      3
+    ],
+    [
+      900.0,
+      901.2,
+      3
+    ],
+    [
+      901.2,
+      902.4,
+      2
+    ],
+    [
+      902.4,
+      903.6,
+      1
+    ],
+    [
+      903.6,
+      904.8,
+      0
+    ],
+    [
+      904.8,
+      906.0,
+      0
+    ],
+    [
+      906.0,
+      907.2,
+      0
+    ],
+    [
+      907.2,
+      908.4,
+      0
+    ],
+    [
+      908.4,
+      909.6,
+      0
+    ],
+    [
+      909.6,
+      910.8,
+      0
+    ],
+    [
+      910.8,
+      912.0,
+      0
+    ],
+    [
+      912.0,
+      913.2,
+      0
+    ],
+    [
+      913.2,
+      914.4,
+      0
+    ],
+    [
+      914.4,
+      915.6,
+      0
+    ],
+    [
+      915.6,
+      916.8,
+      0
+    ],
+    [
+      916.8,
+      918.0,
+      0
+    ],
+    [
+      918.0,
+      919.2,
+      0
+    ],
+    [
+      919.2,
+      920.4,
+      0
+    ],
+    [
+      920.4,
+      921.6,
+      0
+    ],
+    [
+      921.6,
+      922.8,
+      1
+    ],
+    [
+      922.8,
+      924.0,
+      1
+    ],
+    [
+      924.0,
+      925.2,
+      0
+    ],
+    [
+      925.2,
+      926.4,
+      0
+    ],
+    [
+      926.4,
+      927.6,
+      1
+    ],
+    [
+      927.6,
+      928.8,
+      0
+    ],
+    [
+      928.8,
+      930.0,
+      0
+    ],
+    [
+      930.0,
+      931.2,
+      0
+    ],
+    [
+      931.2,
+      932.4,
+      1
+    ],
+    [
+      932.4,
+      933.6,
+      0
+    ],
+    [
+      933.6,
+      934.8,
+      0
+    ],
+    [
+      934.8,
+      936.0,
+      0
+    ],
+    [
+      936.0,
+      937.2,
+      1
+    ],
+    [
+      937.2,
+      938.4,
+      1
+    ],
+    [
+      938.4,
+      939.6,
+      2
+    ],
+    [
+      939.6,
+      940.8,
+      2
+    ],
+    [
+      940.8,
+      942.0,
+      1
+    ],
+    [
+      942.0,
+      943.2,
+      2
+    ],
+    [
+      943.2,
+      944.4,
+      0
+    ],
+    [
+      944.4,
+      945.6,
+      1
+    ],
+    [
+      945.6,
+      946.8,
+      0
+    ],
+    [
+      946.8,
+      948.0,
+      0
+    ],
+    [
+      948.0,
+      949.2,
+      0
+    ],
+    [
+      949.2,
+      950.4,
+      0
+    ],
+    [
+      950.4,
+      951.6,
+      0
+    ],
+    [
+      951.6,
+      952.8,
+      0
+    ],
+    [
+      952.8,
+      954.0,
+      0
+    ],
+    [
+      954.0,
+      955.2,
+      0
+    ],
+    [
+      955.2,
+      956.4,
+      0
+    ],
+    [
+      956.4,
+      957.6,
+      0
+    ],
+    [
+      957.6,
+      958.8,
+      0
+    ],
+    [
+      958.8,
+      960.0,
+      0
+    ],
+    [
+      960.0,
+      961.2,
+      0
+    ],
+    [
+      961.2,
+      962.4,
+      2
+    ],
+    [
+      962.4,
+      963.6,
+      1
+    ],
+    [
+      963.6,
+      964.8,
+      2
+    ],
+    [
+      964.8,
+      966.0,
+      2
+    ],
+    [
+      966.0,
+      967.2,
+      1
+    ],
+    [
+      967.2,
+      968.4,
+      0
+    ],
+    [
+      968.4,
+      969.6,
+      1
+    ],
+    [
+      969.6,
+      970.8,
+      3
+    ],
+    [
+      970.8,
+      972.0,
+      3
+    ],
+    [
+      972.0,
+      973.2,
+      3
+    ],
+    [
+      973.2,
+      974.4,
+      1
+    ],
+    [
+      974.4,
+      975.6,
+      1
+    ],
+    [
+      975.6,
+      976.8,
+      1
+    ],
+    [
+      976.8,
+      978.0,
+      0
+    ],
+    [
+      978.0,
+      979.2,
+      0
+    ],
+    [
+      979.2,
+      980.4,
+      0
+    ],
+    [
+      980.4,
+      981.6,
+      0
+    ],
+    [
+      981.6,
+      982.8,
+      0
+    ],
+    [
+      982.8,
+      984.0,
+      0
+    ],
+    [
+      984.0,
+      985.2,
+      0
+    ],
+    [
+      985.2,
+      986.4,
+      0
+    ],
+    [
+      986.4,
+      987.6,
+      0
+    ],
+    [
+      987.6,
+      988.8,
+      0
+    ],
+    [
+      988.8,
+      990.0,
+      0
+    ],
+    [
+      990.0,
+      991.2,
+      0
+    ],
+    [
+      991.2,
+      992.4,
+      0
+    ],
+    [
+      992.4,
+      993.6,
+      0
+    ],
+    [
+      993.6,
+      994.8,
+      0
+    ],
+    [
+      994.8,
+      996.0,
+      0
+    ]
+  ]
+}
