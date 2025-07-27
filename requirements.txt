@@ -1,3 +1,4 @@
+numpy
 annotated-types
 anyio
 appnope
@@ -101,5 +102,5 @@ yarg
 openai
 faiss-cpu
 colorama
-space
+spacepy
 sentence_transformers
