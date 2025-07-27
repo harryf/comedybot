@@ -1,18 +1,32 @@
 from tools.audio_file_finder_tool import AudioFileFinderTool
 from tools.audio_preparation_tool import AudioPreparationTool
 from tools.metadata_capture_tool import MetadataCaptureTool
-from tools.audio_transcription_tool import AudioTranscriptionTool
 from tools.sound_detection_tool import SoundDetectionTool
-from tools.transcript_analyser_tool import TranscriptAnalyserTool
 from tools.sound_analyser_tool import SoundAnalyserTool
 from tools.metadata_update_tool import MetadataUpdateTool
 from tools.audio_segment_tool import AudioSegmentTool
+from tools.audio_postprocessing_tool import AudioPostprocessingTool
 
 import argparse
 import logging, sys
 import time
+import shutil
 
 logger = logging.getLogger()
+
+def is_installed(name: str) -> bool:
+    """Check if a command is available in the system PATH."""
+    return shutil.which(name) is not None
+
+# Determine which transcription and analyzer tools to use based on whisper-cpp availability
+if is_installed("whisper-cpp"):
+    logger.debug("whisper-cpp is available, using version 2 of transcription tools")
+    from tools.audio_transcription_tool_2 import AudioTranscriptionTool2 as AudioTranscriptionTool
+    from tools.transcript_analyser_tool_2 import TranscriptAnalyserTool2 as TranscriptAnalyserTool
+else:
+    logger.debug("whisper-cpp not found, using default transcription tools")
+    from tools.audio_transcription_tool import AudioTranscriptionTool
+    from tools.transcript_analyser_tool import TranscriptAnalyserTool
 
 def setup_logging():
     logger = logging.getLogger()  # Root logger
@@ -89,6 +103,13 @@ def process(input_directory_path, output_directory_path):
 
         # Step 2g: Split the audio file into segments
         AudioSegmentTool(input_directory=new_subdirectory_path).run()
+        
+        # Step 2h: Rename the directory based on the date_of_show in metadata
+        new_directory_path = AudioPostprocessingTool(directory_path=new_subdirectory_path).run()
+        if new_directory_path:
+            logger.info(f"Directory renamed to: {new_directory_path}")
+        else:
+            logger.warning(f"Failed to rename directory: {new_subdirectory_path}")
         
         # Output or save the cleaned data as needed
         logger.info(f"Finished processing {audio_file}")
