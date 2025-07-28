@@ -83,6 +83,7 @@ rpds-py
 setuptools
 six
 sniffio
+spacy
 soupsieve
 stack-data
 sympy
