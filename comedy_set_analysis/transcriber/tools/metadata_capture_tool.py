@@ -576,7 +576,7 @@ class MetadataCaptureTool(BaseTool):
         gui_process.start()
 
         # Wait for either metadata file or cancel signal
-        timeout = 300  # 5 minutes in seconds
+        timeout = 600  # 10 minutes in seconds
         start_time = time.time()
         
         while time.time() - start_time < timeout:
