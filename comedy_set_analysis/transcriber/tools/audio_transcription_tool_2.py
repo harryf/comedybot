@@ -64,7 +64,7 @@ class AudioTranscriptionTool2(BaseTool):
                 cpu_count = os.cpu_count() or 4  # Fallback to logical CPUs or 4 if that fails
             
             # Get the model path from environment or use default
-            model_path = os.environ.get("WHISPER_MODEL_PATH", os.path.expanduser("~/.whisper/ggml-large-v3.bin"))
+            model_path = os.environ.get("WHISPER_MODEL_PATH", os.path.expanduser("~/.whisper/ggml-large-v2.bin"))
             
             # Get resources path from brew
             try:

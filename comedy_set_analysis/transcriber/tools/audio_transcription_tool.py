@@ -27,7 +27,7 @@ class AudioTranscriptionTool(BaseTool):
 
         Returns the path to the transcription JSON file.
         """
-        model_name = "large-v3"
+        model_name = "large-v2"
         model = whisper.load_model(model_name)
         logger.info(f"Transcribing {self.audio_file_path} with Whisper model {model_name}")
         result = model.transcribe(self.audio_file_path)
