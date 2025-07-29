@@ -48,8 +48,8 @@ class TranscriptAnalyserTool2(BaseTool):
             end = self.parse_timestamp(entry["timestamps"]["to"])
             text = entry["text"].strip()
 
-            # Skip lines that are entirely sound effects enclosed in square brackets
-            if text.startswith('[') and text.endswith(']'):
+            # Skip lines that are entirely sound effects enclosed in brackets
+            if (text.startswith('[') and text.endswith(']')) or (text.startswith('(') and text.endswith(')')): 
                 continue
 
             output.append({

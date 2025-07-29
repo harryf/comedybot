@@ -41,8 +41,8 @@ class TranscriptAnalyserTool(BaseTool):
             seek = current_segment["seek"]
             text = current_segment["text"].lstrip()
 
-            # Skip lines that are entirely sound effects enclosed in square brackets
-            if text.strip().startswith('[') and text.strip().endswith(']'):
+            # Skip lines that are entirely sound effects enclosed in brackets
+            if (text.strip().startswith('[') and text.strip().endswith(']')) or (text.strip().startswith('(') and text.strip().endswith(')')):
                 i += 1
                 continue
 
