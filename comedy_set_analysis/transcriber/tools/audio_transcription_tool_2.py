@@ -92,7 +92,7 @@ class AudioTranscriptionTool2(BaseTool):
                 "--output-json",
                 "--split-on-word",
                 "--no-prints",
-                "--max-len", "80"
+                "--max-len", "100"
             ]
             # Redirect stdout and stderr to /dev/null to prevent terminal output
             with open(os.devnull, 'w') as devnull:
