@@ -41,6 +41,11 @@ class TranscriptAnalyserTool(BaseTool):
             seek = current_segment["seek"]
             text = current_segment["text"].lstrip()
 
+            # Skip lines that are entirely sound effects enclosed in square brackets
+            if text.strip().startswith('[') and text.strip().endswith(']'):
+                i += 1
+                continue
+
             # Check for consecutive segments with the same text and matching end/start times
             while (i + 1 < len(data["segments"]) and
                    data["segments"][i + 1]["text"].lstrip() == text and
