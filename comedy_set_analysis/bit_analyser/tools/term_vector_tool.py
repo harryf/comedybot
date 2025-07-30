@@ -54,7 +54,6 @@ class TermVectorTool(BaseModel):
     transcript_file: str = Field(description="Path to transcript_clean.json")
     
     # Directories
-    vectors_dir: Optional[str] = Field(default=None, description="Directory for bit vectors")
     central_vectors_dir: str = Field(default=os.path.expanduser("~/.comedybot/vectors"))
     
     # Configuration
@@ -71,12 +70,7 @@ class TermVectorTool(BaseModel):
     def __init__(self, **data):
         super().__init__(**data)
         
-        # Set vectors directory if not provided
-        if self.vectors_dir is None:
-            self.vectors_dir = os.path.join(os.path.dirname(self.bits_file), 'bit_vectors')
-        
         # Create directories
-        os.makedirs(self.vectors_dir, exist_ok=True)
         os.makedirs(self.central_vectors_dir, exist_ok=True)
         
         # Initialize models
@@ -155,7 +149,7 @@ class TermVectorTool(BaseModel):
             corrupt_vectors = []
             
             # Check both local and central vector directories
-            vector_dirs = [self.vectors_dir, self.central_vectors_dir]
+            vector_dirs = [self.central_vectors_dir]
             
             for vector_dir in vector_dirs:
                 if not os.path.exists(vector_dir):
@@ -214,7 +208,7 @@ class TermVectorTool(BaseModel):
                 logger.info("Regenerate flag is set - clearing problematic vectors")
                 
                 # Move problematic files to backup directory
-                backup_dir = os.path.join(os.path.dirname(self.vectors_dir), 'vector_backups')
+                backup_dir = os.path.join(os.path.dirname(self.central_vectors_dir), 'vector_backups')
                 os.makedirs(backup_dir, exist_ok=True)
                 
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')

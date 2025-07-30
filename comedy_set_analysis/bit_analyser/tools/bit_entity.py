@@ -1,6 +1,7 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+from pathlib import Path
 import json
 from typing import Dict, Optional, Any
 import re
@@ -93,7 +94,8 @@ class BitEntity:
         with open(metadata_path, 'r') as f:
             metadata = json.load(f)
         
-        show_identifier = os.path.basename(self.directory_path)
+        path = Path(self.directory_path)
+        show_identifier = path.name if path.name else path.parent.name
             
         # Map metadata fields to show_info structure
         self.bit_data["show_info"] = {

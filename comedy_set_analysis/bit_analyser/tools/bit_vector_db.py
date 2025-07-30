@@ -1065,6 +1065,10 @@ class BitVectorDB:
 
             # Save vectors and update indices
             self._add_bit_vectors_to_indices(bit_id, vectors)
+            
+            # Save vectors and indices to disk
+            self._save_bit_vectors(bit_id, vectors)
+            self._save_indices()
 
             self.storage.save_bit(bit_entity)
 

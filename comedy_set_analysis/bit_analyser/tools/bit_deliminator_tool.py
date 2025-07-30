@@ -184,8 +184,9 @@ class BitDeliminatorTool(SimpleBaseTool):
     Identifies and extracts bits from a transcription JSON file supported by the audience reactions JSON file
     using an OpenAI assistant.
     """
-    transcript_file_path: str = Field(..., description="Path to the transcription JSON file.")
-    bits_file_path: str = Field(default=None, description="Path to output the bits JSON file to.")
+    transcript_file_path: str = Field(..., description="Path to the transcript JSON file")
+    bits_file_path: str = Field(None, description="Path to output the bits JSON file to")
+    regenerate: bool = Field(default=False, description="Force regeneration of bits even if the file already exists")
     model: str = Field(default="gpt-4-1106-preview", description="OpenAI model to use")
     temperature: float = Field(default=0.7, description="Temperature for OpenAI completion")
     max_retries: int = Field(default=3, description="Maximum number of retries for OpenAI API calls")
@@ -314,6 +315,12 @@ Important guidelines:
         Run the bit deliminator tool on the transcript file.
         Handles large transcripts by splitting them into chunks only if necessary.
         """
+        # Check if bits file already exists and we're not regenerating
+        if os.path.exists(self.bits_file_path) and not self.regenerate:
+            logger.info(f"Bits file {self.bits_file_path} already exists. Use regenerate=True to reprocess.")
+            with open(self.bits_file_path, 'r') as f:
+                return json.load(f)
+                
         # Read transcript data
         with open(self.transcript_file_path, 'r') as f:
             transcript_data = json.load(f)
@@ -382,10 +389,13 @@ if __name__ == "__main__":
                       help='Path to the input transcript JSON file')
     parser.add_argument('-b', '--bits-file', type=str, required=False,
                       help='Path to output the bits JSON file to. If not provided, a default path will be generated which is <transcript_file_path>/bits.json.')
+    parser.add_argument('-r', '--regenerate', action='store_true',
+                      help='Force regeneration of bits even if the file already exists')
     args = parser.parse_args()
     
     tool_args = {
         'transcript_file_path': args.transcript_file,
+        'regenerate': args.regenerate
     }
     if args.bits_file:
         tool_args['bits_file_path'] = args.bits_file
