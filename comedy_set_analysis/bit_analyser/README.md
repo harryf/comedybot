@@ -171,9 +171,84 @@ The system uses a centralized storage approach:
    - If you change the embedding model, existing vectors may have different dimensions
    - Use the regenerate=True flag with TermVectorTool to rebuild vectors
 
-## Future Enhancements
+## Current Limitations and Future Enhancements
 
-- Improved punchline detection using audience reaction data
-- Time-based analysis of bit evolution
-- Integration with performance analytics
-- Web interface for browsing and managing bits
+### Current Limitations
+
+1. **Surface Noise Hides Core Gags:**
+   - Different riffs and tags around the same core joke can swamp the global vector
+   - Example: Multiple versions of a "Fuchs/Fox/Fucks" surname joke appear as different bits due to surrounding content
+
+2. **Brittle Sentence-Level Matching:**
+   - Small wording changes ("family reunion" vs "family get-together") defeat cosine similarity
+   - Current n-gram approach doesn't capture semantic equivalence well
+
+3. **Outdated Embedding Model:**
+   - The MiniLM model (2020) lags behind modern instruction-tuned models by 8-12 points on similarity tasks
+
+### Proposed Enhancements
+
+#### 1. Improved Embedding Models
+
+- Replace MiniLM with stronger open-source alternatives:
+  - **BGE-M3** or **BGE-base-en** (current MTEB leaderboard top performers)
+  - **E5-mistral-7b-instruct** or **Jina Embeddings v2**
+- Use instruction-tuning with prompts like "Represent the meaning of this stand-up bit for clustering similar jokes..."
+
+#### 2. Advanced Vector Storage
+
+- Implement hybrid search (dense vectors + BM25) using **Qdrant** or **Weaviate**
+- Add payload filtering for metadata
+- Consider **Milvus 3.2** for scalar filters
+
+#### 3. LLM-Assisted Normalization
+
+- Use LLMs (GPT-4o or Mixtral) to extract structured summaries of bits:
+  ```json
+  {
+    "premise": "audience mispronounces my German surname 'Fuchs' as 'Fox/Fucks'",
+    "comic_device": "wordplay",
+    "core_subject": "pronunciation of surname",
+    "signature_lines": ["key phrase 1", "key phrase 2"]
+  }
+  ```
+- Embed these structured summaries instead of raw transcripts
+- Store both summary vectors and full-text vectors for different query types
+
+#### 4. Phonetic Processing
+
+- Apply Metaphone or Cologne-phonetics to normalize names and words before embedding
+- Example: "Fuchs", "Fooks", "Fux", "Fox" all collapse to /FKS/
+- Makes n-gram matching more robust to pronunciation variations
+
+#### 5. Reranking and Classification
+
+- Add a reranker step (e.g., **bge-reranker-large** or **colbert-v2**) to improve results
+- Optionally fine-tune a small classifier with 15+ examples per canonical bit
+- Use supervised fine-tuning or LoRA heads for direct "same bit or not" classification
+
+#### 6. Implementation Pipeline
+
+```python
+# Pseudo-pipeline
+for bit in new_bits:
+    summary_json = llm_tag(bit.transcript)
+    bit.summary = json.dumps(summary_json, ensure_ascii=False)
+    bit.embedding_summary = embed(summary_json)
+    bit.embedding_full = embed(bit.transcript)
+
+db.upsert(bit_id, {
+    "sum_vec": bit.embedding_summary,
+    "full_vec": bit.embedding_full,
+    "date": bit.show_date,
+    "device": summary_json["comic_device"],
+    # ...
+})
+```
+
+#### 7. Quick Wins
+
+- Replace MiniLM with BGE-base-en (one-line change in sentence-transformers)
+- Generate 30-word summaries for sample bits to test improved clustering
+- Add hybrid search for lexical hooks
+- Evaluate a reranker on top-20 results to reduce false positives
